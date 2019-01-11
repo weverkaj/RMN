@@ -7,13 +7,13 @@
     "folds" : "",
     "hash" : "0",
     "id" : "BE69B9E9",
-    "lastKnownWriteTime" : 1547169421,
-    "last_content_update" : 1547169421386,
+    "lastKnownWriteTime" : 1547170182,
+    "last_content_update" : 1547170182120,
     "path" : "~/Point Blue 2019/RMN/R/soil_cleanup.R",
     "project_path" : "R/soil_cleanup.R",
     "properties" : {
-        "cursorPosition" : "33,13",
-        "scrollLine" : "18",
+        "cursorPosition" : "60,65",
+        "scrollLine" : "51",
         "tempName" : "Untitled1"
     },
     "relative_order" : 2,

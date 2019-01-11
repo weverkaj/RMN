@@ -30,8 +30,6 @@
 
 add.soilcolumns = function(data, timeformat = "mm/dd/yyyy", inf_diameter = 15.2, bd_diameter = 5.2, volume = 450, bd_height = 7.5){
 
-
-  ##blablabla
   #interpret the input format
   if(timeformat == "mm/dd/yyyy"){
     dateform = "%m/%d/%Y"
@@ -45,10 +43,13 @@ add.soilcolumns = function(data, timeformat = "mm/dd/yyyy", inf_diameter = 15.2,
 
   data1 = data
 
+  #interpret date, isolate year as column
   data1$DATE = as.Date(as.character(data1$Date), format = dateform)
   data1$YEAR = year(data1$DATE)
   data1$SURVEY = as.factor(paste(data1$Point.Name,"-",data1$YEAR,sep=""))
 
+
+  ## add some simple data about our measurements
   data1$Ring.Infiltrometer.Diameter<-inf_diameter
   data1$Bulk.Density.Diameter<-bd_diameter
   data1$Water.Volume<-volume
@@ -57,7 +58,7 @@ add.soilcolumns = function(data, timeformat = "mm/dd/yyyy", inf_diameter = 15.2,
   data1$Bulk.Density<-(data1$Bulk.Density.Dry.Wt/(data1$Total.Volume-data1$Bulk.Density.Rock.Vol))
   data1[,"Bulk.Density"][data1[,"Bulk.Density"] <= 0] <- NA
 
-
+  #convert water infiltration time to minutes in base-ten decimal
   data1[,"Water.Infiltration.Time.1"][data1[,as.character("Water.Infiltration.Time.1")] == ""] <- "00:00:00"
   data1$ISec1<-NULL
   data1$ISec1<-toSeconds(as.character(data1$Water.Infiltration.Time.1))
