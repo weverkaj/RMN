@@ -21,6 +21,7 @@
 
 survey.sums = function(data){
 
+  #haha
   data1 = data
 
   data1[data1 == 0]<- NA
