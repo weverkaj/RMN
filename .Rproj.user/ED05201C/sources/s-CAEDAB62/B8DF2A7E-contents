@@ -1,0 +1,27 @@
+#' @title Convert infiltration time columns to seconds
+#'
+#' @description For soil data, converts character strings displaying infiltration times in the format "HH:MM:SS" to seconds, returned as a numeric
+#'
+#' @param data
+#' @param timeformat
+#' @param inf_diameter
+#' @param bd_diameter
+#' @param volume
+#' @param bd_height
+#'
+#'
+#' @return data frame with added columns
+#'
+#' @examples data = add_datetime(data, timeformat = "yyyy-mm-dd")
+#' @examples x = include_datetime(soildata, timeformat = "mm/dd/yyyy")
+#'
+#' @export add_soilcolumns
+#'
+#'
+# Some useful keyboard shortcuts for package authoring:
+#
+#   Build and Reload Package:  'Ctrl + Shift + B'
+#   Check Package:             'Ctrl + Shift + E'
+#   Test Package:              'Ctrl + Shift + T'
+
+

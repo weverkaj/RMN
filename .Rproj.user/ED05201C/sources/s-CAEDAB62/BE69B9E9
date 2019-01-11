@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1547149980062.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2054731169",
+    "id" : "BE69B9E9",
+    "lastKnownWriteTime" : 1547149987,
+    "last_content_update" : 1547149987910,
+    "path" : "~/Point Blue 2019/RMN/R/soil_cleanup.R",
+    "project_path" : "R/soil_cleanup.R",
+    "properties" : {
+        "cursorPosition" : "30,4",
+        "scrollLine" : "27",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

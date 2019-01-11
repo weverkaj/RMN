@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1547149990605.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "7F7D0D1A",
+    "lastKnownWriteTime" : 1547167872,
+    "last_content_update" : 1547167872641,
+    "path" : "~/Point Blue 2019/RMN/R/soil_survey_summary.R",
+    "project_path" : "R/soil_survey_summary.R",
+    "properties" : {
+        "cursorPosition" : "43,0",
+        "scrollLine" : "8",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
