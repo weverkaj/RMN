@@ -30,6 +30,8 @@
 
 add.soilcolumns = function(data, timeformat = "mm/dd/yyyy", inf_diameter = 15.2, bd_diameter = 5.2, volume = 450, bd_height = 7.5){
 
+
+  ##blablabla
   #interpret the input format
   if(timeformat == "mm/dd/yyyy"){
     dateform = "%m/%d/%Y"
