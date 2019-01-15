@@ -2,14 +2,18 @@
 #'
 #' @description For a dataframe output from function pair.data(), produces a table that shows 2018 data and amount of change.
 #' @description This table is designed to be the source data for our functions that make figures
+#' @description prepare.soil.triangle() takes the result of soil.final.cleanup and adds necessary columns to make a soil triangle
 #'
 #' @param paired_data
+#' @param data
 #'
 #' @return Data frame with soil data
 #'
 #' @examples soil.final.cleanup(soildata)
+#' @examples prepare.soil.triangle(soil)
 #'
 #' @export soil.final.cleanup
+#' @export prepare.soil.triangle
 #'
 #'
 # Some useful keyboard shortcuts for package authoring:
@@ -28,5 +32,35 @@ soil.final.cleanup = function(paired_data){
   soil$SAND<-soil$Sand.10.40.cm.survey2
 
   return(soil)
+
+}
+
+
+prepare.soil.triangle = function(data){
+  if(any(is.na(data$CLAY))){
+    warning("Observations without soil texture data have been removed")
+    data1 = data[complete.cases(data$CLAY),]
+  } else {
+    print("All observations used")
+    data1 = data
+  }
+
+  data1$texture = TT.points.in.classes(
+    tri.data    = data1,
+    class.sys   = "USDA.TT",
+    PiC.type    = "t", text.tol=1)
+
+  data1$TextCategory = ifelse(data1$CLAY > 25, "Fine", ifelse(data1$CLAY < 15 & data1$SAND > 80, "Coarse","Coarse"))
+
+  data1$BD_target = replace(data1$BD_target, data1$TextCategory == "Fine", 1.1)
+  data1$BD_target = replace(data1$BD_target, data1$TextCategory == "Coarse", 1.4)
+
+  data1$Infilt_target = 3.81
+  data1$Infilt_dist = data1$Infilt_target - data1$Infilt1.survey2
+  data1$BD_dist = data1$BD_target - data1$Bulk.Density.survey2
+
+  data1$Location<-str_sub(data1$Point, -2)
+
+  return(data1)
 
 }
