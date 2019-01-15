@@ -2,6 +2,7 @@
 #'
 #' @description For soil data, adds columns with date formatted as a date object in R, year as a numeric object, and Survey as a character object that inludes the point name and the survey year
 #' @description Also adds columns that display BD and Infiltration diameter, height, and volume, and one that converts infiltration times to minutes shown as a base-10 decimal numeric
+#' @description Interprets date formate automatically with read.date()
 #'
 #' @param data
 #' @param timeformat
@@ -9,14 +10,16 @@
 #' @param bd_diameter
 #' @param volume
 #' @param bd_height
+#' @param date_string
 #'
 #'
 #' @return data frame with added columns
 #'
-#' @examples data = add_datetime(data, timeformat = "yyyy-mm-dd")
-#' @examples x = include_datetime(soildata, timeformat = "mm/dd/yyyy")
+#' @examples data = add_datetime(data)
+#' @examples x = add_datetime(soildata)
 #'
 #' @export add.soilcolumns
+#' @export read.date
 #'
 #'
 # Some useful keyboard shortcuts for package authoring:
@@ -30,21 +33,10 @@
 
 add.soilcolumns = function(data, timeformat = "mm/dd/yyyy", inf_diameter = 15.2, bd_diameter = 5.2, volume = 450, bd_height = 7.5){
 
-  #interpret the input format
-  if(timeformat == "mm/dd/yyyy"){
-    dateform = "%m/%d/%Y"
-  } else if(timeformat == "yyyy/mm/dd"){
-    dateform = "%Y/%m/%d"
-  } else if(timeformat == "mm-dd-yyyy"){
-    dateform = "%m-%d-%Y"
-  } else if(timeformat == "yyyy-mm-dd"){
-    dateform = "%Y-%m-%d"
-  } else {stop("Date format not recognized. Accepted formats are 'mm/dd/yyyy' (default), 'yyyy/mm/dd', 'mm-dd-yyyy', and 'yyyy-dd-mm'")}
-
   data1 = data
 
   #interpret date, isolate year as column
-  data1$DATE = as.Date(as.character(data1$Date), format = dateform)
+  data1$DATE = read.date(as.character(data1$Date))
   data1$YEAR = year(data1$DATE)
   data1$SURVEY = as.factor(paste(data1$Point.Name,"-",data1$YEAR,sep=""))
 
@@ -67,5 +59,33 @@ add.soilcolumns = function(data, timeformat = "mm/dd/yyyy", inf_diameter = 15.2,
 
 
   return(data1)
+
+}
+
+
+read.date = function(date_string){
+
+  if(grepl("/", date_string, )){
+    splitter = "/"
+  } else if(grepl( "-", date_string)){
+    splitter = "-"
+  } else {stop("Date format not recognized")}
+
+
+
+  date = as.character(date_string)
+  x = strsplit(date, splitter)
+  x = unlist(x)
+
+
+  if(nchar(x[1]) == 2){
+    date_format = paste("%m", "%d", "%Y", sep = splitter)
+  } else if(nchar(x[1]) == 4){
+    date_format = paste("%Y", "%m", "%d", sep = splitter)
+  } else {stop("Date format not recognized")}
+
+  the_date = as.Date(date_string, format = date_format)
+
+  return(the_date)
 
 }

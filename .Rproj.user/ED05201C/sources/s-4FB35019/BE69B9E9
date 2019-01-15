@@ -5,14 +5,14 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "1059846444",
     "id" : "BE69B9E9",
-    "lastKnownWriteTime" : 1547170182,
-    "last_content_update" : 1547170182120,
+    "lastKnownWriteTime" : 1547512775,
+    "last_content_update" : 1547512775548,
     "path" : "~/Point Blue 2019/RMN/R/soil_cleanup.R",
     "project_path" : "R/soil_cleanup.R",
     "properties" : {
-        "cursorPosition" : "60,65",
+        "cursorPosition" : "18,39",
         "scrollLine" : "0",
         "tempName" : "Untitled1"
     },
