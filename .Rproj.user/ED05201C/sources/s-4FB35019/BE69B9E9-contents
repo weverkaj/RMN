@@ -78,7 +78,7 @@ read.date = function(date_string){
   x = unlist(x)
 
 
-  if(nchar(x[1]) == 2){
+  if(nchar(x[1]) <= 2){
     date_format = paste("%m", "%d", "%Y", sep = splitter)
   } else if(nchar(x[1]) == 4){
     date_format = paste("%Y", "%m", "%d", sep = splitter)
