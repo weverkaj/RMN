@@ -5,7 +5,6 @@
 #' @description Interprets date formate automatically with read.date()
 #'
 #' @param data
-#' @param timeformat
 #' @param inf_diameter
 #' @param bd_diameter
 #' @param volume
@@ -31,7 +30,7 @@
 
 
 
-add.soilcolumns = function(data, timeformat = "mm/dd/yyyy", inf_diameter = 15.2, bd_diameter = 5.2, volume = 450, bd_height = 7.5){
+add.soilcolumns = function(data, inf_diameter = 15.2, bd_diameter = 5.2, volume = 450, bd_height = 7.5){
 
   data1 = data
 
@@ -65,7 +64,7 @@ add.soilcolumns = function(data, timeformat = "mm/dd/yyyy", inf_diameter = 15.2,
 
 read.date = function(date_string){
 
-  if(grepl("/", date_string, )){
+  if(grepl("/", date_string)){
     splitter = "/"
   } else if(grepl( "-", date_string)){
     splitter = "-"

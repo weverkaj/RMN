@@ -7,7 +7,7 @@
 #'
 #' @return Soil classification triangle with chosen ranch points emboldened
 #'
-#' @examples texture.triangle.plot(soil, "ABER")
+#' @examples texture.triangle.plot(soil, "ranchname")
 #'
 #'
 #' @export texture_triangle_plot
