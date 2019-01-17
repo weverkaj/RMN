@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<!-- saved from url=(0088)https://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio -->
+<html dir="ltr" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <!-- v15248 -->
+
+  <title>Developing Packages with RStudio – RStudio Support</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="f/rLH4w1oRDacsRpyZXNIGqRWlf8Cvrv0GAa+HseKwhikPUvuJL4uWn1oItqnU32gupyvU9eqfxE1yXoNGww0A==">
+  <meta name="description" content="Developing Packages with RStudio Overview R packages are an ideal way to package and distribute R code and data for re-use by others...."><meta property="og:image" content="https://theme.zdassets.com/theme_assets/267570/dccddb4662a0d78f21f3725916d4b3a22dc4220b.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="RStudio Support">
+<meta property="og:title" content="Developing Packages with RStudio">
+<meta property="og:description" content="Developing Packages with RStudio
+Overview
+R packages are an ideal way to package and distribute R code and data for re-use by others. RStudio includes a variety of tools that make developing R pack...">
+<meta property="og:url" content="http://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio">
+<link rel="canonical" href="https://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio">
+<link rel="alternate" hreflang="en" href="https://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio">
+
+  <!-- Entypo pictograms by Daniel Bruce — www.entypo.com -->
+  <link rel="stylesheet" media="all" href="./Developing Packages with RStudio – RStudio Support_files/application-a02dee4125b91fec66c03c0a564857bf.css" id="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./Developing Packages with RStudio – RStudio Support_files/style.css">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://theme.zdassets.com/theme_assets/267570/816041024111ea436b8f3768203f1a794e123bf6.png">
+
+  <!--[if lt IE 9]>
+  <script>
+    //Enable HTML5 elements for <IE9
+    'abbr article aside audio bdi canvas data datalist details dialog \
+    figcaption figure footer header hgroup main mark meter nav output \
+    progress section summary template time video'.replace(/\w+/g,function(n){document.createElement(n)});
+  </script>
+<![endif]-->
+
+  <script async="" src="./Developing Packages with RStudio – RStudio Support_files/analytics.js.download"></script><script src="./Developing Packages with RStudio – RStudio Support_files/jquery-b60ddb79ff2563b75442a6bac88b00b5.js.download"></script>
+  <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+ })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-20375833-11', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+  
+  
+
+  <!-- add code here that should appear in the document head -->
+<script src="./Developing Packages with RStudio – RStudio Support_files/run_prettify.js.download"></script>
+  <script type="text/javascript" src="./Developing Packages with RStudio – RStudio Support_files/script.js.download"></script>
+<script src="./Developing Packages with RStudio – RStudio Support_files/answerBot.js.download"></script><script type="text/javascript" charset="utf-8" async="" src="./Developing Packages with RStudio – RStudio Support_files/VoteControls-56bc83f01bb6d24a161d589ca471a1e7.js.download"></script><script type="text/javascript" charset="utf-8" async="" src="./Developing Packages with RStudio – RStudio Support_files/SubscriptionControls-f37bdc8c6d9e8814953b363b6d13acd4.js.download"></script><style type="text/css">/*
+ * contextMenu.js v 1.4.0
+ * Author: Sudhanshu Yadav
+ * s-yadav.github.com
+ * Copyright (c) 2013 Sudhanshu Yadav.
+ * Dual licensed under the MIT and GPL licenses
+**/
+
+.iw-contextMenu {
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.10);
+    border: 1px solid #c8c7cc;
+    border-radius: 11px;
+    display: none;
+    z-index: 1000000132;
+    max-width: 300px;
+}
+
+.iw-cm-menu {
+    background: #fff;
+    color: #000;
+    margin: 0px;
+    padding: 0px;
+}
+
+.iw-curMenu {
+}
+
+.iw-cm-menu li {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, Ubuntu, sans-serif;
+    list-style: none;
+    padding: 10px;
+    padding-right: 20px;
+    border-bottom: 1px solid #c8c7cc;
+    cursor: pointer;
+    position: relative;
+    font-size: 14px;
+    margin: 0;
+    line-height: inherit;
+}
+
+.iw-cm-menu li:first-child {
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+}
+
+.iw-cm-menu li:last-child {
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+    border-bottom: none;
+}
+
+.iw-mOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background: #FFF;
+    opacity: .5;
+}
+
+.iw-contextMenu li.iw-mDisable {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.iw-mSelected {
+    background-color: #F6F6F6;
+}
+
+.iw-cm-arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #000;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    margin-top: -5px;
+}
+
+.iw-mSelected > .iw-cm-arrow-right {
+}
+
+/*context menu css end */</style><style type="text/css">@-webkit-keyframes load4 {
+    0%,
+    100% {
+        box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+    }
+    12.5% {
+        box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    25% {
+        box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    37.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    50% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    62.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+    }
+    75% {
+        box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+    }
+    87.5% {
+        box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+    }
+}
+
+@keyframes load4 {
+    0%,
+    100% {
+        box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+    }
+    12.5% {
+        box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    25% {
+        box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    37.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    50% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    62.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+    }
+    75% {
+        box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+    }
+    87.5% {
+        box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+    }
+}</style><style type="text/css">/* This is not a zero-length file! */</style></head>
+<body class="community-enabled">
+  
+  
+
+
+  
+
+
+  <header class="header">
+
+  <!--This should be added at the very top -->
+  <!-- commenting out for now because we only want this on the Community pages
+ <div class="alertbox"></div>   -->
+  
+  <div class="header-inner clearfix">
+    <div class="logo"><a title="Home" href="https://support.rstudio.com/hc/en-us">
+      <img src="./Developing Packages with RStudio – RStudio Support_files/dccddb4662a0d78f21f3725916d4b3a22dc4220b.png" alt="Logo">
+    </a></div>
+    <h2 style="
+    margin-top: 28px;
+    margin-left: 20px;
+    color: white;
+    float: left;
+    font-size: 2.3em;
+    text-shadow: 0 1px 0 #000000
+    ">Support</h2>
+    <nav class="user-nav">
+      
+      <a class="submit-a-request" href="https://support.rstudio.com/hc/en-us/requests/new">Premium support</a>
+        <a class="login" data-auth-action="signin" role="button" href="https://support.rstudio.com/hc/en-us/signin?return_to=https%3A%2F%2Fsupport.rstudio.com%2Fhc%2Fen-us%2Farticles%2F200486488-Developing-Packages-with-RStudio&amp;locale=en-us">Sign in</a>
+
+    </nav>
+  </div>
+</header>
+
+  <main role="main">
+    <nav class="sub-nav sub-nav-far clearfix">
+  <ol class="breadcrumbs">
+  
+    <li title="RStudio Support">
+      
+        <a href="https://support.rstudio.com/hc/en-us">RStudio Support</a>
+      
+    </li>
+  
+    <li title="Documentation">
+      
+        <a href="https://support.rstudio.com/hc/en-us/categories/200035113-Documentation">Documentation</a>
+      
+    </li>
+  
+    <li title="Package Development">
+      
+        <a href="https://support.rstudio.com/hc/en-us/sections/200130627-Package-Development">Package Development</a>
+      
+    </li>
+  
+</ol>
+
+  <form role="search" class="search-small" data-search="" action="https://support.rstudio.com/hc/en-us/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓"><input type="search" name="query" id="query" placeholder="Search" aria-label="Search"></form>
+</nav>
+
+<div class="clearfix">
+
+  <article class="main-column">
+
+    <header class="article-header clearfix">
+      <h1> Developing Packages with RStudio</h1>
+      <div class="article-metadata">
+        <div class="article-avatar"><img src="./Developing Packages with RStudio – RStudio Support_files/rstudio-logo.jpg" alt="Avatar"></div>
+        <div class="article-author">
+          RStudio Support
+        </div>
+        <div class="article-updated"><time datetime="2018-12-31T09:11:21Z" title="2018-12-31 01:11" data-datetime="calendar">December 31, 2018 01:11</time></div>
+      </div>
+      <a class="article-subscribe" title="Opens a sign-in dialog" rel="nofollow" role="button" data-auth-action="signin" aria-selected="false" href="https://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio/subscription">Follow</a>
+    </header>
+
+    <div class="article-body">
+      <h1>Developing Packages with RStudio</h1>
+<h2>Overview</h2>
+<p>R packages are an ideal way to package and distribute R code and data for re-use by others. RStudio includes a variety of tools that make developing R packages easier and more productive, including:</p>
+<ul>
+<li>Build pane with package development commands and a view of build output and errors</li>
+<li>Build and Reload command that rebuilds the package and reloads it in a fresh R session</li>
+<li>R documentation tools including previewing, spell-checking, and <a href="http://roxygen.org/">Roxygen</a> aware editing.</li>
+<li>Integration with <a href="https://github.com/hadley/devtools">devtools</a> package development functions</li>
+<li>Support for <a href="http://dirk.eddelbuettel.com/code/rcpp.html">Rcpp</a> including syntax highlighting for C/C++ and gcc error navigation</li>
+</ul>
+<p>&nbsp;</p>
+<h2>Getting Started</h2>
+<h3>Package Development Basics</h3>
+<p>If you aren't already familiar with the basics of R package development, the following links provide additional documentation and tutorials:</p>
+<ul>
+<li><a href="http://cran.r-project.org/doc/manuals/R-exts.html">Writing R Extensions</a></li>
+<li><a href="http://r-pkgs.had.co.nz/">R Packages (Hadley Wickham)</a></li>
+<li><a href="http://cran.r-project.org/doc/contrib/Leisch-CreatingPackages.pdf">Creating R Packages: A Tutorial (Friedrich Leisch)</a></li>
+<li><a href="http://portal.stats.ox.ac.uk/userdata/ruth/APTS2012/Rcourse10.pdf">Making an R Package (R.M. Ripley)</a></li>
+</ul>
+<h3>Software Prerequisites</h3>
+<p>There are two main prerequisites for building R packages:</p>
+<ol>
+<li>GNU software development tools including a C/C++ compiler; and</li>
+<li>LaTeX for building R manuals and vignettes.</li>
+</ol>
+<p>&nbsp;</p>
+<p>If you don't already have these tools installed on your system please consult the article on <a href="https://support.rstudio.com/hc/en-us/articles/200486498-Package-Development-Prerequisites">Package Development Prerequisites</a> for additional details on how to install these dependencies.</p>
+<h3>Creating a New Package</h3>
+<p>To create a new package use the <strong>Create Project</strong> command (available on the Projects menu and on the global toolbar) and select the <strong>New Directory</strong> option. Then on the following screen specify the project type as <strong>R Package</strong>:</p>
+<p><img src="./Developing Packages with RStudio – RStudio Support_files/Screen Shot 2015-03-19 at 3.37.17 PM.png" alt="" width="557" height="404"></p>
+<p>Note that if you have existing R scripts that you'd like to use as the basis for the new package you can specify them here and they'll be included in the new package.</p>
+<h3>Working with an Existing Package</h3>
+<p>To enable RStudio's package development tools for an existing package you should do the following:</p>
+<ol>
+<li>Create a new <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio Project</a> associated with the package's directory.</li>
+<li>If the package DESCRIPTION file is located either in the project's root directory or at pkg/DESCRIPTION then it will be automatically discovered.</li>
+<li>Alternatively, go to <strong>Project Options : Build Tools</strong>, select "Package" as the project build tools type, and then specify the the subdirectory containing the package's DESCRIPTION file.</li>
+</ol>
+<p>&nbsp;</p>
+<h2>Building a Package</h2>
+<p>To work with packages in RStudio you use the <strong>Build</strong> pane, which includes a variety of tools for building and testing packages. While iteratively developing a package in RStudio, you typically use the <strong>Build and Reload</strong> command to re-build the package and reload it in a fresh R session:</p>
+<p><img src="./Developing Packages with RStudio – RStudio Support_files/Screen Shot 2015-03-19 at 3.47.01 PM.png" alt="" width="534" height="397"></p>
+<p>The Build and Reload command performs several steps in sequence to ensure a clean and correct result:</p>
+<ol>
+<li>Unloads any existing version of the package (including shared libraries if necessary).</li>
+<li>Builds and installs the package using <code>R CMD INSTALL</code>.</li>
+<li>Restarts the underlying R session to ensure a clean environment for re-loading the package.</li>
+<li>Reloads the package in the new R session by executing the <code>library</code> function.</li>
+</ol>
+<p>Note that you can also execute <strong>Build and Reload</strong> using a keyboard shortcut (Ctrl+Shift+B) as well as configure RStudio to automatically save open source files prior to rebuiling.</p>
+<p>&nbsp;</p>
+<h2>Learning More</h2>
+<p>Once you've got a basic package built within RStudio you'll want to learn about the tools that can be used to test, document, and prepare packages for distribution. Please consult these articles for additional details:</p>
+<ul>
+<li><a href="https://support.rstudio.com/hc/en-us/articles/200486508-Building-Testing-and-Distributing-Packages">Building, Testing, and Distributing Packages</a></li>
+<li><a href="https://support.rstudio.com/hc/en-us/articles/200532317-Writing-Package-Documentation">Writing Package Documentation</a></li>
+<li><a href="https://support.rstudio.com/hc/en-us/articles/200486518-Customizing-Package-Build-Options">Customizing Package Build Options</a></li>
+</ul>
+    </div>
+
+    <div class="article-attachments">
+      <ul class="attachments">
+        
+      </ul>
+    </div>
+
+    <footer class="article-footer clearfix">
+      
+        <div class="article-vote">
+          <span class="article-vote-question">Was this article helpful?</span>
+          <div class="article-vote-controls">
+            <a role="button" rel="nofollow" class="article-vote-up" title="Yes" aria-selected="false" href="https://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio#"></a>
+            <a role="button" rel="nofollow" class="article-vote-down" title="No" aria-selected="false" href="https://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio#"></a>
+          </div>
+          <small class="article-vote-count">
+            <span class="article-vote-label">5 out of 7 found this helpful</span>
+          </small>
+        </div>
+      
+      <ul class="share">
+  <li><a href="https://www.facebook.com/share.php?title=Developing+Packages+with+RStudio&amp;u=https%3A%2F%2Fsupport.rstudio.com%2Fhc%2Fen-us%2Farticles%2F200486488-Developing-Packages-with-RStudio" class="share-facebook">Facebook</a></li>
+  <li><a href="https://twitter.com/share?lang=en&amp;text=Developing+Packages+with+RStudio&amp;url=https%3A%2F%2Fsupport.rstudio.com%2Fhc%2Fen-us%2Farticles%2F200486488-Developing-Packages-with-RStudio" class="share-twitter">Twitter</a></li>
+  <li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;source=RStudio+Support&amp;title=Developing+Packages+with+RStudio&amp;url=https%3A%2F%2Fsupport.rstudio.com%2Fhc%2Fen-us%2Farticles%2F200486488-Developing-Packages-with-RStudio" class="share-linkedin">LinkedIn</a></li>
+  <li><a href="https://plus.google.com/share?hl=en-us&amp;url=https%3A%2F%2Fsupport.rstudio.com%2Fhc%2Fen-us%2Farticles%2F200486488-Developing-Packages-with-RStudio" class="share-googleplus">Google+</a></li>
+</ul>
+
+    </footer>
+<!--
+    <div class="article-more-questions">
+      Have more questions? <a href="/hc/en-us/requests/new">Submit a request</a>
+    </div>
+-->
+    <section class="article-comments">
+      <h2>Comments</h2>
+      
+      
+      
+    </section>
+
+  </article>
+
+  <aside class="article-sidebar side-column">
+    <section class="recent-articles"><h3>Recently viewed articles</h3><ul><li><a href="https://support.rstudio.com/hc/en-us/articles/200486508-Building-Testing-and-Distributing-Packages">Building, Testing, and Distributing Packages</a></li></ul></section>
+    
+  <section class="related-articles">
+    <h3>Related articles</h3>
+    <ul>
+      
+        <li>
+          <a href="https://support.rstudio.com/hc/en-us/related/click?data=BAh7CjobZGVzdGluYXRpb25fYXJ0aWNsZV9pZGkEbC7zCzoYcmVmZXJyZXJfYXJ0aWNsZV9pZGkEWC7zCzoLbG9jYWxlSSIKZW4tdXMGOgZFVDoIdXJsSSJML2hjL2VuLXVzL2FydGljbGVzLzIwMDQ4NjUwOC1CdWlsZGluZy1UZXN0aW5nLWFuZC1EaXN0cmlidXRpbmctUGFja2FnZXMGOwhUOglyYW5raQY%3D--88b936f5b2a4b413d012add585d2ff2d3f2f7d27">Building, Testing, and Distributing Packages</a>
+        </li>
+      
+        <li>
+          <a href="https://support.rstudio.com/hc/en-us/related/click?data=BAh7CjobZGVzdGluYXRpb25fYXJ0aWNsZV9pZGkEXeHzCzoYcmVmZXJyZXJfYXJ0aWNsZV9pZGkEWC7zCzoLbG9jYWxlSSIKZW4tdXMGOgZFVDoIdXJsSSI%2FL2hjL2VuLXVzL2FydGljbGVzLzIwMDUzMjMxNy1Xcml0aW5nLVBhY2thZ2UtRG9jdW1lbnRhdGlvbgY7CFQ6CXJhbmtpBw%3D%3D--2ce3f5d8e30b6b36192b364a2df5f2133a7ff0f5">Writing Package Documentation</a>
+        </li>
+      
+        <li>
+          <a href="https://support.rstudio.com/hc/en-us/related/click?data=BAh7CjobZGVzdGluYXRpb25fYXJ0aWNsZV9pZGkEYi7zCzoYcmVmZXJyZXJfYXJ0aWNsZV9pZGkEWC7zCzoLbG9jYWxlSSIKZW4tdXMGOgZFVDoIdXJsSSJDL2hjL2VuLXVzL2FydGljbGVzLzIwMDQ4NjQ5OC1QYWNrYWdlLURldmVsb3BtZW50LVByZXJlcXVpc2l0ZXMGOwhUOglyYW5raQg%3D--676cdd65e0ed2f7c5db6937b79ac5ed567c6127c">Package Development Prerequisites</a>
+        </li>
+      
+        <li>
+          <a href="https://support.rstudio.com/hc/en-us/related/click?data=BAh7CjobZGVzdGluYXRpb25fYXJ0aWNsZV9pZGkEbeDzCzoYcmVmZXJyZXJfYXJ0aWNsZV9pZGkEWC7zCzoLbG9jYWxlSSIKZW4tdXMGOgZFVDoIdXJsSSJCL2hjL2VuLXVzL2FydGljbGVzLzIwMDUzMjA3Ny1WZXJzaW9uLUNvbnRyb2wtd2l0aC1HaXQtYW5kLVNWTgY7CFQ6CXJhbmtpCQ%3D%3D--2556896079fd02bbf9ba139b2f505f2743dfe0a0">Version Control with Git and SVN</a>
+        </li>
+      
+        <li>
+          <a href="https://support.rstudio.com/hc/en-us/related/click?data=BAh7CjobZGVzdGluYXRpb25fYXJ0aWNsZV9pZGkE%2BizzCzoYcmVmZXJyZXJfYXJ0aWNsZV9pZGkEWC7zCzoLbG9jYWxlSSIKZW4tdXMGOgZFVDoIdXJsSSJJL2hjL2VuLXVzL2FydGljbGVzLzIwMDQ4NjEzOC1DaGFuZ2luZy1SLXZlcnNpb25zLWZvci1SU3R1ZGlvLWRlc2t0b3AGOwhUOglyYW5raQo%3D--d19dcb4342d2666f23d931446e10a9488a9cf331">Changing R versions for RStudio desktop</a>
+        </li>
+      
+    </ul>
+  </section>
+
+
+  </aside>
+
+</div>
+  </main>
+
+  <footer class="footer">
+  <div class="footer-inner">
+    <!-- Footer content -->
+  </div>
+</footer>
+
+
+  <!-- / -->
+
+  <script type="text/javascript" src="./Developing Packages with RStudio – RStudio Support_files/en-us-7a25c6ea7cbaf480aad173cde3365242.js.download"></script>
+  <script src="./Developing Packages with RStudio – RStudio Support_files/host.js.download" data-brand-id="2321856" data-return-to="https://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio" data-theme="hc" data-locale="en-us" data-auth-origin="2321856,true,true"></script>
+  <script type="text/javascript" src="./Developing Packages with RStudio – RStudio Support_files/zendesk_pci_hc.v4.js.download"></script>
+
+  <script type="text/javascript">
+  /*
+
+    Greetings sourcecode lurker!
+
+    This is for internal Zendesk and legacy usage,
+    we don't support or guarantee any of these values
+    so please don't build stuff on top of them.
+
+  */
+
+  HelpCenter = {};
+  HelpCenter.account = {"subdomain":"rstudioide","environment":"production","name":"RStudio Support"};
+  HelpCenter.user = {"identifier":"da39a3ee5e6b4b0d3255bfef95601890afd80709","email":null,"name":null,"role":"anonymous","avatar_url":"https://assets.zendesk.com/hc/assets/default_avatar.png","is_admin":false,"organizations":[],"groups":[]};
+  HelpCenter.internal = {"asset_url":"//static.zdassets.com/hc/assets/","web_widget_asset_composer_url":"https://static.zdassets.com/ekr/snippet.js","current_session":{"locale":"en-us","csrf_token":"oz54InHg0X8QG9UG/UGTtuw5YlZEIDO8qFXOgImxPGa+VEYSRUeI1qOcseReSRNgBEJKvPd0YK884vGQxsMnvg==","shared_csrf_token":null},"settings":{"zopim_enabled":true,"spam_filter_enabled":true},"current_record_id":"200486488","current_record_url":"/hc/en-us/articles/200486488-Developing-Packages-with-RStudio","current_record_title":"Developing Packages with RStudio","search_results_count":null,"current_text_direction":"ltr","current_brand_url":"https://rstudioide.zendesk.com","current_host_mapping":"support.rstudio.com","current_path":"/hc/en-us/articles/200486488-Developing-Packages-with-RStudio","authentication_domain":"https://rstudioide.zendesk.com","show_autocomplete_breadcrumbs":true,"rollbar_config":{"enabled":true,"endpoint":"https://rollbar-us.zendesk.com/api/1/item/","accessToken":"731a5a953e9a4b7ab6cac9623f50c732","captureUncaught":true,"captureUnhandledRejections":true,"payload":{"environment":"production","client":{"javascript":{"source_map_enabled":true,"code_version":"0d179afbbcd9723eb493a05301251e18c6aaef1f","guess_uncaught_frames":true}}}},"user_info_changing_enabled":false,"has_user_profiles_enabled":false,"has_anonymous_kb_voting":true,"has_professional_upsell":false,"has_multi_language_help_center":true,"mobile_device":false,"mobile_site_enabled":true,"show_at_mentions":false,"has_copied_content":false,"embeddables_config":{"embeddables_web_widget":false,"embeddables_connect_ipms":false},"base_domain":"zendesk.com","answer_bot_subdomain":"static","plans_url":"https://support.rstudio.com/hc/admin/plan?locale=en-us","manage_content_url":"https://support.rstudio.com/hc/en-us","arrange_content_url":"https://support.rstudio.com/hc/admin/arrange_contents?locale=en-us","general_settings_url":"https://support.rstudio.com/hc/admin/general_settings?locale=en-us","user_segments_url":"https://rstudioide.zendesk.com/knowledge/user_segments?brand_id=2321856","import_articles_url":"https://support.rstudio.com/hc/admin/import_articles?locale=en-us","has_community_enabled":true,"has_internal_sections":true,"has_answer_bot_web_form_enabled":false,"has_close_the_loop_enabled":false,"billing_url":"/access/return_to?return_to=https://rstudioide.zendesk.com/agent/admin/subscription","has_answer_bot":true,"has_block_answer_bot_embeddable":false,"answer_bot_management_url":"https://support.rstudio.com/hc/admin/answer_bot?locale=en-us","is_account_owner":false,"has_theming_templates":true,"theming_center_url":"https://support.rstudio.com/theming","theming_cookie_key":"hc-da39a3ee5e6b4b0d3255bfef95601890afd80709-preview","is_preview":false,"has_guide_user_segments_search":true,"has_alternate_templates":false,"has_guide_arrange_articles":false,"arrange_articles_url":"https://rstudioide.zendesk.com/knowledge/arrange?brand_id=2321856","article_verification_url":"https://rstudioide.zendesk.com/knowledge/verification?brand_id=2321856","has_article_verification":false,"has_guide_language_settings":false,"guide_language_settings_url":"https://support.rstudio.com/hc/admin/language_settings?locale=en-us"};
+</script>
+
+  <script src="./Developing Packages with RStudio – RStudio Support_files/hc_enduser-72bb969bacf0f3c5f87a3b6509b82ad4.js.download"></script>
+
+  <script type="text/javascript">
+    (function() {
+  var Tracker = {};
+
+  Tracker.track = function(eventName, data) {
+    var url = "https://support.rstudio.com/hc/tracking/events?locale=en-us";
+
+    var payload = {
+      "event": eventName,
+      "data": data,
+      "referrer": document.referrer
+    };
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+    xhr.send(JSON.stringify(payload));
+  };
+
+    Tracker.track("article_viewed", "BAh7CDoLbG9jYWxlSSIKZW4tdXMGOgZFVDoPYXJ0aWNsZV9pZGkEWC7zCzoKX21ldGF7CzoPYWNjb3VudF9pZGkDMhUEOhNoZWxwX2NlbnRlcl9pZGkElOrrCzoNYnJhbmRfaWRpA8BtIzoMdXNlcl9pZDA6DnVzZXJfcm9sZUkiDmFub255bW91cwY7BlQ7AEkiCmVuLXVzBjsGVA==--01570f1977485bf973200cfdc52ff5c128472933");
+})();
+
+  </script>
+
+<div><iframe data-reactroot="" id="automaticAnswers" class="zEWidget-automaticAnswers" tabindex="-1" style="border: none; background: transparent; transform: translateZ(0px); position: fixed; opacity: 0; bottom: 0px; margin: 0px 6px 6px 0px; z-index: 2147483647; right: 0px; height: 188px; width: 410px; transition-property: none; transition-timing-function: unset; top: -9999px;" src="./Developing Packages with RStudio – RStudio Support_files/saved_resource.html"></iframe></div></body></html>

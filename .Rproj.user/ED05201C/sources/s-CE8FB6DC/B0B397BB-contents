@@ -42,14 +42,33 @@ soil.final.cleanup = function(paired_data, first = FALSE){
     names(soil)<-c("Point","Transect","Carbon.0.10.survey1","Carbon.10.40.survey1","Bulk.Density.survey1","Infilt1.survey1","Clay.10.40.cm.survey1", "Sand.10.40.cm.survey1", "Silt.10.40.cm.survey1","Carbon.0.10.survey2","Carbon.10.40.survey2","Bulk.Density.survey","Infilt.survey","Clay.10.40.cm.survey2", "Sand.10.40.cm.survey2", "Silt.10.40.cm.survey2","Carbon010change","Carbon1040change","Infiltration.change","Bulk.density.change")
 
 
-    soil$CLAY = soil$Clay.10.40.cm.survey2
-    soil$SILT = soil$Silt.10.40.cm.survey2
-    soil$SAND = soil$Sand.10.40.cm.survey2
+    soil$CLAY = NA
+    soil$SILT = NA
+    soil$SAND = NA
+#
+#     soil$CLAY[is.na(soil$Clay.10.40.cm.survey2)] = soil$Clay.10.40.survey1[is.na(soil$Clay.10.40.cm.survey2)]
+#     soil$CLAY[!is.na(soil$Clay.10.40.cm.survey2)] = soil$Clay.10.40.survey2[!is.na(soil$Clay.10.40.cm.survey2)]
+#
+#     soil$SILT[is.na(soil$Silt.10.40.cm.survey2)] = soil$Silt.10.40.survey1[is.na(soil$Silt.10.40.cm.survey2)]
+#     soil$SILT[!is.na(soil$Silt.10.40.cm.survey2)] = soil$Silt.10.40.survey2[!is.na(soil$Silt.10.40.cm.survey2)]
+#
+#     soil$SAND[is.na(soil$Sand.10.40.cm.survey2)] = soil$Sand.10.40.survey1[is.na(soil$Sand.10.40.cm.survey2)]
+#     soil$SAND[!is.na(soil$Sand.10.40.cm.survey2)] = soil$Sand.10.40.survey2[!is.na(soil$Sand.10.40.cm.survey2)]
 
-    soil$CLAY[is.na(soil$CLAY)] = soil$Clay.10.40.cm.survey1[is.na(soil$CLAY)]
-    soil$SILT[is.na(soil$SILT)] = soil$Silt.10.40.cm.survey1[is.na(soil$SILT)]
-    soil$SAND[is.na(soil$SAND)] = soil$Sand.10.40.cm.survey1[is.na(soil$SAND)]
 
+
+#
+#     if(is.na(soil$Clay.10.40.cm.survey2)){
+#       soil$CLAY<-soil$Clay.10.40.cm.survey1
+#       soil$SILT<-soil$Silt.10.40.cm.survey1
+#       soil$SAND<-soil$Sand.10.40.cm.survey1
+#     } else {
+#
+#     soil$CLAY<-soil$Clay.10.40.cm.survey2
+#     soil$SILT<-soil$Silt.10.40.cm.survey2
+#     soil$SAND<-soil$Sand.10.40.cm.survey2
+#
+#     }
   }
 
   soil$Location<-str_sub(soil$Point, -2)
@@ -60,8 +79,7 @@ soil.final.cleanup = function(paired_data, first = FALSE){
 
 prepare.soil.triangle = function(data){
   if(any(is.na(data$CLAY))){
-    removed = nrow(data[is.na(data$CLAY),])
-    warning(paste(removed, "Observations without soil texture data have been removed"))
+    warning("Observations without soil texture data have been removed")
     data1 = data[complete.cases(data$CLAY),]
   } else {
     print("All observations used")

@@ -31,7 +31,7 @@
 
 
 add.soilcolumns = function(data, inf_diameter = 15.2, bd_diameter = 5.2, volume = 450, bd_height = 7.5){
-
+  library(lubridate)
   data1 = data
 
   #interpret date, isolate year as column
