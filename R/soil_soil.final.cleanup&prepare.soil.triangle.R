@@ -59,6 +59,8 @@ soil.final.cleanup = function(paired_data, first = FALSE){
 }
 
 
+
+
 prepare.soil.triangle = function(data){
   if(any(is.na(data$CLAY))){
     removed = nrow(data[is.na(data$CLAY),])
