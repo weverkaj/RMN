@@ -52,23 +52,8 @@ soil.final.cleanup = function(paired_data, first = FALSE){
 
   }
 
-  
-  
-  soil$TextCategory = ifelse(soil$CLAY > 25, "Fine", ifelse(soil$CLAY < 15 & soil$SAND > 80, "Coarse","Coarse"))
 
-  #dd bulk density targets
-  soil$BD_target = replace(soil$BD_target, soil$TextCategory == "Fine", 1.1)
-  soil$BD_target = replace(soil$BD_target, soil$TextCategory == "Coarse", 1.4)
 
-  #Water infiltration versus target of 10 - this is NRCS target, converted for the time 1 measurement
-  soil$Infilt_target = 10
-  soil$Infilt_dist = soil$Infilt_target - soil$Infilt1.survey
-  soil$BD_dist = soil$BD_target - soil$Bulk.Density.survey
-
-  #add a location field
-  soil$Location<-str_sub(soil$Point, -2)
-  
-  
   return(soil)
 
 }

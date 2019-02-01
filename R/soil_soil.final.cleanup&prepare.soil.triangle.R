@@ -52,7 +52,8 @@ soil.final.cleanup = function(paired_data, first = FALSE){
 
   }
 
-  soil$Location<-str_sub(soil$Point, -2)
+
+
   return(soil)
 
 }
