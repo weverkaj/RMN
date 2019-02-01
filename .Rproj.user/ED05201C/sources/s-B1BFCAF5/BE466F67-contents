@@ -1,0 +1,108 @@
+#' @title Prepare soil data to make figures
+#'
+#' @description For a dataframe output from function pair.data(), produces a table that shows 2018 data and amount of change.
+#' @description This table is designed to be the source data for our functions that make figures
+#' @description prepare.soil.triangle() takes the result of soil.final.cleanup and adds necessary columns to make a soil triangle
+#'
+#' @param paired_data
+#' @param first
+#' @param data
+#'
+#' @return Data frame with soil data
+#'
+#' @examples soil.final.cleanup(soildata)
+#' @examples prepare.soil.triangle(soil)
+#'
+#' @export soil.final.cleanup
+#' @export prepare.soil.triangle
+#'
+#'
+# Some useful keyboard shortcuts for package authoring:
+#
+#   Build and Reload Package:  'Ctrl + Shift + B'
+#   Check Package:             'Ctrl + Shift + E'
+#   Test Package:              'Ctrl + Shift + T'
+
+soil.final.cleanup = function(paired_data, first = FALSE){
+
+
+
+
+  if(isTRUE(first)){
+
+  soil<-subset(paired_data,select=c("Point","Transect","Carbon.0.10.survey1", "Carbon.10.40.survey1","Bulk.Density.survey1","Infilt1.survey1","Clay.10.40.cm.survey1", "Sand.10.40.cm.survey1", "Silt.10.40.cm.survey1","carbon.0.10.per_delta","carbon.10.40.per_delta","Infilt.per_delta","Bulk.Density.per_delta"))
+  names(soil)<-c("Point","Transect","Carbon.0.10.survey","Carbon.10.40.survey","Bulk.Density.survey","Infilt1.survey","Clay.10.40.cm.survey", "Sand.10.40.cm.survey", "Silt.10.40.cm.survey","Carbon010change","Carbon1040change","Infiltration.change","Bulk.density.change")
+  soil$CLAY<-soil$Clay.10.40.cm.survey
+  soil$SILT<-soil$Silt.10.40.cm.survey
+  soil$SAND<-soil$Sand.10.40.cm.survey
+  warning("Texture data taken from first survey")
+  } else if(isFALSE(first)){
+
+    soil<-subset(paired_data,select=c("Point","Transect","Carbon.0.10.survey1", "Carbon.10.40.survey1","Bulk.Density.survey1","Infilt1.survey1","Clay.10.40.cm.survey1", "Sand.10.40.cm.survey1", "Silt.10.40.cm.survey1","Carbon.0.10.survey2", "Carbon.10.40.survey2","Bulk.Density.survey2","Infilt1.survey2","Clay.10.40.cm.survey2", "Sand.10.40.cm.survey2", "Silt.10.40.cm.survey2","carbon.0.10.per_delta","carbon.10.40.per_delta","Infilt.per_delta","Bulk.Density.per_delta"))
+    names(soil)<-c("Point","Transect","Carbon.0.10.survey1","Carbon.10.40.survey1","Bulk.Density.survey1","Infilt1.survey1","Clay.10.40.cm.survey1", "Sand.10.40.cm.survey1", "Silt.10.40.cm.survey1","Carbon.0.10.survey2","Carbon.10.40.survey2","Bulk.Density.survey","Infilt.survey","Clay.10.40.cm.survey2", "Sand.10.40.cm.survey2", "Silt.10.40.cm.survey2","Carbon010change","Carbon1040change","Infiltration.change","Bulk.density.change")
+
+
+    soil$CLAY = soil$Clay.10.40.cm.survey2
+    soil$SILT = soil$Silt.10.40.cm.survey2
+    soil$SAND = soil$Sand.10.40.cm.survey2
+
+    soil$CLAY[is.na(soil$CLAY)] = soil$Clay.10.40.cm.survey1[is.na(soil$CLAY)]
+    soil$SILT[is.na(soil$SILT)] = soil$Silt.10.40.cm.survey1[is.na(soil$SILT)]
+    soil$SAND[is.na(soil$SAND)] = soil$Sand.10.40.cm.survey1[is.na(soil$SAND)]
+
+  }
+
+  
+  
+  soil$TextCategory = ifelse(soil$CLAY > 25, "Fine", ifelse(soil$CLAY < 15 & soil$SAND > 80, "Coarse","Coarse"))
+
+  #dd bulk density targets
+  soil$BD_target = replace(soil$BD_target, soil$TextCategory == "Fine", 1.1)
+  soil$BD_target = replace(soil$BD_target, soil$TextCategory == "Coarse", 1.4)
+
+  #Water infiltration versus target of 10 - this is NRCS target, converted for the time 1 measurement
+  soil$Infilt_target = 10
+  soil$Infilt_dist = soil$Infilt_target - soil$Infilt1.survey
+  soil$BD_dist = soil$BD_target - soil$Bulk.Density.survey
+
+  #add a location field
+  soil$Location<-str_sub(soil$Point, -2)
+  
+  
+  return(soil)
+
+}
+
+
+prepare.soil.triangle = function(data){
+  if(any(is.na(data$CLAY))){
+    removed = nrow(data[is.na(data$CLAY),])
+    warning(paste(removed, "Observations without soil texture data have been removed"))
+    data1 = data[complete.cases(data$CLAY),]
+  } else {
+    print("All observations used")
+    data1 = data
+  }
+
+  data1$texture = TT.points.in.classes(
+    tri.data    = data1,
+    class.sys   = "USDA.TT",
+    PiC.type    = "t", text.tol=1)
+
+  data1$TextCategory = ifelse(data1$CLAY > 25, "Fine", ifelse(data1$CLAY < 15 & data1$SAND > 80, "Coarse","Coarse"))
+
+  data1$BD_target = replace(data1$BD_target, data1$TextCategory == "Fine", 1.1)
+  data1$BD_target = replace(data1$BD_target, data1$TextCategory == "Coarse", 1.4)
+
+  data1$Infilt_target = 3.81
+
+
+
+  data1$Infilt_dist = data1$Infilt_target - data1$Infilt1.survey
+  data1$BD_dist = data1$BD_target - data1$Bulk.Density.survey
+
+  data1$Location<-str_sub(data1$Point, -2)
+
+  return(data1)
+
+}
