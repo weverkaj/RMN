@@ -23,7 +23,7 @@ compaction.plot<-function(data, transect){
   masked$Transect = as.character(replace(as.character(masked$Transect), masked$Transect != transect, values = "zzzz"))
   masked = masked %>% arrange(desc(Transect))
 
-  ggplot(masked, aes(x = BD_dist, y = Infilt_dist), color = Transect) +
+  ggplot(masked, aes(x = BD_dist, y = Infilt_dist, color = Transect)) +
     geom_point() +
     geom_hline(yintercept = 0, linetype = "dashed") +
     geom_vline(xintercept = 0, linetype = "dashed") +

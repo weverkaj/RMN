@@ -1,26 +1,23 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 C:/Users/Field User/Documents/Point Blue 2019/Figure_code_development/soil_code/soilcode.Rmd="3DD5628C"
+C:/Users/Field User/Documents/Point Blue 2019/Partner_Biologist_code/GlennCounty/Glennfigures/SFWO/VegCode4RWIv1_abscov.Rmd="EE32A12E"
+C:/Users/Field User/Documents/Point Blue 2019/Partner_Biologist_code/GlennCounty/VegCode4RMN_glenn.R="78789762"
 C:/Users/Field User/Documents/Point Blue 2019/Partner_Biologist_code/Nathan_R_figures/FENW/soilcode.Rmd="6D3B7A15"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/DESCRIPTION="C8AE199C"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/NAMESPACE="2DB3545B"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/R/cleanup_veg.R="6F0A9436"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/R/extrapolate_inf.R="F76C1431"
+C:/Users/Field User/Documents/Point Blue 2019/RMN/R/pair.data.R="1D3BE7F1"
+C:/Users/Field User/Documents/Point Blue 2019/RMN/R/soil.final.cleanup.R="AB4E410E"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/R/soil_add.soilcolumns&read.date.R="6C64B61E"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/R/soil_carbon.plot.R="1C7A7321"
+C:/Users/Field User/Documents/Point Blue 2019/RMN/R/soil_cleanup.R="98DC1A84"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/R/soil_compaction.plot.r="CC35AC7F"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/R/soil_data.sum.R="94C0FDCF"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/R/soil_pair.data.R="65823085"
+C:/Users/Field User/Documents/Point Blue 2019/RMN/R/soil_read.date.R="AC29F85B"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/R/soil_soil.final.cleanup&prepare.soil.triangle.R="8A0B73D7"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/R/soil_survey.sums.R="A3C033F2"
+C:/Users/Field User/Documents/Point Blue 2019/RMN/R/soil_survey_summary.R="98334F92"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/R/soil_texture.triangle.plot.R="902AB213"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/R/soil_toSeconds.r="E5CFBEF1"
 C:/Users/Field User/Documents/Point Blue 2019/RMN/man/hello.Rd="6A035C1B"
-=======
-C:/Users/wever/Documents/Point Blue 2019/GlennCounty/Glennfigures/VegCode4RWIv1_abscov.Rmd="D89040A8"
-C:/Users/wever/Documents/Point Blue 2019/RMN/R/hello.R="CAF7FCCC"
->>>>>>> a87a1da0d11fd1e314a6837a19a5cdec1d6362c7
-=======
-C:/Users/wever/Documents/Point Blue 2019/GlennCounty/Glennfigures/VegCode4RWIv1_abscov.Rmd="D89040A8"
-C:/Users/wever/Documents/Point Blue 2019/RMN/R/hello.R="CAF7FCCC"
->>>>>>> eed9415be5bca4c69848bd86f7b2802747226e83

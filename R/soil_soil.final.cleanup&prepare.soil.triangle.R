@@ -39,11 +39,12 @@ soil.final.cleanup = function(paired_data, first = FALSE){
   } else if(isFALSE(first)){
 
     soil<-subset(paired_data,select=c("Point","Transect","Carbon.0.10.survey1", "Carbon.10.40.survey1","Bulk.Density.survey1","Infilt1.survey1","Clay.10.40.cm.survey1", "Sand.10.40.cm.survey1", "Silt.10.40.cm.survey1","Carbon.0.10.survey2", "Carbon.10.40.survey2","Bulk.Density.survey2","Infilt1.survey2","Clay.10.40.cm.survey2", "Sand.10.40.cm.survey2", "Silt.10.40.cm.survey2","carbon.0.10.per_delta","carbon.10.40.per_delta","Infilt.per_delta","Bulk.Density.per_delta"))
-    names(soil)<-c("Point","Transect","Carbon.0.10.survey1","Carbon.10.40.survey1","Bulk.Density.survey1","Infilt1.survey1","Clay.10.40.cm.survey1", "Sand.10.40.cm.survey1", "Silt.10.40.cm.survey1","Carbon.0.10.survey2","Carbon.10.40.survey2","Bulk.Density.survey","Infilt.survey","Clay.10.40.cm.survey2", "Sand.10.40.cm.survey2", "Silt.10.40.cm.survey2","Carbon010change","Carbon1040change","Infiltration.change","Bulk.density.change")
+    names(soil)<-c("Point","Transect","Carbon.0.10.survey1","Carbon.10.40.survey1","Bulk.Density.survey1","Infilt1.survey1","Clay.10.40.cm.survey1", "Sand.10.40.cm.survey1", "Silt.10.40.cm.survey1","Carbon.0.10.survey","Carbon.10.40.survey","Bulk.Density.survey","Infilt.survey","Clay.10.40.cm.survey", "Sand.10.40.cm.survey", "Silt.10.40.cm.survey","Carbon010change","Carbon1040change","Infiltration.change","Bulk.density.change")
 
 
-    soil$CLAY = soil$Clay.10.40.cm.survey2
-    soil$SILT = soil$Silt.10.40.cm.survey2
+    soil$CLAY = soil$Clay.10.40.cm.survey
+    soil$SILT = soil$Silt.10.40.cm.survey
+    soil$SAND = soil$Sand.10.40.cm.survey
 
     soil$CLAY[is.na(soil$CLAY)] = soil$Clay.10.40.cm.survey1[is.na(soil$CLAY)]
     soil$SILT[is.na(soil$SILT)] = soil$Silt.10.40.cm.survey1[is.na(soil$SILT)]
