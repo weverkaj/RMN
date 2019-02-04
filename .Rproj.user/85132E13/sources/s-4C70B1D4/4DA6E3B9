@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549162626871.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1775254838",
+    "id" : "4DA6E3B9",
+    "lastKnownWriteTime" : 1549162729,
+    "last_content_update" : 1549162729974,
+    "path" : "C:/Users/wever/Documents/RMN/R/extrapolate_inf.R",
+    "project_path" : "R/extrapolate_inf.R",
+    "properties" : {
+        "cursorPosition" : "27,42",
+        "scrollLine" : "16"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

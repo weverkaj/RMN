@@ -1,0 +1,5 @@
+"0","compaction.plot(soil, r)
+"
+"2","Error in `$<-.data.frame`(`*tmp*`, ""Transect"", value = c(""zzzz"", ""zzzz"",  : 
+  replacement has 145 rows, data has 143
+"
