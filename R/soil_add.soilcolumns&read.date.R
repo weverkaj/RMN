@@ -16,7 +16,7 @@
 #' @examples data = add_datetime(data)
 #' @examples x = add_datetime(soildata)
 #'
-#' @export add.soilcolumns
+#' @export add_soilcolumns
 #'
 #'
 # Some useful keyboard shortcuts for package authoring:
@@ -29,33 +29,32 @@
 
 
 
-add.soilcolumns = function(data, inf_diameter = 15.2, bd_diameter = 5.2, volume = 450, bd_height = 7.5){
+add_soilcolumns = function(data, inf_diameter = 15.2, bd_diameter = 5.2, volume = 450, bd_height = 7.5){
 
-  newstuff = data
 
 
   #interpret date, isolate year as column
-  newstuff$DATE = read.date(newstuff$Date)
-  newstuff$YEAR = year(newstuff$DATE)
-  newstuff$SURVEY = as.factor(paste(newstuff$Point.Name,"-",newstuff$YEAR,sep=""))
+  data$DATE = read.date(data$Date)
+  data$YEAR = year(data$DATE)
+  data$SURVEY = as.factor(paste(data$Point.Name,"-",data$YEAR,sep=""))
 
-#
-#   ## add some simple data about our measurements
-#   newstuff$Ring.Infiltrometer.Diameter<-inf_diameter
-#   newstuff$Bulk.Density.Diameter<-bd_diameter
-#   newstuff$Water.Volume<-volume
-#   newstuff$Bulk.Density.Height<-bd_height
-#   newstuff$Total.Volume<-pi*((newstuff$Bulk.Density.Diameter/2)^2)*newstuff$Bulk.Density.Height
-#   newstuff$Bulk.Density<-(newstuff$Bulk.Density.Dry.Wt/(newstuff$Total.Volume-newstuff$Bulk.Density.Rock.Vol))
-#   newstuff[,"Bulk.Density"][newstuff[,"Bulk.Density"] <= 0] <- NA
-#
-#   #convert water infiltration time to minutes in base-ten decimal
-#   newstuff[,"Water.Infiltration.Time.1"][newstuff[,as.character("Water.Infiltration.Time.1")] == ""] <- "00:00:00"
-#   newstuff$ISec1<-NULL
-#   newstuff$ISec1<-toSeconds(as.character(newstuff$Water.Infiltration.Time.1))
-#   newstuff$ISec1<-newstuff$ISec1/60
+  #
+  ## add some simple data about our measurements
+  data$Ring.Infiltrometer.Diameter<-inf_diameter
+  data$Bulk.Density.Diameter<-bd_diameter
+  data$Water.Volume<-volume
+  data$Bulk.Density.Height<-bd_height
+  data$Total.Volume<-pi*((data$Bulk.Density.Diameter/2)^2)*data$Bulk.Density.Height
+  data$Bulk.Density<-(data$Bulk.Density.Dry.Wt/(data$Total.Volume-data$Bulk.Density.Rock.Vol))
+  data[,"Bulk.Density"][data[,"Bulk.Density"] <= 0] <- NA
 
-  return(newstuff)
+  #convert water infiltration time to minutes in base-ten decimal
+  data[,"Water.Infiltration.Time.1"][data[,as.character("Water.Infiltration.Time.1")] == ""] <- "00:00:00"
+  data$ISec1<-NULL
+  data$ISec1<-toSeconds(as.character(data$Water.Infiltration.Time.1))
+  data$ISec1<-data$ISec1/60
+
+  return(data)
 
 
 }
