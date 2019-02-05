@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549405671726.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "EA12F6DD",
+    "lastKnownWriteTime" : 1549301254,
+    "last_content_update" : 1549301254,
+    "path" : "~/Point Blue 2019/RMN/R/soil_soil.final.cleanup&prepare.soil.triangle.R",
+    "project_path" : "R/soil_soil.final.cleanup&prepare.soil.triangle.R",
+    "properties" : {
+        "cursorPosition" : "88,0",
+        "scrollLine" : "68",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

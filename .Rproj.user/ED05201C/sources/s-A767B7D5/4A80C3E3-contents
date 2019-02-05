@@ -27,17 +27,24 @@ carbon.plot<-function(data,transect, labels = TRUE){
 
   masked = data
   masked$Transect = as.character(replace(as.character(soil$Transect), soil$Transect != transect, values = "zzzz"))
-  masked = masked %>% arrange(desc(Transect))
 
+
+  masked1 = masked[is.na(masked$Carbon.0.10.survey) & is.na(masked$Carbon.10.40.survey),]
+  masked2 = masked[!is.na(masked$Carbon.0.10.survey) & !is.na(masked$Carbon.10.40.survey),]
+
+  masked1[10:16] = masked[,3:9]
+
+  masked_soil = rbind(masked1, masked2)
+  masked_soil = arrange(masked_soil, desc(Transect))
 
 
   if(isTRUE(labels)){
-    l = geom_label_repel(aes(label = ifelse(Transect == transect, as.character(masked$Point), NA)), box.padding = 0.5)
+    l = geom_label_repel(aes(label = ifelse(Transect == transect, as.character(masked_soil$Point), NA)), box.padding = 0.5)
   } else {
     l = geom_label_repel(aes(label = ifelse(Transect == transect, NA, NA)), box.padding = 0.5)
   }
 
-  ggplot(masked %>% arrange(desc(Transect)), aes(x = Carbon.10.40.survey, y = Carbon.0.10.survey, color = Transect)) +
+  ggplot(masked_soil, aes(x = Carbon.10.40.survey, y = Carbon.0.10.survey, color = Transect)) +
     geom_point() +
     scale_color_manual(values = c("black", "gray"), labels = c(transect, "Others"), guide = FALSE) +
     theme_bw() +

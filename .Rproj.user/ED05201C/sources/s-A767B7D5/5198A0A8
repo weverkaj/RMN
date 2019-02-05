@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549397433528.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3068962680",
+    "id" : "5198A0A8",
+    "lastKnownWriteTime" : 1549406111,
+    "last_content_update" : 1549406111244,
+    "path" : "~/Point Blue 2019/RMN/R/soil_compaction.plot.r",
+    "project_path" : "R/soil_compaction.plot.r",
+    "properties" : {
+        "cursorPosition" : "56,10",
+        "scrollLine" : "42",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
