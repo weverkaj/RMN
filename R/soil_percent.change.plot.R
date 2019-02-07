@@ -21,7 +21,7 @@
 
 percent.change.plot = function(data, transect){
 
-masked = data %>% prepare.soil.triangle()
+masked = data
 masked$Transect = as.character(replace(as.character(masked$Transect), masked$Transect != transect, values = "zzzz"))
 masked = masked %>% arrange(desc(Transect))
 
