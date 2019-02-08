@@ -10,3 +10,4 @@ License: Point Blue Conservation Science
 Encoding: UTF-8
 LazyData: true
 Imports: PairedData, stringr, ggrepel, soiltexture, reshape2, gridExtra, dplyr, ggplot2, knitr, plyr, lubridate
+RoxygenNote: 6.1.1
