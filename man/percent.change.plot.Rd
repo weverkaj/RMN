@@ -4,10 +4,25 @@
 \alias{percent.change.plot}
 \title{Make a percent change boxplot of soil carbon and bulk Density}
 \usage{
-percent.change.plot(data, transect)
+percent.change.plot(data, transect, legendnames = c(transect, "Others"),
+  legendtitle = "Ranch", boxcolors = c("black", "gray"),
+  xlabels = c("Carbon 0-10 cm", "Carbon 10-40 cm", "Bulk Density"),
+  ylab = "\% Change")
 }
 \arguments{
-\item{guide}{}
+\item{data}{from output of soil.final.cleanup()}
+
+\item{transect}{Character string of selected ranch code}
+
+\item{legendnames}{specifies how points are named on the legend}
+
+\item{legendtitle}{Character string of legend title}
+
+\item{boxcolors}{vector of colors to display data on the boxplot}
+
+\item{xlabels}{vector of strings to label boxplots}
+
+\item{ylab}{character string for y axis label}
 }
 \value{
 Shows soil compaction plot
