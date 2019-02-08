@@ -4,16 +4,36 @@
 \alias{compaction.plot}
 \title{Make a soil compaction plot}
 \usage{
-compaction.plot(data, transect, labels = TRUE, guide = FALSE)
+compaction.plot(data, transect, labels = TRUE, pointcolors = c("black",
+  "gray"), legend = FALSE, legendnames = c(transect, "Others"),
+  xlab = "Bulk density, distance from target",
+  ylab = "Infiltration, distance from target", box.padding = 0.5,
+  linetype = "dashed")
 }
 \arguments{
-\item{guide}{}
+\item{data}{dataframe from output of soil.final.cleanup()}
+
+\item{transect}{Character string of selected ranch code}
+
+\item{labels}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
+
+\item{pointcolors}{= c("black", "gray") a vector that specifies colors of points on the plot}
+
+\item{legend}{specifies whether to display a legend}
+
+\item{legendnames}{specifies how points are named on the legend}
+
+\item{xlab, ylab}{character strings for axis lables}
+
+\item{box.padding}{numeric adjusts spacing of labels on the plot}
+
+\item{linetype}{specifies type of line shown for BD and Infiltration targets}
 }
 \value{
 Shows soil compaction plot
 }
 \description{
-From output of prepare.soil.triangle() creates a soil compaction plot displaying BD and Infiltration data, and compares to other ranches in the region
+From output of  creates a soil compaction plot displaying BD and Infiltration data, and compares to other ranches in the region
 }
 \examples{
 compaction.plot(soil, "ranchname")
