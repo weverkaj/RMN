@@ -7,7 +7,9 @@
 data.sum(data, transect)
 }
 \arguments{
-\item{transect}{}
+\item{data}{dataframe, output of soil.final.cleanup()}
+
+\item{transect}{Character string of selected ranch code}
 }
 \value{
 Shows soil data in a nice-looking table
@@ -15,7 +17,7 @@ Shows soil data in a nice-looking table
 data summary table
 }
 \description{
-From output of prepare.soil.triangle() creates a soil texture plot and compares a ranch to other ranches in the dataset
+From output of soil.final.cleanup() creates a soil texture plot and compares a ranch to other ranches in the dataset
 }
 \examples{
 data.sum(soil, "ranchname")
