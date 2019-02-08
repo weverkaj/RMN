@@ -4,10 +4,20 @@
 \alias{texture.triangle.plot}
 \title{Make a soil texture triangle}
 \usage{
-texture.triangle.plot(data, transect, labels = TRUE)
+texture.triangle.plot(data, transect, labels = TRUE, pch = 16,
+  main = paste("Soil Texture - ", transect), cex.axis = 0.5,
+  cex.lab = 0.75, cex.main = 0.75, text.tol = 0.2,
+  tri.sum.tst = FALSE, cex = 0.75, frame.bg.col = "white",
+  grid.show = FALSE)
 }
 \arguments{
-\item{labels}{}
+\item{data}{dataframe, output of prepare.soil.triangle()}
+
+\item{transect}{Character string of selected ranch code}
+
+\item{labels}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
+
+\item{...}{arguments supplied to TT.plot}
 }
 \value{
 Soil classification triangle with chosen ranch points emboldened
