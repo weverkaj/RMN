@@ -62,7 +62,7 @@ soil.final.cleanup = function(paired_data, first = FALSE){
 
 
 
-prepare.soil.triangle = function(data, Inftarget = 3.81){
+prepare.soil.triangle = function(data, Inftarget = 10){
   if(any(is.na(data$CLAY))){
     removed = nrow(data[is.na(data$CLAY),])
     warning(paste(removed, "Observations without soil texture data have been removed"))

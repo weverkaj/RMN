@@ -1,0 +1,50 @@
+#' @title Make a percent change boxplot of soil carbon and bulk Density
+#'
+#' @description Creates a plot that shows average change in SOC at 2 depths and BD compared to regional average
+#'
+#' @param data from output of soil.final.cleanup()
+#' @param transect Character string of selected ranch code
+#' @param legendnames specifies how points are named on the legend
+#' @param legendtitle Character string of legend title
+#' @param boxcolors vector of colors to display data on the boxplot
+#' @param xlabels vector of strings to label boxplots
+#' @param ylab character string for y axis label
+#'
+#' @return Shows soil compaction plot
+#'
+#' @examples compaction.plot(soil, "ranchname")
+#'
+#'
+#' @export percent.change.plot
+#'
+#'
+#'
+
+
+
+percent.change.plot = function(data, transect, legendnames = c(transect, "Others"), legendtitle = "Ranch",
+                               boxcolors = c("black", "gray"), xlabels = c("Carbon 0-10 cm", "Carbon 10-40 cm", "Bulk Density"),
+                               ylab = "% Change"){
+
+masked = data
+masked$Transect = as.character(replace(as.character(masked$Transect), masked$Transect != transect, values = "zzzz"))
+masked = masked %>% arrange(desc(Transect))
+
+masked = subset(masked, select = c("Point", "Transect" ,"Carbon010change", "Carbon1040change","Bulk.density.change"))
+
+masked = melt(masked, id.vars = c("Point", "Transect"))
+
+ggplot(masked, aes(x = variable, y = value, color = Transect)) +
+  geom_boxplot() +
+  scale_color_manual(name = legendtitle, values = boxcolors, labels = legendnames) +
+  theme_bw() +
+  scale_x_discrete(labels = xlabels) +
+  ylab(ylab) +
+  xlab(NULL)
+
+
+}
+
+
+
+
