@@ -12,7 +12,13 @@ soil.final.cleanup(paired_data, first = FALSE)
 \arguments{
 \item{paired_data}{}
 
-\item{data}{}
+\item{first}{= FALSE if TRUE will use observations only from the first surveys of each point}
+
+\item{paired_data}{from output of pair.data}
+
+\item{data}{in prepare.soil.triangle() from output of soil.final.cleanup()}
+
+\item{Inftarget}{numeric, target infiltration time}
 }
 \value{
 Data frame with soil data
@@ -33,7 +39,7 @@ prepare.soil.triangle() takes the result of soil.final.cleanup and adds necessar
 \examples{
 soil.final.cleanup(soildata)
 
-soil.final.cleanup(soildata)
+soil = soil.final.cleanup(soildata)
 prepare.soil.triangle(soil)
 
 }
