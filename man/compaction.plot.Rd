@@ -8,7 +8,8 @@ compaction.plot(data, transect, labels = TRUE, pointcolors = c("black",
   "gray"), legend = FALSE, legendnames = c(transect, "Others"),
   xlab = "Bulk density, distance from target",
   ylab = "Infiltration, distance from target", box.padding = 0.5,
-  linetype = "dashed", Inftarget = 3.81)
+  linetype = "dashed", Inftarget = 3.81, xlims = c(NA, NA),
+  ylims = c(NA, NA))
 }
 \arguments{
 \item{data}{dataframe from output of soil.final.cleanup()}
@@ -30,6 +31,8 @@ compaction.plot(data, transect, labels = TRUE, pointcolors = c("black",
 \item{linetype}{specifies type of line shown for BD and Infiltration targets}
 
 \item{Inftarget}{target infiltration time}
+
+\item{xlims, ylims}{numeric vectors of length 2 that specify the respective lower and upper limits of the axes. NA values cause default axis limits}
 }
 \value{
 Shows soil compaction plot
