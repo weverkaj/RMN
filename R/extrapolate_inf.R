@@ -3,7 +3,7 @@
 #' @description For infiltration tests that were stopped before completely finishing, this funtion uses the remaining depth (cm) and the run time (minutes) of the test to extrapolate the time of a complete infiltration.
 #'
 #' @param height height of water remaining in infiltration ring
-#' @param time time that infiltration was stopped. Default is 45. Time is in decimal units so 45:30 would be expresses as 45.5
+#' @param time time that infiltration was stopped. Default is 45. Time is in decimal units so 47:30 would be 47.5
 #'
 #'
 #' @return Extrapolated time of Infiltration
