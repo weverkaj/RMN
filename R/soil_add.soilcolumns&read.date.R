@@ -13,8 +13,8 @@
 #'
 #' @return data frame with added columns
 #'
-#' @examples data = add_datetime(data)
-#' @examples x = add_datetime(soildata)
+#' @examples data = add_soilcolumns(data)
+#' @examples x = add_soilcolumns(soildata)
 #'
 #' @export add_soilcolumns
 #'

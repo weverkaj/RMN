@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549930453147.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "802792274",
+    "id" : "182279AC",
+    "lastKnownWriteTime" : 1549931664,
+    "last_content_update" : 1549931664400,
+    "path" : "~/Point Blue 2019/RMN/R/veg_add.pointyear.R",
+    "project_path" : "R/veg_add.pointyear.R",
+    "properties" : {
+        "cursorPosition" : "17,3",
+        "scrollLine" : "4",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

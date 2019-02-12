@@ -21,7 +21,7 @@ Also adds columns that display BD and Infiltration diameter, height, and volume,
 Interprets date formate automatically with read.date()
 }
 \examples{
-data = add_datetime(data)
-x = add_datetime(soildata)
+data = add_soilcolumns(data)
+x = add_soilcolumns(soildata)
 
 }
