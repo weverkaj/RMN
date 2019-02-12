@@ -2,24 +2,23 @@
 % Please edit documentation in R/veg_cover.summary.R
 \name{cover.summary}
 \alias{cover.summary}
-\title{Adds year and pointyear columns to data}
+\title{Create cover summary table for veg data}
 \usage{
-cover.summary(checklist, lpi)
+cover.summary(checklist, lpi, choose.variable = c("SpeciesRichness",
+  "Litter", "Thatch", "BareGround", "Trees", "Shrubs"))
 }
 \arguments{
 \item{checklist}{A dataframe object of checklist data from a veg survey}
 
 \item{lpi}{A dataframe object of lpi data from a veg survey}
+
+\item{choose.variable}{Character vector that identifies which variables to summarize. Defaults to Species Richness, Litter, Thatch, Bare Ground, Trees, and Shrubs}
 }
 \value{
 A summary of cover
 }
 \description{
-For veg data, formats column with date as a date object in R, adds a column for year as a numeric object, and pointyear as a character object that inludes the point name and the survey year
-
-Data supplied needs to have column named "PointId" or "Point.Id" and a date column named "Date" or "Event.Date"
-
-Makes use of package function read.date()
+For veg data, summarizes cover of shrubs, trees, litter, thatch, bare ground. Tree and shrub covers come from releve estimates
 }
 \examples{
 data = cover.summary(checklist, lpi)

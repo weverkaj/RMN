@@ -1,11 +1,10 @@
-#' @title Adds year and pointyear columns to data
+#' @title Create cover summary table for veg data
 #'
-#' @description For veg data, formats column with date as a date object in R, adds a column for year as a numeric object, and pointyear as a character object that inludes the point name and the survey year
-#' @description Data supplied needs to have column named "PointId" or "Point.Id" and a date column named "Date" or "Event.Date"
-#' @description Makes use of package function read.date()
+#' @description For veg data, summarizes cover of shrubs, trees, litter, thatch, bare ground. Tree and shrub covers come from releve estimates
 #'
 #' @param checklist A dataframe object of checklist data from a veg survey
 #' @param lpi A dataframe object of lpi data from a veg survey
+#' @param choose.variable Character vector that identifies which variables to summarize. Defaults to Species Richness, Litter, Thatch, Bare Ground, Trees, and Shrubs
 #'
 #' @return A summary of cover
 #'
@@ -16,12 +15,15 @@
 #'
 
 
-cover.summary = function(checklist, lpi){
+cover.summary = function(checklist, lpi, choose.variable = c("SpeciesRichness", "Litter", "Thatch", "BareGround", "Trees", "Shrubs")){
 
   covsum<- ddply(checklist, .(Vegetation.Type, pointyear), summarise, Percent.Cover=sum(Percent.Cover), .drop=F)
   shrubs<-subset(covsum, subset=covsum$Vegetation.Type == "shrubs")
+  colnames(shrubs) = c("covertype", "pointyear", "Shrubcover")
+  shrubs = subset(shrubs, select = c("pointyear", "Shrubcover"))
   trees<-subset(covsum, subset=covsum$Vegetation.Type == "trees")
-
+  colnames(trees) = c("covertype", "pointyear", "Treecover")
+  trees = subset(trees, select = c("pointyear", "Treecover"))
 
   lpi$BG<-0
   lpi$BG <- replace(lpi$BG,
@@ -108,13 +110,14 @@ cover.summary = function(checklist, lpi){
   #### Now bring everything together
 
   Pointyears = subset(main, select = c(pointyear, PointId, year))
+  data.summary = Pointyears
+  if("SpeciesRichness" %in% choose.variable){data.summary = merge(data.summary, richness2, by = "pointyear")}
+  if("Litter" %in% choose.variable){data.summary<-merge(data.summary, Litter, by="pointyear")}
+  if("Thatch" %in% choose.variable){data.summary<-merge(data.summary, Thatch,by="pointyear")}
+  if("BareGround" %in% choose.variable){data.summary<-merge(data.summary, BareGround,by="pointyear")}
+  if("Trees" %in% choose.variable){data.summary<-merge(data.summary, trees,by="pointyear", all.x=TRUE)}
+  if("Shrubs" %in% choose.variable){data.summary<-merge(data.summary, shrubs,by="pointyear", all.x=TRUE)}
 
-  data.summary<-merge(richness2, Litter, by="pointyear")
-  data.summary<-merge(data.summary, Thatch,by="pointyear")
-  data.summary<-merge(data.summary, BareGround,by="pointyear")
-  data.summary<-merge(data.summary, trees,by="pointyear", all.x=TRUE)
-  data.summary<-merge(data.summary, shrubs,by="pointyear", all.x=TRUE)
-  data.summary = merge(data.summary, Pointyears, by  = "pointyear")
 
 
   # IF you have transect where Not every point has all 100 subsamples,
