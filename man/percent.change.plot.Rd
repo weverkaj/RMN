@@ -7,7 +7,8 @@
 percent.change.plot(data, transect, legendnames = c(transect, "Others"),
   legendtitle = "Ranch", boxcolors = c("black", "gray"),
   xlabels = c("Carbon 0-10 cm", "Carbon 10-40 cm", "Bulk Density"),
-  ylab = "\% Change")
+  ylab = "\% Change", choosevariables = c("Carbon010change",
+  "Carbon1040change", "Bulk.density.change"))
 }
 \arguments{
 \item{data}{from output of soil.final.cleanup()}
@@ -23,6 +24,8 @@ percent.change.plot(data, transect, legendnames = c(transect, "Others"),
 \item{xlabels}{vector of strings to label boxplots}
 
 \item{ylab}{character string for y axis label}
+
+\item{choosevariables}{a character vector that specifies which columns in the data to plot}
 }
 \value{
 Shows soil compaction plot
