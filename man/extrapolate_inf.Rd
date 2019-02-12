@@ -7,7 +7,9 @@
 extrapolate_inf(height, time = 45)
 }
 \arguments{
-\item{time}{}
+\item{height}{height of water remaining in infiltration ring}
+
+\item{time}{time that infiltration was stopped. Default is 45.}
 }
 \value{
 Extrapolated time of Infiltration
