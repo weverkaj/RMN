@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1550017211487.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3501347831",
+    "id" : "A5655ADD",
+    "lastKnownWriteTime" : 1550017234,
+    "last_content_update" : 1550017234870,
+    "path" : "~/Point Blue 2019/RMN/R/extrapolate_inf.R",
+    "project_path" : "R/extrapolate_inf.R",
+    "properties" : {
+        "cursorPosition" : "27,42",
+        "scrollLine" : "18"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
