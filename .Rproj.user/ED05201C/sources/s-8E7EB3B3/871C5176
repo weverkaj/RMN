@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1550261653304.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3943494044",
+    "id" : "871C5176",
+    "lastKnownWriteTime" : 1550263692,
+    "last_content_update" : 1550263692588,
+    "path" : "~/Point Blue 2019/RMN/R/veg_cover.sum.plot.R",
+    "project_path" : "R/veg_cover.sum.plot.R",
+    "properties" : {
+        "cursorPosition" : "13,55",
+        "scrollLine" : "12",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
