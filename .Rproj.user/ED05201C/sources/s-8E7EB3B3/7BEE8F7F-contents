@@ -1,0 +1,13 @@
+Package: RMN
+Type: Package
+Title: Tools for the Rangeland Monitoring Network
+Version: 0.1.0
+Author: Jacob Weverka, Libby Porzig
+Maintainer: Jacob Weverka <jweverka@pointblue.org>
+Description: This package is intended to streamline data analysis for data collected as part of the rangeland monitoring network.
+  	     It will contain functions to clean data, to generate summaries, and to create figures. ##### UNDER DEVELOPMENT #####
+License: Point Blue Conservation Science
+Encoding: UTF-8
+LazyData: true
+Imports: PairedData, stringr, soiltexture, reshape2, gridExtra, dplyr, ggplot2, knitr, plyr, lubridate, ggrepel
+RoxygenNote: 6.1.1
