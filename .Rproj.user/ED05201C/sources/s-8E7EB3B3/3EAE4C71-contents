@@ -86,7 +86,7 @@ cover.summary = function(checklist, lpi, choose.variable = c("SpeciesRichness", 
 
 
   ##add plants that are in the soil surface hit to this that##
-
+  CAPlants = RMN:::CAPlantsv2
   richness<-NULL
   both1 = both
   both1$Layer = NULL
