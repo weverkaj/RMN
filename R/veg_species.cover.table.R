@@ -3,6 +3,7 @@
 #' @description For veg data, summarizes cover of each species at each point.
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
+#' @param type Denotes type of cover to calculate"absolute" or "relative"
 #'
 #' @return A dataframe summary of cover of species
 #'
@@ -12,16 +13,15 @@
 #'
 #'
 
-
-species.cover.table = function(lpi){
+species.cover.table = function(lpi, type = "absolute"){
   lpi$Tally = 1
 
   a = aggregate(lpi$Tally, list(lpi$pointyear), sum)
   names(a) = c("pointyear", "NumIndices")
 
   lpi.trim = subset(lpi, select=c("pointyear", "year", "Point.Id", "Canopy1", "Canopy2", "Canopy3",
-                                 "Top.Layer","Lower1","Lower2", "Lower3", "Lower4","Lower5","Lower6","Lower7",
-                                 "Lower8","Lower9","Lower10","Soil.Surface"))
+                                  "Top.Layer","Lower1","Lower2", "Lower3", "Lower4","Lower5","Lower6","Lower7",
+                                  "Lower8","Lower9","Lower10","Soil.Surface"))
 
   longlpi = melt(lpi.trim, id=c("pointyear", "Point.Id", "year"))
   # Note, this step may give a warning, but it's
@@ -33,17 +33,23 @@ species.cover.table = function(lpi){
   newlpi = dcast(longlpi, pointyear~Spp,value.var=c("Tally"), sum)
   newlpi = merge(newlpi, a, by="pointyear")
   pointyear = newlpi$pointyear
-  newlpi.relative = (newlpi[,3:ncol(newlpi)-1]/newlpi$NumIndices) *100
+  firstdrops = c("Var.2", "NA", "NOPLANT", "M", "L", "EM", "AM", "R", "WL", "S")
+  newlpi = newlpi[,!(names(newlpi) %in% firstdrops)]
+  if(type == "absolute"){
+    newlpi.relative = (newlpi[,3:ncol(newlpi)-1]/newlpi$NumIndices) *100
+  } else if(type == "relative"){
+    newlpi.relative = newlpi[,3:ncol(newlpi)-1]/rowSums(newlpi[,3:ncol(newlpi)-1]) * 100
+  } else{ stop("Argument for type not recognized") }
+
   newlpi.relative = cbind(pointyear, newlpi.relative)
 
   ## Almost there, just some tidying
 
-  drops = c("Var.2", "2FA", "2FORB", "2FP", "2FS", "2GA", "2GP", "2LICHN", "2LTR", "2LTRWS", "2MOSS", "2PLANT",
-           "2W", "NA", "NumIndices", "NOPLANT", "UNKNWN", "M", "L", "EM", "AM", "R", "WL", "S")
+  drops = c("Var.2", "NA", "NumIndices", "NOPLANT", "UNKNWN", "M", "L", "EM", "AM", "R", "WL", "S")
   newlpi.relative = newlpi.relative[,!(names(newlpi.relative) %in% drops)]
   newlpi = newlpi[,!(names(newlpi) %in% drops)]
 
-  return(newlpi)
+  return(newlpi.relative)
 
 
 

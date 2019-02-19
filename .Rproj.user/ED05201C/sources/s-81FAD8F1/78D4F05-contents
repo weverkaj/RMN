@@ -1,0 +1,16 @@
+#' @title Create a table of cover for each species at each point
+#'
+#' @description For veg data, summarizes cover of each species at each point.
+#'
+#' @param lpi A dataframe object of lpi data from a veg survey
+#'
+#' @return A dataframe summary of cover of species
+#'
+#' @examples data = cover.summary(checklist, lpi)
+#'
+#' @export species.cover.table
+#'
+#'
+#'
+
+

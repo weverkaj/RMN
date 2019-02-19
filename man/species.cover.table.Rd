@@ -4,10 +4,12 @@
 \alias{species.cover.table}
 \title{Create a table of cover for each species at each point}
 \usage{
-species.cover.table(lpi)
+species.cover.table(lpi, type = "absolute")
 }
 \arguments{
 \item{lpi}{A dataframe object of lpi data from a veg survey}
+
+\item{type}{Denotes type of cover to calculate"absolute" or "relative"}
 }
 \value{
 A dataframe summary of cover of species
