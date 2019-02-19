@@ -18,6 +18,6 @@ A dataframe summary of cover of species
 For veg data, summarizes cover of each species at each point.
 }
 \examples{
-data = cover.summary(checklist, lpi)
+data = species.cover.table(lpi, type = "relative")
 
 }

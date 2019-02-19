@@ -7,7 +7,7 @@
 #'
 #' @return A dataframe summary of cover of species
 #'
-#' @examples data = cover.summary(checklist, lpi)
+#' @examples data = species.cover.table(lpi, type = "relative")
 #'
 #' @export species.cover.table
 #'
@@ -38,7 +38,7 @@ species.cover.table = function(lpi, type = "absolute"){
   if(type == "absolute"){
     newlpi.relative = (newlpi[,3:ncol(newlpi)-1]/newlpi$NumIndices) *100
   } else if(type == "relative"){
-    newlpi.relative = newlpi[,3:ncol(newlpi)-1]/rowSums(newlpi[,3:ncol(newlpi)-1]) * 100
+    newlpi.relative = newlpi[,3:ncol(newlpi)-1]/rowSums(newlpi[,3:ncol(newlpi)-1], na.rm=TRUE) * 100
   } else{ stop("Argument for type not recognized") }
 
   newlpi.relative = cbind(pointyear, newlpi.relative)
