@@ -58,7 +58,9 @@ species.cover.table = function(lpi, type = "absolute"){
   t.lpirelative$species = rownames(t.lpirelative)
   t.lpirelative = arrange(t.lpirelative, desc(mean_cover))
 
-  return(t.lpirelative)
+  t.lpirelative2 = t.lpirelative[,c(ncol(t.lpirelative), 1:(ncol(t.lpirelative) - 1))]
+
+  return(t.lpirelative2)
 
 
 
