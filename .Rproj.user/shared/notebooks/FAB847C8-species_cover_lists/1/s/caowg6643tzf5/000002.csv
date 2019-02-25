@@ -1,0 +1,5 @@
+"0","lpi<-read.csv(""SJVLPI.csv"") %>% add.pointyear() 
+"
+"2","Error in read.csv(""SJVLPI.csv"") %>% add.pointyear() : 
+  could not find function ""%>%""
+"

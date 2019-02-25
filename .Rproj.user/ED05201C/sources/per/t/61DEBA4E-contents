@@ -49,7 +49,16 @@ species.cover.table = function(lpi, type = "absolute"){
   newlpi.relative = newlpi.relative[,!(names(newlpi.relative) %in% drops)]
   newlpi = newlpi[,!(names(newlpi) %in% drops)]
 
-  return(newlpi.relative)
+  t.lpirelative = as.data.frame(t(newlpi.relative[,-1]))
+  colnames(t.lpirelative) = newlpi.relative$pointyear
+
+
+  t.lpirelative$mean_cover = rowMeans(t.lpirelative, na.rm = TRUE)
+  rownames(t.lpirelative) = colnames(newlpi.relative)[-1]
+  t.lpirelative$species = rownames(t.lpirelative)
+  t.lpirelative = arrange(t.lpirelative, desc(mean_cover))
+
+  return(t.lpirelative)
 
 
 
