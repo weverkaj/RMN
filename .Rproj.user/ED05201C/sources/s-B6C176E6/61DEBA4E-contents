@@ -14,6 +14,7 @@
 #'
 
 species.cover.table = function(lpi, type = "absolute"){
+  library(reshape2)
   lpi$Tally = 1
 
   a = aggregate(lpi$Tally, list(lpi$pointyear), sum)

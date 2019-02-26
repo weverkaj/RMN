@@ -18,6 +18,7 @@
 
 functional.cover.table = function(lpi, type = "absolute", invasives = FALSE){
 
+  library(reshape2)
   CAPlants = RMN:::CAPlantsv2
   Invasives = RMN:::Invasivesv1
 
