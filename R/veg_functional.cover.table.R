@@ -16,7 +16,7 @@
 #'
 
 
-functional.cover.table = function(lpi, type = "absolute", invasives = FALSE){
+functional.cover.table = function(longlpi, type = "absolute", invasives = FALSE){
 
   library(reshape2)
   CAPlants = RMN:::CAPlantsv2
@@ -29,20 +29,6 @@ functional.cover.table = function(lpi, type = "absolute", invasives = FALSE){
 
   CAPlantsI$FunGrp[CAPlantsI$Accepted.Symbol %in% Invasives$USDA.code]<-"Invasives"
 
-  lpi$Tally = 1
-  a = aggregate(lpi$Tally, list(lpi$pointyear), sum)
-  names(a) = c("pointyear", "NumIndices")
-
-  lpi.trim = subset(lpi, select=c("pointyear", "year", "Point.Id", "Canopy1", "Canopy2", "Canopy3",
-                                  "Top.Layer","Lower1","Lower2", "Lower3", "Lower4","Lower5","Lower6","Lower7",
-                                  "Lower8","Lower9","Lower10","Soil.Surface"))
-
-  longlpi = melt(lpi.trim, id=c("pointyear", "Point.Id", "year"))
-  # Note, this step may give a warning, but it's
-  names(longlpi) = c("pointyear", "Point.Id", "year", "Layer", "Spp")
-
-  longlpi = subset(longlpi, select=c("pointyear", "Point.Id", "year", "Spp"))
-  longlpi$Tally = 1
 
 
   longlpi$FunGrp = NULL

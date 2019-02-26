@@ -13,10 +13,9 @@
 #'
 #'
 
-species.cover.table = function(lpi, type = "absolute"){
+species.cover.table = function(longlpi, type = "absolute"){
   library(reshape2)
 
-  longlpi = lpi.summary(lpi)
 
   newlpi = dcast(longlpi, pointyear~Spp,value.var=c("Tally"), sum)
   newlpi = merge(newlpi, a, by="pointyear")
