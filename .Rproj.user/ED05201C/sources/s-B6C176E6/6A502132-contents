@@ -18,6 +18,7 @@
 cover.summary = function(checklist, lpi, choose.variable = c("SpeciesRichness", "Litter", "Thatch", "BareGround", "Trees", "Shrubs")){
 
   library(reshape2)
+  library(ggplot2)
   covsum<- ddply(checklist, .(Vegetation.Type, pointyear), summarise, Percent.Cover=sum(Percent.Cover), .drop=F)
   shrubs<-subset(covsum, subset=covsum$Vegetation.Type == "shrubs")
   colnames(shrubs) = c("covertype", "pointyear", "Shrubcover")
