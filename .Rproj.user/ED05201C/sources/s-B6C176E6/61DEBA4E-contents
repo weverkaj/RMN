@@ -15,27 +15,15 @@
 
 species.cover.table = function(lpi, type = "absolute"){
   library(reshape2)
-  lpi$Tally = 1
 
-  a = aggregate(lpi$Tally, list(lpi$pointyear), sum)
-  names(a) = c("pointyear", "NumIndices")
-
-  lpi.trim = subset(lpi, select=c("pointyear", "year", "Point.Id", "Canopy1", "Canopy2", "Canopy3",
-                                  "Top.Layer","Lower1","Lower2", "Lower3", "Lower4","Lower5","Lower6","Lower7",
-                                  "Lower8","Lower9","Lower10","Soil.Surface"))
-
-  longlpi = melt(lpi.trim, id=c("pointyear", "Point.Id", "year"))
-  # Note, this step may give a warning, but it's
-  names(longlpi) = c("pointyear", "Point.Id", "year", "Layer", "Spp")
-
-  longlpi = subset(longlpi, select=c("pointyear", "Point.Id", "year", "Spp"))
-  longlpi$Tally = 1
+  longlpi = lpi.summary(lpi)
 
   newlpi = dcast(longlpi, pointyear~Spp,value.var=c("Tally"), sum)
   newlpi = merge(newlpi, a, by="pointyear")
   pointyear = newlpi$pointyear
   firstdrops = c("Var.2", "NA", "NOPLANT", "M", "L", "EM", "AM", "R", "WL", "S")
   newlpi = newlpi[,!(names(newlpi) %in% firstdrops)]
+
   if(type == "absolute"){
     newlpi.relative = (newlpi[,3:ncol(newlpi)-1]/newlpi$NumIndices) *100
   } else if(type == "relative"){
