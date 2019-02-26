@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1551202562247.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E9AF8405",
+    "lastKnownWriteTime" : 1551202593,
+    "last_content_update" : 1551202593139,
+    "path" : "~/Point Blue 2019/RMN/R/soil_add.soilcolumns&read.date.R",
+    "project_path" : "R/soil_add.soilcolumns&read.date.R",
+    "properties" : {
+        "cursorPosition" : "32,0",
+        "scrollLine" : "1",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
