@@ -20,6 +20,7 @@ functional.cover.plot = function(lpi, type = "absolute"){
   library(ggplot2)
 
   abs = functional.cover.table(lpi, type = type)
+  abs$NumIndices = NULL
   abs = melt(abs, id = c("pointyear", "Point.Id", "year"))
   names(abs)<-c("pointyear", "Point.Id", "year", "Type", "Cover")
   d = abs
