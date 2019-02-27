@@ -15,7 +15,10 @@
 #'
 
 
-functional.cover.plot = function(lpi, type = "absolute"){
+functional.cover.plot = function(lpi,
+                                 type = "absolute",
+                                 xlab = "Functional Group",
+                                 ylab = "Percent Cover"){
 
   library(ggplot2)
 
@@ -35,18 +38,6 @@ functional.cover.plot = function(lpi, type = "absolute"){
   coveryear$change = coveryear$Cover.y - coveryear$Cover.x
 
 
-  x = aggregate(coveryear, by = list(coveryear$Type), FUN = "mean")
-  x = subset(x, select = c(Group.1, change))
-  y = aggregate(coveryear, by = list(coveryear$Type), FUN = "se")
-  y = subset(y, select = c(Group.1, change))
-  colnames(x) = c("Functional_Group", "Percent_Change")
-  colnames(y) = c("Functional_Group", "Standard_error")
-
-  x$Percent_Change = x$Percent_Change * 100
-  y$Standard_error = y$Standard_error * 100
-
-  coverchange = merge(x, y, by = "Functional_Group")
-
   a = aggregate(coveryear, by = list(coveryear$Type), FUN = "mean")
   a = subset(a, select = c("Group.1", "Cover.y"))
   colnames(a) = c("Functional_Group", "Percent_Cover")
@@ -57,7 +48,16 @@ functional.cover.plot = function(lpi, type = "absolute"){
   current_cover = merge(a, b, by = "Functional_Group")
 
   cover_plot = ggplot(current_cover, aes(x = Functional_Group, y = Percent_Cover)) +
-    geom_col() + theme_bw() + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_errorbar(ymin = (current_cover$Percent_Cover - current_cover$Standard_error), ymax = (current_cover$Percent_Cover + current_cover$Standard_error), width = 0.5) + ylim(0, (max(current_cover$Percent_Cover) + max(current_cover$Standard_error)))
+    geom_col() +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    geom_errorbar(ymin = (current_cover$Percent_Cover - current_cover$Standard_error),
+                  ymax = (current_cover$Percent_Cover + current_cover$Standard_error),
+                  width = 0.5) +
+    ylim(0, (max(current_cover$Percent_Cover) +
+               max(current_cover$Standard_error))) +
+    xlab(xlab) +
+    ylab(ylab)
 
   return(cover_plot)
 

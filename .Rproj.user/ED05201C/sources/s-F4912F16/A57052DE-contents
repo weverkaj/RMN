@@ -15,7 +15,16 @@
 #'
 
 
-functional.cover.change.plot = function(lpi, type = "absolute"){
+functional.cover.change.plot = function(lpi,
+                                        type = "absolute",
+                                        xlab = "Functional Group",
+                                        ylab = paste("Cover Change",
+                                                     " ",
+                                                     min(levels(abs$year)),
+                                                     "-",
+                                                     max(levels(abs$year)),
+                                                     sep = ""))
+  {
 
   library(ggplot2)
 
@@ -41,26 +50,19 @@ functional.cover.change.plot = function(lpi, type = "absolute"){
   colnames(x) = c("Functional_Group", "Percent_Change")
   colnames(y) = c("Functional_Group", "Standard_error")
 
-  x$Percent_Change = x$Percent_Change
-  y$Standard_error = y$Standard_error
-
   coverchange = merge(x, y, by = "Functional_Group")
 
-  a = aggregate(coveryear, by = list(coveryear$Type), FUN = "mean")
-  a = subset(a, select = c("Group.1", "Cover.y"))
-  colnames(a) = c("Functional_Group", "Percent_Cover")
-  b = aggregate(coveryear, by = list(coveryear$Type), FUN = "se")
-  b = subset(b, select = c("Group.1", "Cover.y"))
-  colnames(b) = c("Functional_Group", "Standard_error")
-
-  current_cover = merge(a, b, by = "Functional_Group")
 
   c = ggplot(coverchange, aes(x = Functional_Group, y = Percent_Change)) +
-    geom_col() + theme_bw() + theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    geom_col() +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     geom_errorbar(ymin = coverchange$Percent_Change - coverchange$Standard_error,
                   ymax = coverchange$Percent_Change + coverchange$Standard_error, width = 0.5) +
     ylim((min(coverchange$Percent_Change) - max(coverchange$Standard_error)),
-         (max(coverchange$Percent_Change) + max(coverchange$Standard_error)))
+         (max(coverchange$Percent_Change) + max(coverchange$Standard_error))) +
+    xlab(label = xlab) +
+    ylab(label = ylab)
 
   return(c)
 
