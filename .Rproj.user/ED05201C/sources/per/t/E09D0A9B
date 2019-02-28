@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1551391728098.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2850924652",
+    "id" : "E09D0A9B",
+    "lastKnownWriteTime" : 1551391761,
+    "last_content_update" : 1551391761323,
+    "path" : "~/Point Blue 2019/RMN/R/veg_species.list.R",
+    "project_path" : "R/veg_species.list.R",
+    "properties" : {
+        "cursorPosition" : "9,47",
+        "scrollLine" : "8",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
