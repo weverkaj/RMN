@@ -17,7 +17,7 @@
 
 
 data.sum = function(data, transect){
-
+  library(gridExtra)
   data1 = subset(data, data$Transect == transect)
 
   if(is.na(data1$Carbon.10.40.survey)){
@@ -41,5 +41,5 @@ data.sum = function(data, transect){
 
 
 
-  gridExtra::grid.table(data2,theme= ttheme_default(base_size=10), rows = NULL)
+  grid.table(data2,theme= ttheme_default(base_size=10), rows = NULL)
 }
