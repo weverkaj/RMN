@@ -31,6 +31,8 @@ compaction.plot<-function(data, transect, labels = TRUE, pointcolors = c("black"
   library(reshape2)
   library(dplyr)
   library(ggplot2)
+  library(soiltexture)
+  library(ggrepel)
   masked = data %>% prepare.soil.triangle(Inftarget = Inftarget)
   masked$Transect = as.character(replace(as.character(masked$Transect), masked$Transect != transect, values = "zzzz"))
 
