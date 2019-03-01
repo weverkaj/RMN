@@ -4,7 +4,8 @@
 \alias{functional.cover.plot}
 \title{Functional cover summary plot}
 \usage{
-functional.cover.plot(lpi, type = "absolute")
+functional.cover.plot(lpi, type = "absolute",
+  xlab = "Functional Group", ylab = "Percent Cover")
 }
 \arguments{
 \item{lpi}{A dataframe object of lpi data from a veg survey\}

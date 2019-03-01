@@ -4,7 +4,9 @@
 \alias{functional.cover.change.plot}
 \title{Functional cover change summary plot}
 \usage{
-functional.cover.change.plot(lpi, type = "absolute")
+functional.cover.change.plot(lpi, type = "absolute",
+  xlab = "Functional Group", ylab = paste("Cover Change", " ",
+  min(levels(abs$year)), "-", max(levels(abs$year)), sep = ""))
 }
 \arguments{
 \item{lpi}{A dataframe object of lpi data from a veg survey}

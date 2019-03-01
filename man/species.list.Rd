@@ -4,12 +4,14 @@
 \alias{species.list}
 \title{Create species list for veg data}
 \usage{
-species.list(lpi, releve)
+species.list(lpi, releve, surveyyear = levels(as.factor(lpi$year)))
 }
 \arguments{
 \item{lpi}{A dataframe object of lpi data from a veg survey}
 
 \item{releve}{A dataframe object of releve data from a veg survey}
+
+\item{year}{Year for which to generate list}
 }
 \value{
 A species list for a given dataset

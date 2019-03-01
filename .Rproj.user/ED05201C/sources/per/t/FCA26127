@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1551481896605.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1824395094",
+    "id" : "FCA26127",
+    "lastKnownWriteTime" : 1551481991,
+    "last_content_update" : 1551481991513,
+    "path" : "~/Point Blue 2019/RMN/R/veg_functional.cover.table.R",
+    "project_path" : "R/veg_functional.cover.table.R",
+    "properties" : {
+        "cursorPosition" : "7,48",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
