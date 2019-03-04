@@ -25,7 +25,7 @@ data.sum = function(data, transect){
 
   pc = function(x){(diff(x)/x[1]) * 100}
 
-  if(nlevels(data1$YEAR == 1)){
+  if(nlevels(data1$YEAR == 1))?{
 
     data2 = subset(data1,select=c("Point","Carbon.0.10.cm", "Carbon.10.40.cm",
                                   "Bulk.Density", "Infilt1"))
