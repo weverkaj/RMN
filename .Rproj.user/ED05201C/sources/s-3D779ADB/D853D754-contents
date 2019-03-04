@@ -28,7 +28,7 @@ functional.cover.change.plot = function(lpi,
 
   library(ggplot2)
 
-  abs = functional.cover.table(lpi, type = type, year = levels(as.factor(lpi$year)))
+  abs = functional.cover.table(lpi, type = type, surveyyear = levels(as.factor(lpi$year)))
   abs$NumIndices = NULL
   abs = melt(abs, id = c("pointyear", "Point.Id", "year"))
   names(abs)<-c("pointyear", "Point.Id", "year", "Type", "Cover")
