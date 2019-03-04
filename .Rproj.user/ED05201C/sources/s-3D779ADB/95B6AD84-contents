@@ -25,37 +25,15 @@
 
 percent.change.plot = function(data, transect, legendnames = c(transect, "Others"), legendtitle = "Ranch",
                                boxcolors = c("black", "gray"), xlabels = c("Carbon 0-10 cm", "Carbon 10-40 cm", "Bulk Density"),
-                               ylab = "% Change", choosevariables = c("Carbon010change", "Carbon1040change","Bulk.density.change"))
-{
+                               ylab = "% Change", choosevariables = c("Carbon010change", "Carbon1040change","Bulk.density.change")){
 
   library(reshape2)
   library(dplyr)
   library(ggplot2)
   library(ggrepel)
-  pc = function(x){(diff(x)/x[1]) * 100}
-
-  duped = data$Point[duplicated(data$Point)]
-  data = data[data$Point %in% duped,]
-  if(!(transect %in% data$Transect)){stop("Transect does not contain multiple surveys")}
-  data$YEAR = as.factor(data$YEAR)
-
-
-  data2 = subset(data,select=c("Point", "Transect", "YEAR", "Carbon.0.10.cm", "Carbon.10.40.cm",
-                               "Bulk.Density"))
-
-  aggs = aggregate(data2[4:6], by = list(data2$Point), pc)
-  colnames(aggs) = c("Point", "Change.Carbon0-10", "Change.Carbon10-40", "BD")
-  data2 = subset(data2, YEAR == max(levels(data2$YEAR)))
-  data2 = merge(data2, aggs, by= "Point", all = TRUE)
-
-
-
-
-  masked = data2
+  masked = data
   masked$Transect = as.character(replace(as.character(masked$Transect), masked$Transect != transect, values = "zzzz"))
   masked = masked %>% arrange(desc(Transect))
-
-  colnames(masked)[7:9] = c("Carbon010change", "Carbon1040change","Bulk.density.change")
 
   masked = subset(masked, select = c("Point", "Transect" , choosevariables))
 
@@ -68,6 +46,7 @@ percent.change.plot = function(data, transect, legendnames = c(transect, "Others
     scale_x_discrete(labels = xlabels) +
     ylab(ylab) +
     xlab(NULL)
+
 
 }
 

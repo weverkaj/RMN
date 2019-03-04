@@ -47,7 +47,7 @@ soil.final.cleanup = function(survey_sums){
 
 
 
-prepare.soil.triangle = function(data, Inftarget = 10){
+prepare.soil.triangle = function(data, Inftarget = 3.81){
   library(stringr)
   if(any(is.na(data$CLAY))){
     removed = nrow(data[is.na(data$CLAY),])
@@ -72,8 +72,8 @@ prepare.soil.triangle = function(data, Inftarget = 10){
 
 
 
-  data1$Infilt_dist = data1$Infilt_target - data1$Infilt1.survey
-  data1$BD_dist = data1$BD_target - data1$Bulk.Density.survey
+  data1$Infilt_dist = data1$Infilt_target - data1$Infilt1
+  data1$BD_dist = data1$BD_target - data1$Bulk.Density
 
   data1$Location<-str_sub(data1$Point, -2)
 
