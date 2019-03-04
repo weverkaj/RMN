@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1551728673160.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "DDE941D",
+    "lastKnownWriteTime" : 1551733653,
+    "last_content_update" : 1551733653334,
+    "path" : "~/Point Blue 2019/RMN/R/soil_data.sum.R",
+    "project_path" : "R/soil_data.sum.R",
+    "properties" : {
+        "cursorPosition" : "46,45",
+        "scrollLine" : "36",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
