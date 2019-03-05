@@ -2,30 +2,31 @@
 #'
 #' @description For veg data, summarizes cover of shrubs, trees, litter, thatch, bare ground. Tree and shrub covers come from releve estimates
 #'
-#' @param checklist A dataframe object of checklist data from a veg survey
+#' @param releve A dataframe object of releve data from a veg survey
 #' @param lpi A dataframe object of lpi data from a veg survey
 #' @param surveyyear The years for which to make the summary
 #' @param choose.variable Character vector that identifies which variables to summarize. Defaults to Species Richness, Litter, Thatch, Bare Ground, Trees, and Shrubs
 #'
 #' @return A summary of cover
 #'
-#' @examples data = cover.summary(checklist, lpi)
+#' @examples data = cover.summary(releve, lpi)
 #'
 #' @export cover.summary
 #'
 #'
 
 
-cover.summary = function(lpi, checklist, surveyyear = c(levels(as.factor(lpi$year)), levels(as.factor(checklist$year))),
+cover.summary = function(lpi, releve, surveyyear = c(levels(as.factor(lpi$year)), levels(as.factor(releve$year))),
                          choose.variable = c("SpeciesRichness", "Litter", "Thatch",
                                              "BareGround", "Trees", "Shrubs")){
 
   library(reshape2)
   library(ggplot2)
-  checklist = subset(checklist, checklist$year %in% surveyyear)
-  lpi = subset(lpi, lpi$year %in% surveyyear)
+  library(dplyr)
+  releve = subset(releve, year %in% surveyyear)
+  lpi = subset(lpi, year %in% surveyyear)
 
-  covsum<- ddply(checklist, .(Vegetation.Type, pointyear), summarise, Percent.Cover=sum(Percent.Cover), .drop=F)
+  covsum<- ddply(releve, .(Vegetation.Type, pointyear), summarise, Percent.Cover=sum(Percent.Cover), .drop=F)
   shrubs<-subset(covsum, subset=covsum$Vegetation.Type == "shrubs")
   colnames(shrubs) = c("covertype", "pointyear", "Shrubcover")
   shrubs = subset(shrubs, select = c("pointyear", "Shrubcover"))
@@ -79,8 +80,8 @@ cover.summary = function(lpi, checklist, surveyyear = c(levels(as.factor(lpi$yea
 
   longlpi<-melt(layers, id="pointyear")
   names(longlpi)<-c("pointyear", "Layer", "Spp")
-  checklist$Layer<-"extras"
-  extras<-subset(checklist, select=c("pointyear", "Layer", "USDA.Code"))
+  releve$Layer<-"extras"
+  extras<-subset(releve, select=c("pointyear", "Layer", "USDA.Code"))
   names(extras)<-c("pointyear", "Layer", "Spp")
 
   both<-rbind(longlpi, extras)

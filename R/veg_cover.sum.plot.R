@@ -39,7 +39,9 @@ cover.sum.plot = function(lpi, releve,
                           )
   {
   library(ggplot2)
-  datasum = cover.summary(releve, lpi, choose.variable = choose.variable)
+  library(dplyr)
+  library(reshape2)
+  datasum = cover.summary(lpi = lpi, releve = releve, choose.variable = choose.variable, surveyyear = surveyyear)
   datasum$NumIndices = NULL
 
   if(isFALSE(multiple_years)){datasum = subset(datasum, subset = datasum$year == max(datasum$year))}

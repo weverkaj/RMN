@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1551818505286.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "715C71F2",
+    "lastKnownWriteTime" : 32932997484183620,
+    "last_content_update" : 1551818505286,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "B9CCE073",
+        "caption" : "covsum",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=covsum&cache_key=B9CCE073",
+        "displayedObservations" : 171,
+        "environment" : "",
+        "object" : "covsum",
+        "preview" : 0,
+        "totalObservations" : 171,
+        "variables" : 3
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
