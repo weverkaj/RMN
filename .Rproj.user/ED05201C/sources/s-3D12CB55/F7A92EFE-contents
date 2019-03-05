@@ -3,6 +3,10 @@
 #' @description For veg data, summarizes change in mean cover of functional groups for a property
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
+#' @param surveyyear The years for which to make the plot
+#' @param type "absolute" or "relative" cover
+#' @param xlab,ylab Axis Labels
+#'
 #'
 #' @return A ggplot of functional cover change with error bars
 #'
@@ -16,6 +20,7 @@
 
 
 functional.cover.change.plot = function(lpi,
+                                        surveyyear = levels(as.factor(lpi$year)),
                                         type = "absolute",
                                         xlab = "Functional Group",
                                         ylab = paste("Cover Change",
@@ -28,7 +33,7 @@ functional.cover.change.plot = function(lpi,
 
   library(ggplot2)
 
-  abs = functional.cover.table(lpi, type = type, surveyyear = levels(as.factor(lpi$year)))
+  abs = functional.cover.table(lpi, type = type, surveyyear = surveyyear)
   abs$NumIndices = NULL
   abs = melt(abs, id = c("pointyear", "Point.Id", "year"))
   names(abs)<-c("pointyear", "Point.Id", "year", "Type", "Cover")

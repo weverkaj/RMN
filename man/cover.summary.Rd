@@ -4,13 +4,17 @@
 \alias{cover.summary}
 \title{Create cover summary table for veg data}
 \usage{
-cover.summary(checklist, lpi, choose.variable = c("SpeciesRichness",
-  "Litter", "Thatch", "BareGround", "Trees", "Shrubs"))
+cover.summary(lpi, checklist, surveyyear = c(levels(as.factor(lpi$year)),
+  levels(as.factor(checklist$year))),
+  choose.variable = c("SpeciesRichness", "Litter", "Thatch",
+  "BareGround", "Trees", "Shrubs"))
 }
 \arguments{
+\item{lpi}{A dataframe object of lpi data from a veg survey}
+
 \item{checklist}{A dataframe object of checklist data from a veg survey}
 
-\item{lpi}{A dataframe object of lpi data from a veg survey}
+\item{surveyyear}{The years for which to make the summary}
 
 \item{choose.variable}{Character vector that identifies which variables to summarize. Defaults to Species Richness, Litter, Thatch, Bare Ground, Trees, and Shrubs}
 }

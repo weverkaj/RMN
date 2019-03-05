@@ -4,6 +4,7 @@
 #'
 #' @param checklist A dataframe object of checklist data from a veg survey
 #' @param lpi A dataframe object of lpi data from a veg survey
+#' @param surveyyear The years for which to make the summary
 #' @param choose.variable Character vector that identifies which variables to summarize. Defaults to Species Richness, Litter, Thatch, Bare Ground, Trees, and Shrubs
 #'
 #' @return A summary of cover
@@ -15,10 +16,15 @@
 #'
 
 
-cover.summary = function(checklist, lpi, choose.variable = c("SpeciesRichness", "Litter", "Thatch", "BareGround", "Trees", "Shrubs")){
+cover.summary = function(lpi, checklist, surveyyear = c(levels(as.factor(lpi$year)), levels(as.factor(checklist$year))),
+                         choose.variable = c("SpeciesRichness", "Litter", "Thatch",
+                                             "BareGround", "Trees", "Shrubs")){
 
   library(reshape2)
   library(ggplot2)
+  checklist = subset(checklist, checklist$year %in% surveyyear)
+  lpi = subset(lpi, lpi$year %in% surveyyear)
+
   covsum<- ddply(checklist, .(Vegetation.Type, pointyear), summarise, Percent.Cover=sum(Percent.Cover), .drop=F)
   shrubs<-subset(covsum, subset=covsum$Vegetation.Type == "shrubs")
   colnames(shrubs) = c("covertype", "pointyear", "Shrubcover")

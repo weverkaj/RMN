@@ -4,6 +4,7 @@
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
 #' @param type Type of cover to calculate - either "absolute" or "relative"
+#' @param surveyyear Years for which to make the plot. Default is all available years
 #' @param invasives Boolean that specifies whether to count invasive species as a separate functional group
 #' @param legend.position string specifying legend position
 #' @param pallete String identifying color scheme passed to scale_fill_brewer
@@ -18,10 +19,11 @@
 #'
 #'
 
-points.cover.plot = function(lpi, type = "absolute", invasives = FALSE, legend.position = "top",
+points.cover.plot = function(lpi, type = "absolute", surveyyear = levels(as.factor(lpi$year)),
+                             invasives = FALSE, legend.position = "top",
                              pallete = "YlGnBu", x.angle = 45){
   library(ggplot2)
-  fct = functional.cover.table(lpi = lpi, type = type, invasives = invasives, surveyyear = levels(as.factor(lpi$year)))
+  fct = functional.cover.table(lpi = lpi, type = type, invasives = invasives, surveyyear = surveyyear)
 
 
   abs<- fct[,colnames(fct) != "NumIndices"]
