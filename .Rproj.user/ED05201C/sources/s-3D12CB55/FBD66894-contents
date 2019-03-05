@@ -21,7 +21,7 @@
 points.cover.plot = function(lpi, type = "absolute", invasives = FALSE, legend.position = "top",
                              pallete = "YlGnBu", x.angle = 45){
   library(ggplot2)
-  fct = functional.cover.table(lpi = lpi, type = type, invasives = invasives)
+  fct = functional.cover.table(lpi = lpi, type = type, invasives = invasives, surveyyear = levels(as.factor(lpi$year)))
 
 
   abs<- fct[,colnames(fct) != "NumIndices"]

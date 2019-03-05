@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1551809238458.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E088D466",
+    "lastKnownWriteTime" : 1551810371,
+    "last_content_update" : 1551810371787,
+    "path" : "~/Point Blue 2019/Figure_code_development/veg_code/VegCode4RWIv1_test.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "65,6",
+        "last_setup_crc32" : "",
+        "scrollLine" : "64"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
