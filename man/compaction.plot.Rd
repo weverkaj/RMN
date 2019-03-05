@@ -4,8 +4,9 @@
 \alias{compaction.plot}
 \title{Make a soil compaction plot}
 \usage{
-compaction.plot(data, transect, labels = TRUE, pointcolors = c("black",
-  "gray"), legend = FALSE, legendnames = c(transect, "Others"),
+compaction.plot(data, transect, year, labels = TRUE,
+  pointcolors = c("black", "gray"), legend = FALSE,
+  legendnames = c(transect, "Others"),
   xlab = "Bulk density, distance from target",
   ylab = "Infiltration, distance from target", box.padding = 0.5,
   linetype = "dashed", Inftarget = 3.81, xlims = c(NA, NA),

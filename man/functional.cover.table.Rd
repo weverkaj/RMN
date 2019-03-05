@@ -14,7 +14,7 @@ functional.cover.table(lpi, type = "absolute", invasives = FALSE,
 
 \item{invasives}{Boolean that specifies whether to count invasive species as a separate functional group}
 
-\item{year}{Year for which to calculate cover}
+\item{surveyyear}{Year for which to calculate cover}
 }
 \value{
 A dataframe summary of cover of functional groups

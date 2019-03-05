@@ -4,7 +4,7 @@
 \alias{texture.triangle.plot}
 \title{Make a soil texture triangle}
 \usage{
-texture.triangle.plot(data, transect, labels = TRUE, pch = 16,
+texture.triangle.plot(data, transect, year, labels = TRUE, pch = 16,
   main = paste("Soil Texture - ", transect), cex.axis = 0.5,
   cex.lab = 0.75, cex.main = 0.75, text.tol = 0.2,
   tri.sum.tst = FALSE, cex = 0.75, frame.bg.col = "white",

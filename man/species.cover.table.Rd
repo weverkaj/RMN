@@ -12,7 +12,7 @@ species.cover.table(lpi, type = "absolute",
 
 \item{type}{Denotes type of cover to calculate"absolute" or "relative"}
 
-\item{year}{The year for which to generate the summary}
+\item{surveyyear}{The year for which to generate the summary}
 }
 \value{
 A dataframe summary of cover of species

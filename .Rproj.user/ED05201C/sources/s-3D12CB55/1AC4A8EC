@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1551812345791.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "1AC4A8EC",
+    "lastKnownWriteTime" : 1551204412,
+    "last_content_update" : 1551204412,
+    "path" : "~/Point Blue 2019/RMN/R/veg_cover.summary.R",
+    "project_path" : "R/veg_cover.summary.R",
+    "properties" : {
+        "cursorPosition" : "20,18",
+        "scrollLine" : "4",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
