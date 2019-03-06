@@ -4,12 +4,14 @@
 \alias{data.sum}
 \title{Make a table to summarize data}
 \usage{
-data.sum(data, transect)
+data.sum(data, transect, surveyyear = levels(as.factor(data$YEAR)))
 }
 \arguments{
 \item{data}{dataframe, output of soil.final.cleanup()}
 
 \item{transect}{Character string of selected ranch code}
+
+\item{surveyyear}{Years for which to use data}
 }
 \value{
 Shows soil data in a nice-looking table

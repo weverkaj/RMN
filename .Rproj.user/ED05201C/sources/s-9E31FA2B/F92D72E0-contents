@@ -28,7 +28,7 @@ data.sum = function(data, transect, surveyyear = levels(as.factor(data$YEAR))){
 
   pc = function(x){(diff(x)/x[1]) * 100}
 
-  if(nlevels(as.factor(surveyyear)) == 1){
+  if(nlevels(as.factor(surveyyear))){
 
     data2 = subset(data1,select=c("Point","Carbon.0.10.cm", "Carbon.10.40.cm",
                                   "Bulk.Density", "Infilt1"))
