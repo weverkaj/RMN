@@ -5,10 +5,17 @@
 \title{Functional cover summary plot}
 \usage{
 functional.cover.plot(lpi, type = "absolute",
+  surveyyear = max(levels(as.factor(lpi$year))),
   xlab = "Functional Group", ylab = "Percent Cover")
 }
 \arguments{
-\item{lpi}{A dataframe object of lpi data from a veg survey\}
+\item{lpi}{A dataframe object of lpi data from a veg survey}
+
+\item{type}{"absolute" or "relative" cover}
+
+\item{surveyyear}{The year for which to calculate cover}
+
+\item{xlab, ylab}{Axis labels}
 }
 \value{
 A ggplot of functional cover with error bars

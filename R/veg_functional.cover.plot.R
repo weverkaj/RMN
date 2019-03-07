@@ -2,7 +2,10 @@
 #'
 #' @description For veg data, summarizes and plots mean cover of functional groups for a property
 #'
-#' @param lpi A dataframe object of lpi data from a veg survey\
+#' @param lpi A dataframe object of lpi data from a veg survey
+#' @param type "absolute" or "relative" cover
+#' @param surveyyear The year for which to calculate cover
+#' @param xlab,ylab Axis labels
 #'
 #' @return A ggplot of functional cover with error bars
 #'
@@ -17,12 +20,13 @@
 
 functional.cover.plot = function(lpi,
                                  type = "absolute",
+                                 surveyyear = max(levels(as.factor(lpi$year))),
                                  xlab = "Functional Group",
                                  ylab = "Percent Cover"){
 
   library(ggplot2)
 
-  abs = functional.cover.table(lpi, type = type)
+  abs = functional.cover.table(lpi, type = type, surveyyear = surveyyear)
   abs$NumIndices = NULL
   abs = melt(abs, id = c("pointyear", "Point.Id", "year"))
   names(abs)<-c("pointyear", "Point.Id", "year", "Type", "Cover")

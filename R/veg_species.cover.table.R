@@ -4,7 +4,7 @@
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
 #' @param type Denotes type of cover to calculate"absolute" or "relative"
-#' @param year The year for which to generate the summary
+#' @param surveyyear The year for which to generate the summary
 #'
 #' @return A dataframe summary of cover of species
 #'

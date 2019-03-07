@@ -4,8 +4,9 @@
 \alias{percent.change.plot}
 \title{Make a percent change boxplot of soil carbon and bulk Density}
 \usage{
-percent.change.plot(data, transect, legendnames = c(transect, "Others"),
-  legendtitle = "Ranch", boxcolors = c("black", "gray"),
+percent.change.plot(data, transect,
+  surveyyear = levels(as.factor(data$YEAR)), legendnames = c(transect,
+  "Others"), legendtitle = "Ranch", boxcolors = c("black", "gray"),
   xlabels = c("Carbon 0-10 cm", "Carbon 10-40 cm", "Bulk Density"),
   ylab = "\% Change", choosevariables = c("Carbon010change",
   "Carbon1040change", "Bulk.density.change"))
@@ -14,6 +15,8 @@ percent.change.plot(data, transect, legendnames = c(transect, "Others"),
 \item{data}{from output of soil.final.cleanup()}
 
 \item{transect}{Character string of selected ranch code}
+
+\item{surveyyear}{Years for which to make summary}
 
 \item{legendnames}{specifies how points are named on the legend}
 

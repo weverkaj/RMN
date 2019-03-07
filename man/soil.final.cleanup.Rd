@@ -4,7 +4,7 @@
 \alias{soil.final.cleanup}
 \title{Prepare soil data to make figures}
 \usage{
-soil.final.cleanup(paired_data, first = FALSE)
+soil.final.cleanup(survey_sums)
 }
 \arguments{
 \item{paired_data}{from output of pair.data}

@@ -5,7 +5,7 @@
 #' @param lpi A dataframe object of lpi data from a veg survey
 #' @param type Type of cover to calculate - either "absolute" or "relative"
 #' @param invasives Boolean that specifies whether to count invasive species as a separate functional group
-#' @param year Year for which to calculate cover
+#' @param surveyyear Year for which to calculate cover
 #'
 #' @return A dataframe summary of cover of functional groups
 #'

@@ -26,24 +26,22 @@
 #   Test Package:              'Ctrl + Shift + T'
 
 
-carbon.plot<-function(data, transect, labels = TRUE, pointcolors = c("black", "gray"),
+carbon.plot<-function(data, transect, year, labels = TRUE, pointcolors = c("black", "gray"),
                       legend = FALSE, legendnames = c(transect, "Others"), box.padding = 0.5, xlab = "% Carbon 0-10 cm", ylab = "% Carbon 10-40 cm"){
 
   library(ggplot2)
   library(ggrepel)
   library(dplyr)
 
+  data = subset(data, data$YEAR %in% year)
   masked = data
-  masked$Transect = as.character(replace(as.character(soil$Transect), soil$Transect != transect, values = "zzzz"))
+  masked$Transect = as.character(replace(as.character(masked$Transect), masked$Transect != transect, values = "zzzz"))
+
+  masked2 = masked[!is.na(masked$Carbon.0.10.cm) & !is.na(masked$Carbon.10.40.cm),]
 
 
-  masked1 = masked[is.na(masked$Carbon.0.10.survey) & is.na(masked$Carbon.10.40.survey),]
-  masked2 = masked[!is.na(masked$Carbon.0.10.survey) & !is.na(masked$Carbon.10.40.survey),]
+  masked_soil = arrange(masked2, desc(Transect))
 
-  masked1[10:16] = masked[,3:9]
-
-  masked_soil = rbind(masked1, masked2)
-  masked_soil = arrange(masked_soil, desc(Transect))
 
 
   if(isTRUE(labels)){
@@ -52,13 +50,11 @@ carbon.plot<-function(data, transect, labels = TRUE, pointcolors = c("black", "g
     labs = NA
   }
 
-  ggplot(masked_soil, aes(x = Carbon.10.40.survey, y = Carbon.0.10.survey, color = Transect)) +
+  ggplot(masked_soil, aes(x = Carbon.10.40.cm, y = Carbon.0.10.cm, color = Transect)) +
     geom_point() +
     scale_color_manual(values = pointcolors, labels = legendnames, guide = legend) +
     theme_bw() +
     xlab(xlab) + ylab(ylab) +
     geom_label_repel(aes(label = ifelse(Transect == transect, labs, NA)), box.padding = box.padding)
-
-
 
 }

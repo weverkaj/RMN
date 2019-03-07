@@ -4,10 +4,10 @@
 \alias{carbon.plot}
 \title{Carbon Plot}
 \usage{
-carbon.plot(data, transect, labels = TRUE, pointcolors = c("black",
-  "gray"), legend = FALSE, legendnames = c(transect, "Others"),
-  box.padding = 0.5, xlab = "\% Carbon 0-10 cm",
-  ylab = "\% Carbon 10-40 cm")
+carbon.plot(data, transect, year, labels = TRUE,
+  pointcolors = c("black", "gray"), legend = FALSE,
+  legendnames = c(transect, "Others"), box.padding = 0.5,
+  xlab = "\% Carbon 0-10 cm", ylab = "\% Carbon 10-40 cm")
 }
 \arguments{
 \item{data}{from output of soil.final.cleanup()}

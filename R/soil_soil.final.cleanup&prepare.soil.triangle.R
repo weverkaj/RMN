@@ -24,34 +24,19 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
-soil.final.cleanup = function(paired_data, first = FALSE){
+soil.final.cleanup = function(survey_sums){
+
+  library(stringr)
+
+
+  soil = survey_sums
 
 
 
+  soil$CLAY<-soil$Clay.10.40.cm
+  soil$SILT<-soil$Silt.10.40.cm
+  soil$SAND<-soil$Sand.10.40.cm
 
-  if(isTRUE(first)){
-
-  soil<-subset(paired_data,select=c("Point","Transect","Carbon.0.10.survey1", "Carbon.10.40.survey1","Bulk.Density.survey1","Infilt1.survey1","Clay.10.40.cm.survey1", "Sand.10.40.cm.survey1", "Silt.10.40.cm.survey1","carbon.0.10.per_delta","carbon.10.40.per_delta","Infilt.per_delta","Bulk.Density.per_delta"))
-  names(soil)<-c("Point","Transect","Carbon.0.10.survey","Carbon.10.40.survey","Bulk.Density.survey","Infilt1.survey","Clay.10.40.cm.survey", "Sand.10.40.cm.survey", "Silt.10.40.cm.survey","Carbon010change","Carbon1040change","Infiltration.change","Bulk.density.change")
-  soil$CLAY<-soil$Clay.10.40.cm.survey
-  soil$SILT<-soil$Silt.10.40.cm.survey
-  soil$SAND<-soil$Sand.10.40.cm.survey
-  warning("Texture data taken from first survey")
-  } else if(isFALSE(first)){
-
-    soil<-subset(paired_data,select=c("Point","Transect","Carbon.0.10.survey1", "Carbon.10.40.survey1","Bulk.Density.survey1","Infilt1.survey1","Clay.10.40.cm.survey1", "Sand.10.40.cm.survey1", "Silt.10.40.cm.survey1","Carbon.0.10.survey2", "Carbon.10.40.survey2","Bulk.Density.survey2","Infilt1.survey2","Clay.10.40.cm.survey2", "Sand.10.40.cm.survey2", "Silt.10.40.cm.survey2","carbon.0.10.per_delta","carbon.10.40.per_delta","Infilt.per_delta","Bulk.Density.per_delta"))
-    names(soil)<-c("Point","Transect","Carbon.0.10.survey1","Carbon.10.40.survey1","Bulk.Density.survey1","Infilt1.survey1","Clay.10.40.cm.survey1", "Sand.10.40.cm.survey1", "Silt.10.40.cm.survey1","Carbon.0.10.survey","Carbon.10.40.survey","Bulk.Density.survey","Infilt.survey","Clay.10.40.cm.survey", "Sand.10.40.cm.survey", "Silt.10.40.cm.survey","Carbon010change","Carbon1040change","Infiltration.change","Bulk.density.change")
-
-
-    soil$CLAY = soil$Clay.10.40.cm.survey
-    soil$SILT = soil$Silt.10.40.cm.survey
-    soil$SAND = soil$Sand.10.40.cm.survey
-
-    soil$CLAY[is.na(soil$CLAY)] = soil$Clay.10.40.cm.survey1[is.na(soil$CLAY)]
-    soil$SILT[is.na(soil$SILT)] = soil$Silt.10.40.cm.survey1[is.na(soil$SILT)]
-    soil$SAND[is.na(soil$SAND)] = soil$Sand.10.40.cm.survey1[is.na(soil$SAND)]
-
-  }
 
 
 
@@ -62,7 +47,7 @@ soil.final.cleanup = function(paired_data, first = FALSE){
 
 
 
-prepare.soil.triangle = function(data, Inftarget = 10){
+prepare.soil.triangle = function(data, Inftarget = 3.81){
   library(stringr)
   if(any(is.na(data$CLAY))){
     removed = nrow(data[is.na(data$CLAY),])
@@ -87,8 +72,8 @@ prepare.soil.triangle = function(data, Inftarget = 10){
 
 
 
-  data1$Infilt_dist = data1$Infilt_target - data1$Infilt1.survey
-  data1$BD_dist = data1$BD_target - data1$Bulk.Density.survey
+  data1$Infilt_dist = data1$Infilt_target - data1$Infilt1
+  data1$BD_dist = data1$BD_target - data1$Bulk.Density
 
   data1$Location<-str_sub(data1$Point, -2)
 

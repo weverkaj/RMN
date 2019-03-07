@@ -4,13 +4,16 @@
 \alias{points.cover.plot}
 \title{Create a plot of cover for functional groups at each point}
 \usage{
-\method{points}{cover.plot}(lpi, type = "absolute", invasives = FALSE,
+\method{points}{cover.plot}(lpi, type = "absolute",
+  surveyyear = levels(as.factor(lpi$year)), invasives = FALSE,
   legend.position = "top", pallete = "YlGnBu", x.angle = 45)
 }
 \arguments{
 \item{lpi}{A dataframe object of lpi data from a veg survey}
 
 \item{type}{Type of cover to calculate - either "absolute" or "relative"}
+
+\item{surveyyear}{Years for which to make the plot. Default is all available years}
 
 \item{invasives}{Boolean that specifies whether to count invasive species as a separate functional group}
 

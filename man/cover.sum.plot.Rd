@@ -4,11 +4,13 @@
 \alias{cover.sum.plot}
 \title{Plot species richness and cover}
 \usage{
-cover.sum.plot(lpi, releve, choose.variable = c("SpeciesRichness",
-  "Litter", "Thatch", "BareGround", "Trees", "Shrubs"),
-  plot.names = c("Species Richness", "Litter", "Thatch", "Bare Ground",
-  "Trees", "Shrubs"), multiple_years = TRUE, barcolors = c("olivedrab",
-  "steelblue3", "mediumpurple4", "orange3", "tan2"), legend = TRUE,
+cover.sum.plot(lpi, releve, surveyyear = c(levels(as.factor(lpi$year)),
+  levels(as.factor(checklist$year))),
+  choose.variable = c("SpeciesRichness", "Litter", "Thatch",
+  "BareGround", "Trees", "Shrubs"), plot.names = c("Species Richness",
+  "Litter", "Thatch", "Bare Ground", "Trees", "Shrubs"),
+  multiple_years = TRUE, barcolors = c("olivedrab", "steelblue3",
+  "mediumpurple4", "orange3", "tan2"), legend = TRUE,
   legendname = "Year", xlab = "Point ID", ylab = "Value",
   xangle = 45)
 }
@@ -16,6 +18,8 @@ cover.sum.plot(lpi, releve, choose.variable = c("SpeciesRichness",
 \item{lpi}{A dataframe object of lpi data from a veg survey}
 
 \item{releve}{A dataframe object of releve data from a veg survey}
+
+\item{surveyyear}{The years for which to make the table}
 
 \item{choose.variable}{Character vector that identifies which variables to summarize. See cover.summary()}
 
