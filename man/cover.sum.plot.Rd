@@ -4,7 +4,8 @@
 \alias{cover.sum.plot}
 \title{Plot species richness and cover}
 \usage{
-cover.sum.plot(lpi, releve, surveyyear = c(levels(as.factor(lpi$year)),
+cover.sum.plot(lpi, releve, transect,
+  surveyyear = c(levels(as.factor(lpi$year)),
   levels(as.factor(checklist$year))),
   choose.variable = c("SpeciesRichness", "Litter", "Thatch",
   "BareGround", "Trees", "Shrubs"), plot.names = c("Species Richness",
@@ -18,6 +19,8 @@ cover.sum.plot(lpi, releve, surveyyear = c(levels(as.factor(lpi$year)),
 \item{lpi}{A dataframe object of lpi data from a veg survey}
 
 \item{releve}{A dataframe object of releve data from a veg survey}
+
+\item{transect}{Ranch for which to make the plot}
 
 \item{surveyyear}{The years for which to make the table}
 

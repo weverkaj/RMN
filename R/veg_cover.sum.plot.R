@@ -4,6 +4,7 @@
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
 #' @param releve A dataframe object of releve data from a veg survey
+#' @param transect Ranch for which to make the plot
 #' @param surveyyear The years for which to make the table
 #' @param choose.variable Character vector that identifies which variables to summarize. See cover.summary()
 #' @param plot.name Character vector of names of plots. If choose.variable is manually changed, then plot.names also needs to be changed.
@@ -24,6 +25,7 @@
 
 
 cover.sum.plot = function(lpi, releve,
+                          transect,
                           surveyyear = c(levels(as.factor(lpi$year)), levels(as.factor(checklist$year))),
                           choose.variable = c("SpeciesRichness", "Litter", "Thatch", "BareGround",
                                               "Trees", "Shrubs"),
@@ -39,9 +41,10 @@ cover.sum.plot = function(lpi, releve,
                           )
   {
   library(ggplot2)
+  library(plyr)
   library(dplyr)
   library(reshape2)
-  datasum = cover.summary(lpi = lpi, releve = releve, choose.variable = choose.variable, surveyyear = surveyyear)
+  datasum = cover.summary(lpi = lpi, releve = releve, transect = transect, choose.variable = choose.variable, surveyyear = surveyyear)
   datasum$NumIndices = NULL
 
   if(isFALSE(multiple_years)){datasum = subset(datasum, subset = datasum$year == max(datasum$year))}

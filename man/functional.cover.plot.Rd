@@ -4,7 +4,7 @@
 \alias{functional.cover.plot}
 \title{Functional cover summary plot}
 \usage{
-functional.cover.plot(lpi, type = "absolute",
+functional.cover.plot(lpi, type = "absolute", transect,
   surveyyear = max(levels(as.factor(lpi$year))),
   xlab = "Functional Group", ylab = "Percent Cover")
 }
@@ -12,6 +12,8 @@ functional.cover.plot(lpi, type = "absolute",
 \item{lpi}{A dataframe object of lpi data from a veg survey}
 
 \item{type}{"absolute" or "relative" cover}
+
+\item{transect}{Ranch for which to make plot}
 
 \item{surveyyear}{The year for which to calculate cover}
 

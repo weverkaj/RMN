@@ -4,11 +4,13 @@
 \alias{species.cover.table}
 \title{Create a table of cover for each species at each point}
 \usage{
-species.cover.table(lpi, type = "absolute",
+species.cover.table(lpi, transect, type = "absolute",
   surveyyear = max(levels(as.factor(lpi$year))))
 }
 \arguments{
 \item{lpi}{A dataframe object of lpi data from a veg survey}
+
+\item{transect}{Ranch for which to summarize cover}
 
 \item{type}{Denotes type of cover to calculate"absolute" or "relative"}
 
