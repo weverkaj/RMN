@@ -47,6 +47,7 @@ points.cover.plot = function(lpi, transect,
                                 "mediumpurple4", "firebrick4", "tan", "mistyrose", "yellowgreen")) +
     theme(axis.text.x = element_text(angle = x.angle, hjust = 1)) +
     facet_wrap(~Point.Id) +
+    theme_bw() +
     coord_flip()
   return(p)
 }
