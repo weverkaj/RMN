@@ -26,43 +26,23 @@ functional.cover.plot = function(lpi,
                                  surveyyear = max(levels(as.factor(lpi$year))),
                                  xlab = "Functional Group",
                                  ylab = "Percent Cover"){
-
   library(ggplot2)
 
-  abs = functional.cover.table(lpi, type = type, transect = transect, surveyyear = surveyyear, invasives = invasives)
-  abs$NumIndices = NULL
-  abs = melt(abs, id = c("pointyear", "Point.Id", "year"))
-  names(abs)<-c("pointyear", "Point.Id", "year", "Type", "Cover")
-  d = abs
+  cov = functional.cover.table(lpi, type = type, transect = transect, surveyyear = surveyyear, invasives = invasives)
+  cov$NumIndices = NULL
+  cov = melt(cov, id = c("pointyear", "Point.Id", "year"))
+  names(cov)<-c("pointyear", "Point.Id", "year", "Type", "Cover")
+  d = cov
 
   d$year = as.factor(d$year)
   d$Type = as.factor(d$Type)
 
   d2 = subset(d, subset = year == max(levels(year)))
-  d1 = subset(d, subset = year == min(levels(year)))
 
-  coveryear = merge(d1, d2, by = c("Point.Id", "Type"))
-  coveryear$change = coveryear$Cover.y - coveryear$Cover.x
-
-
-  a = aggregate(coveryear, by = list(coveryear$Type), FUN = "mean")
-  a = subset(a, select = c("Group.1", "Cover.y"))
-  colnames(a) = c("Functional_Group", "Percent_Cover")
-  b = aggregate(coveryear, by = list(coveryear$Type), FUN = "se")
-  b = subset(b, select = c("Group.1", "Cover.y"))
-  colnames(b) = c("Functional_Group", "Standard_error")
-
-  current_cover = merge(a, b, by = "Functional_Group")
-
-  cover_plot = ggplot(current_cover, aes(x = Functional_Group, y = Percent_Cover)) +
-    geom_col() +
+  cover_plot = ggplot(d2, aes(x = Type, y = Cover)) +
+    geom_boxplot() +
     theme_bw() +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-    geom_errorbar(ymin = (current_cover$Percent_Cover - current_cover$Standard_error),
-                  ymax = (current_cover$Percent_Cover + current_cover$Standard_error),
-                  width = 0.5) +
-    ylim(0, (max(current_cover$Percent_Cover) +
-               max(current_cover$Standard_error))) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     xlab(xlab) +
     ylab(ylab)
 

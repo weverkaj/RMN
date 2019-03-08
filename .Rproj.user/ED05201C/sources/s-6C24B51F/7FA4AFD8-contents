@@ -28,24 +28,11 @@ functional.cover.change.plot = function(lpi,
                                         type = "absolute",
                                         xlab = "Functional Group",
                                         ylab = paste("Cover Change",
-                                                     " ",
-                                                     min(levels(cov$year)),
-                                                     "-",
-                                                     max(levels(cov$year)),
-                                                     sep = ""))
-
-function(lpi,
-         transect,
-         invasives = FALSE,
-         surveyyear = as.factor(levels(as.factor(lpi$year))),
-         type = "absolute",
-         xlab = "Functional Group",
-         ylab = paste("Cover Change",
-                      " ",
-                      min(levels(surveyyear)),
-                      "-",
-                      max(levels(surveyyear)),
-                      sep = "")){
+                                                      " ",
+                                                      min(levels(surveyyear)),
+                                                      "-",
+                                                      max(levels(surveyyear)),
+                                                      sep = "")){
 
   library(ggplot2)
   library(reshape2)
