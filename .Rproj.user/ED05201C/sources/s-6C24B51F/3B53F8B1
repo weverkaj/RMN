@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552087565153.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2690581332",
+    "id" : "3B53F8B1",
+    "lastKnownWriteTime" : 1552087574,
+    "last_content_update" : 1552087574255,
+    "path" : "~/Point Blue 2019/RMN/R/soil_percent.change.plot.R",
+    "project_path" : "R/soil_percent.change.plot.R",
+    "properties" : {
+        "cursorPosition" : "29,83",
+        "scrollLine" : "12",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

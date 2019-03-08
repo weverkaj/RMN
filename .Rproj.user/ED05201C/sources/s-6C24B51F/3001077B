@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552087475545.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "3001077B",
+    "lastKnownWriteTime" : 1552086423,
+    "last_content_update" : 1552086423,
+    "path" : "~/Point Blue 2019/RMN/R/soil_texture.triangle.plot.R",
+    "project_path" : "R/soil_texture.triangle.plot.R",
+    "properties" : {
+        "cursorPosition" : "43,21",
+        "scrollLine" : "14",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
