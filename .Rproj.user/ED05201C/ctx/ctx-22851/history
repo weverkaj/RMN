@@ -1,0 +1,38 @@
+View(lpi)
+library(RMN)
+devtools::document()
+library(RMN)
+library(RMN)
+library(RMN)
+devtools::document()
+devtools::document()
+devtools::document()
+library(RMN)
+typeof(lpi$Transect.Name)
+library(RMN)
+devtools::document()
+library(RMN)
+View(lpi)
+lpi2 = lpi[!is.na(lpi$Soil.Surface)]
+!is.na(lpi$Soil.Surface)
+lpi2 = lpi[!is.na(lpi$Soil.Surface),]
+View(lpi2)
+View(lpi)
+lpi2 = lpi[lpi$Soil.Surface == "",]
+lpi2 = lpi[lpi$Soil.Surface != "",]
+which(lpi$Soil.Surface == "")
+View(lpi)
+library(RMN)
+library(RMN)
+devtools::document()
+library(RMN)
+?functional.cover.change.table
+devtools::document()
+library(RMN)
+devtools::document()
+library(RMN)
+library(RMN)
+?cast
+library(reshape2)
+?cast
+devtools::document()

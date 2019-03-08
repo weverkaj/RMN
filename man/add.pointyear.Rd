@@ -18,6 +18,8 @@ For veg data, formats column with date as a date object in R, adds a column for 
 Data supplied needs to have column named "PointId" or "Point.Id" and a date column named "Date" or "Event.Date"
 
 Makes use of package function read.date()
+
+Removes empty rows in LPI
 }
 \examples{
 data = add.pointyear(data)

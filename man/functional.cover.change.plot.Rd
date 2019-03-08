@@ -4,7 +4,7 @@
 \alias{functional.cover.change.plot}
 \title{Functional cover change summary plot}
 \usage{
-functional.cover.change.plot(lpi, transect,
+functional.cover.change.plot(lpi, transect, invasives = FALSE,
   surveyyear = levels(as.factor(lpi$year)), type = "absolute",
   xlab = "Functional Group", ylab = paste("Cover Change", " ",
   min(levels(abs$year)), "-", max(levels(abs$year)), sep = ""))
@@ -13,6 +13,8 @@ functional.cover.change.plot(lpi, transect,
 \item{lpi}{A dataframe object of lpi data from a veg survey}
 
 \item{transect}{Ranch for which to make plot}
+
+\item{invasives}{Boolean whether to include invasives as a functional group}
 
 \item{surveyyear}{The years for which to make the plot}
 

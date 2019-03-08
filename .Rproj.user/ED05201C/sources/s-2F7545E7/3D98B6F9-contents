@@ -4,6 +4,7 @@
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
 #' @param transect Ranch for which to make plot
+#' @param invasives Boolean whether to include invasives as a functional group
 #' @param surveyyear The years for which to make the plot
 #' @param type "absolute" or "relative" cover
 #' @param xlab,ylab Axis Labels
@@ -22,6 +23,7 @@
 
 functional.cover.change.plot = function(lpi,
                                         transect,
+                                        invasives = FALSE,
                                         surveyyear = levels(as.factor(lpi$year)),
                                         type = "absolute",
                                         xlab = "Functional Group",
@@ -34,21 +36,16 @@ functional.cover.change.plot = function(lpi,
   {
 
   library(ggplot2)
+  library(reshape2)
 
-  abs = functional.cover.table(lpi, type = type, transect = transect, surveyyear = surveyyear)
-  abs$NumIndices = NULL
-  abs = melt(abs, id = c("pointyear", "Point.Id", "year"))
-  names(abs)<-c("pointyear", "Point.Id", "year", "Type", "Cover")
 
-  abs$year = as.factor(abs$year)
-  abs$Type = as.factor(abs$Type)
-
-  d2 = subset(abs, subset = year == max(levels(year)))
-  d1 = subset(abs, subset = year == min(levels(year)))
-
-  coveryear = merge(d1, d2, by = c("Point.Id", "Type"))
-  coveryear$change = coveryear$Cover.y - coveryear$Cover.x
-
+  coveryear = functional.cover.change.table(lpi = lpi,
+                                       transect = transect,
+                                       type = type,
+                                       invasives = invasives,
+                                       surveyyear = surveyyear,
+                                       casted = FALSE
+                                       )
 
   x = aggregate(coveryear, by = list(coveryear$Type), FUN = "mean")
   x = subset(x, select = c(Group.1, change))

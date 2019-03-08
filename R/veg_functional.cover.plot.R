@@ -22,13 +22,14 @@
 functional.cover.plot = function(lpi,
                                  type = "absolute",
                                  transect,
+                                 invasives = FALSE,
                                  surveyyear = max(levels(as.factor(lpi$year))),
                                  xlab = "Functional Group",
                                  ylab = "Percent Cover"){
 
   library(ggplot2)
 
-  abs = functional.cover.table(lpi, type = type, transect = transect, surveyyear = surveyyear)
+  abs = functional.cover.table(lpi, type = type, transect = transect, surveyyear = surveyyear, invasives = invasives)
   abs$NumIndices = NULL
   abs = melt(abs, id = c("pointyear", "Point.Id", "year"))
   names(abs)<-c("pointyear", "Point.Id", "year", "Type", "Cover")

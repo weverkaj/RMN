@@ -1,0 +1,70 @@
+#' @title Functional cover change summary table
+#'
+#' @description For veg data, summarizes change in mean cover of functional groups for each point on a property
+#'
+#' @param lpi A dataframe object of lpi data from a veg survey
+#' @param transect Ranch for which to make plot
+#' @param surveyyear The years for which to make the plot
+#' @param invasives Boolean whether to include invasives as a functional group
+#' @param type "absolute" or "relative" cover
+#' @param xlab,ylab Axis Labels
+#' @param casted Boolean whether to return a cast dataframe. FALSE returns a molten data frame
+#'
+#'
+#' @return A ggplot of functional cover change with error bars
+#'
+#' @examples data = functional.cover.plot(lpi, type = "absolute")
+#'
+#' @export functional.cover.table
+#'
+#'
+#'
+#'
+
+
+
+functional.cover.change.table = function(lpi,
+                transect,
+                invasives = FALSE,
+                surveyyear = levels(as.factor(lpi$year)),
+                type = "absolute",
+                casted = TRUE)
+
+{
+
+  library(ggplot2)
+  library(reshape2)
+
+  abs = functional.cover.table(lpi, type = type, transect = transect, surveyyear = surveyyear, invasives = invasives)
+  abs$NumIndices = NULL
+  abs = melt(abs, id = c("pointyear", "Point.Id", "year"))
+  names(abs)<-c("pointyear", "Point.Id", "year", "Type", "Cover")
+
+  abs$year = as.factor(abs$year)
+  abs$Type = as.factor(abs$Type)
+
+  d2 = subset(abs, subset = year == max(levels(year)))
+  d1 = subset(abs, subset = year == min(levels(year)))
+
+  coveryear = merge(d1, d2, by = c("Point.Id", "Type"))
+  coveryear$change = coveryear$Cover.y - coveryear$Cover.x
+
+
+  x = aggregate(coveryear, by = list(coveryear$Type), FUN = "mean")
+  x = subset(x, select = c(Group.1, change))
+  y = aggregate(coveryear, by = list(coveryear$Type), FUN = "se")
+  y = subset(y, select = c(Group.1, change))
+  colnames(x) = c("Functional_Group", "Percent_Change")
+  colnames(y) = c("Functional_Group", "Standard_error")
+
+  coverchange = merge(x, y, by = "Functional_Group")
+
+  if(cast){coveryear = dcast(coveryear, Point.Id ~ Type, value.var = "change")}
+
+  return(coveryear)
+
+}
+
+
+
+
