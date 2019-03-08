@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1551990894950.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3027083892",
+    "id" : "1F6D8CA",
+    "lastKnownWriteTime" : 1552002746,
+    "last_content_update" : 1552002746554,
+    "path" : "~/Point Blue 2019/RMN/R/veg_points.cover.plot.R",
+    "project_path" : "R/veg_points.cover.plot.R",
+    "properties" : {
+        "cursorPosition" : "49,16",
+        "scrollLine" : "25",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

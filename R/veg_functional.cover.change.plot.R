@@ -3,6 +3,8 @@
 #' @description For veg data, summarizes change in mean cover of functional groups for a property
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
+#' @param transect Ranch for which to make plot
+#' @param invasives Boolean whether to include invasives as a functional group
 #' @param surveyyear The years for which to make the plot
 #' @param type "absolute" or "relative" cover
 #' @param xlab,ylab Axis Labels
@@ -20,32 +22,29 @@
 
 
 functional.cover.change.plot = function(lpi,
+                                        transect,
+                                        invasives = FALSE,
                                         surveyyear = levels(as.factor(lpi$year)),
                                         type = "absolute",
                                         xlab = "Functional Group",
                                         ylab = paste("Cover Change",
-                                                     " ",
-                                                     min(levels(abs$year)),
-                                                     "-",
-                                                     max(levels(abs$year)),
-                                                     sep = ""))
-  {
+                                                      " ",
+                                                      min(levels(surveyyear)),
+                                                      "-",
+                                                      max(levels(surveyyear)),
+                                                      sep = "")){
 
   library(ggplot2)
+  library(reshape2)
 
-  abs = functional.cover.table(lpi, type = type, surveyyear = surveyyear)
-  abs$NumIndices = NULL
-  abs = melt(abs, id = c("pointyear", "Point.Id", "year"))
-  names(abs)<-c("pointyear", "Point.Id", "year", "Type", "Cover")
 
-  abs$year = as.factor(abs$year)
-  abs$Type = as.factor(abs$Type)
-
-  d2 = subset(abs, subset = year == max(levels(year)))
-  d1 = subset(abs, subset = year == min(levels(year)))
-
-  coveryear = merge(d1, d2, by = c("Point.Id", "Type"))
-  coveryear$change = coveryear$Cover.y - coveryear$Cover.x
+  coveryear = functional.cover.change.table(lpi = lpi,
+                                            transect = transect,
+                                            type = type,
+                                            invasives = invasives,
+                                            surveyyear = surveyyear,
+                                            casted = FALSE
+  )
 
 
   x = aggregate(coveryear, by = list(coveryear$Type), FUN = "mean")
@@ -58,14 +57,10 @@ functional.cover.change.plot = function(lpi,
   coverchange = merge(x, y, by = "Functional_Group")
 
 
-  c = ggplot(coverchange, aes(x = Functional_Group, y = Percent_Change)) +
-    geom_col() +
+  c = ggplot(coveryear, aes(x = Type, y = change)) +
+    geom_boxplot() +
     theme_bw() +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-    geom_errorbar(ymin = coverchange$Percent_Change - coverchange$Standard_error,
-                  ymax = coverchange$Percent_Change + coverchange$Standard_error, width = 0.5) +
-    ylim((min(coverchange$Percent_Change) - max(coverchange$Standard_error)),
-         (max(coverchange$Percent_Change) + max(coverchange$Standard_error))) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     xlab(label = xlab) +
     ylab(label = ylab)
 

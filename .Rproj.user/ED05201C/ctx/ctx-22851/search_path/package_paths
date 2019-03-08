@@ -1,0 +1,8 @@
+RMN="C:/Users/Field User/Documents/Point Blue 2019/RMN"
+datasets="C:/Program Files/R/R-3.5.2/library/datasets"
+grDevices="C:/Program Files/R/R-3.5.2/library/grDevices"
+graphics="C:/Program Files/R/R-3.5.2/library/graphics"
+methods="C:/Program Files/R/R-3.5.2/library/methods"
+reshape2="C:/Users/Field User/Documents/R/win-library/3.5/reshape2"
+stats="C:/Program Files/R/R-3.5.2/library/stats"
+utils="C:/Program Files/R/R-3.5.2/library/utils"

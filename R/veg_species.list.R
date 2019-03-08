@@ -4,7 +4,8 @@
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
 #' @param releve A dataframe object of releve data from a veg survey
-#' @param year Year for which to generate list
+#' @param transect Ranch for which to generate species list
+#' @param surveyyear Year for which to generate list
 #'
 #' @return A species list for a given dataset
 #'
@@ -14,16 +15,22 @@
 #'
 #'
 
-species.list = function(lpi, releve, surveyyear = levels(as.factor(lpi$year))){
+species.list = function(lpi, releve,
+                        transect,
+                        surveyyear = levels(as.factor(lpi$year))){
   library(reshape2)
   CAPlants = RMN:::CAPlantsv2
   Invasives = RMN:::Invasivesv1
 
   lpi$Point.Dir = paste(lpi$pointyear, lpi$Direction, sep = "-")
   lpi$year = as.factor(lpi$year)
-  lpi = filter(lpi, lpi$year == surveyyear)
+  releve$year = as.factor(releve$year)
 
-  releve = filter(releve, releve$year == surveyyear)
+  lpi = subset(lpi, subset = lpi$year %in% surveyyear)
+  releve = subset(releve, subset = releve$year %in% surveyyear)
+
+  lpi = subset(lpi, subset = Transect.Name %in% transect)
+  releve = subset(releve, subset = Transect.Name %in% transect)
 
   layers = subset(lpi, select=c("pointyear",  "Top.Layer", "Lower1", "Lower2",
                                "Lower3", "Lower4", "Lower5", "Lower6", "Lower7",

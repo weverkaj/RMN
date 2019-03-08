@@ -26,7 +26,7 @@
 #   Test Package:              'Ctrl + Shift + T'
 
 
-carbon.plot<-function(data, transect, year, labels = TRUE, pointcolors = c("black", "gray"),
+carbon.plot<-function(data, transect, year, labels = TRUE, pointcolors = c(rep("black", length(transect)),"gray"),
                       legend = FALSE, legendnames = c(transect, "Others"), box.padding = 0.5, xlab = "% Carbon 0-10 cm", ylab = "% Carbon 10-40 cm"){
 
   library(ggplot2)

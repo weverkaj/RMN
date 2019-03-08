@@ -3,6 +3,7 @@
 #' @description For veg data, summarizes cover of each functional group at each point.
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
+#' @param transect Ranch for which to make the plot
 #' @param type Type of cover to calculate - either "absolute" or "relative"
 #' @param surveyyear Years for which to make the plot. Default is all available years
 #' @param invasives Boolean that specifies whether to count invasive species as a separate functional group
@@ -19,11 +20,15 @@
 #'
 #'
 
-points.cover.plot = function(lpi, type = "absolute", surveyyear = levels(as.factor(lpi$year)),
-                             invasives = FALSE, legend.position = "top",
-                             pallete = "YlGnBu", x.angle = 45){
+points.cover.plot = function(lpi, transect,
+                             type = "absolute",
+                             surveyyear = levels(as.factor(lpi$year)),
+                             invasives = FALSE,
+                             legend.position = "top",
+                             pallete = "YlGnBu",
+                             x.angle = 45){
   library(ggplot2)
-  fct = functional.cover.table(lpi = lpi, type = type, invasives = invasives, surveyyear = surveyyear)
+  fct = functional.cover.table(lpi = lpi, type = type, transect = transect, invasives = invasives, surveyyear = surveyyear)
 
 
   abs<- fct[,colnames(fct) != "NumIndices"]
@@ -42,6 +47,7 @@ points.cover.plot = function(lpi, type = "absolute", surveyyear = levels(as.fact
                                 "mediumpurple4", "firebrick4", "tan", "mistyrose", "yellowgreen")) +
     theme(axis.text.x = element_text(angle = x.angle, hjust = 1)) +
     facet_wrap(~Point.Id) +
+    theme_bw() +
     coord_flip()
   return(p)
 }

@@ -4,6 +4,7 @@
 #'
 #' @param releve A dataframe object of releve data from a veg survey
 #' @param lpi A dataframe object of lpi data from a veg survey
+#' @param transect The ranch for which to make the summary
 #' @param surveyyear The years for which to make the summary
 #' @param choose.variable Character vector that identifies which variables to summarize. Defaults to Species Richness, Litter, Thatch, Bare Ground, Trees, and Shrubs
 #'
@@ -16,13 +17,21 @@
 #'
 
 
-cover.summary = function(lpi, releve, surveyyear = c(levels(as.factor(lpi$year)), levels(as.factor(releve$year))),
+cover.summary = function(lpi, releve,
+                         transect,
+                         surveyyear = c(levels(as.factor(lpi$year)), levels(as.factor(releve$year))),
                          choose.variable = c("SpeciesRichness", "Litter", "Thatch",
                                              "BareGround", "Trees", "Shrubs")){
 
   library(reshape2)
   library(ggplot2)
   library(dplyr)
+
+
+  lpi$year = as.factor(lpi$year)
+  releve$year = as.factor(releve$year)
+  lpi = subset(lpi, Transect.Name %in% transect)
+  releve = subset(releve, Transect.Name %in% transect)
   releve = subset(releve, year %in% surveyyear)
   lpi = subset(lpi, year %in% surveyyear)
 

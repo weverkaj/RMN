@@ -24,7 +24,7 @@
 #'
 
 
-compaction.plot<-function(data, transect, year, labels = TRUE, pointcolors = c("black","gray"), legend = FALSE, legendnames = c(transect, "Others"),
+compaction.plot<-function(data, transect, year, labels = TRUE, pointcolors = c(rep("black", length(transect)),"gray"), legend = FALSE, legendnames = c(paste(c(transect)), "Others"),
                           xlab = "Bulk density, distance from target", ylab = "Infiltration, distance from target",
                           box.padding = 0.5, linetype = "dashed", Inftarget = 3.81, xlims = c(NA, NA), ylims = c(NA, NA)){
 
@@ -36,7 +36,7 @@ compaction.plot<-function(data, transect, year, labels = TRUE, pointcolors = c("
 
   data = subset(data, YEAR %in% year)
   masked = data %>% prepare.soil.triangle(Inftarget = Inftarget)
-  masked$Transect = as.character(replace(as.character(masked$Transect), masked$Transect != transect, values = "zzzz"))
+  masked$Transect = as.character(replace(as.character(masked$Transect), !(masked$Transect %in% transect), values = "zzzz"))
 
 
   masked_soil = arrange(masked, desc(Transect))

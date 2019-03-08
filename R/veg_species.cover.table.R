@@ -4,6 +4,7 @@
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
 #' @param type Denotes type of cover to calculate"absolute" or "relative"
+#' @param transect Ranch for which to summarize cover
 #' @param surveyyear The year for which to generate the summary
 #'
 #' @return A dataframe summary of cover of species
@@ -15,6 +16,7 @@
 #'
 
 species.cover.table = function(lpi,
+                               transect,
                                type = "absolute",
                                surveyyear = max(levels(as.factor(lpi$year))))
   {
@@ -22,7 +24,8 @@ species.cover.table = function(lpi,
   library(dplyr)
   lpi$Tally = 1
   lpi$year = as.factor(lpi$year)
-  lpi = filter(lpi, lpi$year == surveyyear)
+  lpi = subset(lpi, subset = lpi$year %in% surveyyear)
+  lpi = subset(lpi, subset = lpi$Transect.Name %in% transect)
 
   a = aggregate(lpi$Tally, list(lpi$pointyear), sum)
   names(a) = c("pointyear", "NumIndices")

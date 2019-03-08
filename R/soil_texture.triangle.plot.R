@@ -35,11 +35,11 @@ texture.triangle.plot = function(data, transect, year, labels = TRUE, pch = 16,
                                  grid.show = FALSE){
 
   library(soiltexture)
-  data = subset(data, YEAR == year)
+  data = subset(data, YEAR %in% year)
   data = prepare.soil.triangle(data)
 
-  data1 = subset(data, data$Transect == transect)
-  data2 = subset(data, data$Transect != transect)
+  data1 = subset(data, data$Transect %in% transect)
+  data2 = subset(data, !(data$Transect %in% transect))
 
   if(isTRUE(labels)){
     l = data1$Point

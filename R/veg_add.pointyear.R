@@ -3,6 +3,7 @@
 #' @description For veg data, formats column with date as a date object in R, adds a column for year as a numeric object, and pointyear as a character object that inludes the point name and the survey year
 #' @description Data supplied needs to have column named "PointId" or "Point.Id" and a date column named "Date" or "Event.Date"
 #' @description Makes use of package function read.date()
+#' @description Removes empty rows in LPI
 #'
 #' @param data A dataframe object
 #'
@@ -16,6 +17,10 @@
 #'
 
 add.pointyear = function(data){
+
+  if("Soil.Surface" %in% colnames(data)){
+    data = subset(data, subset = data$Soil.Surface != "")
+  }
 
   if("Date" %in% colnames(data)){
     data$Date = read.date(data$Date)

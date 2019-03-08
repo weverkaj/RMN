@@ -4,11 +4,13 @@
 \alias{functional.cover.table}
 \title{Create a table of cover for functional groups at each point}
 \usage{
-functional.cover.table(lpi, type = "absolute", invasives = FALSE,
-  surveyyear = max(levels(as.factor(lpi$year))))
+functional.cover.table(lpi, transect, type = "absolute",
+  invasives = FALSE, surveyyear = max(levels(as.factor(lpi$year))))
 }
 \arguments{
 \item{lpi}{A dataframe object of lpi data from a veg survey}
+
+\item{transect}{Ranch for which to make cover table}
 
 \item{type}{Type of cover to calculate - either "absolute" or "relative"}
 

@@ -3,6 +3,7 @@
 #' @description For veg data, summarizes cover of each functional group at each point.
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
+#' @param transect Ranch for which to make cover table
 #' @param type Type of cover to calculate - either "absolute" or "relative"
 #' @param invasives Boolean that specifies whether to count invasive species as a separate functional group
 #' @param surveyyear Year for which to calculate cover
@@ -18,6 +19,7 @@
 
 
 functional.cover.table = function(lpi,
+                                  transect,
                                   type = "absolute",
                                   invasives = FALSE,
                                   surveyyear = max(levels(as.factor(lpi$year)))){
@@ -32,7 +34,9 @@ functional.cover.table = function(lpi,
   levels(CAPlantsI$FunGrp) <- c(levels(CAPlantsI$FunGrp), "Invasives")
 
   CAPlantsI$FunGrp[CAPlantsI$Accepted.Symbol %in% Invasives$USDA.code]<-"Invasives"
-  lpi = filter(lpi, lpi$year == surveyyear)
+  lpi$year = as.factor(lpi$year)
+  lpi = subset(lpi, subset = lpi$year %in% surveyyear)
+  lpi = subset(lpi, subset = lpi$Transect.Name %in% transect)
   lpi$Tally = 1
 
   a = aggregate(lpi$Tally, list(lpi$pointyear), sum)
