@@ -62,7 +62,8 @@ functional.cover.change.plot = function(lpi,
     theme_bw() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     xlab(label = xlab) +
-    ylab(label = ylab)
+    ylab(label = ylab) +
+    geom_hline(yintercept = 0, linetype = 'dotted')
 
   return(c)
 

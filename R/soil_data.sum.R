@@ -23,10 +23,15 @@ data.sum = function(data, transect,
 
   library(gridExtra)
   library(stats)
+  library(dplyr)
 
   data1 = subset(data, data$Transect %in% transect)
   data1 = subset(data1, data1$YEAR %in% surveyyear)
   data1$YEAR = as.factor(data1$YEAR)
+  if(nrow(data1) == 0){
+    warning("NULL object returned - no rows to aggregate")
+    return(NULL)
+    } else {
 
   pc = function(x){(diff(x)/x[1]) * 100}
 
@@ -38,11 +43,13 @@ data.sum = function(data, transect,
 
 
     data2[,2:5] = round(data2[,2:5], 2)
-    data2
+
 
   } else if(nlevels(as.factor(surveyyear > 1))){
     data2 = subset(data1,select=c("Point", "YEAR", "Carbon.0.10.cm", "Carbon.10.40.cm",
                                   "Bulk.Density", "Infilt1"))
+
+    if(nrow(data2) == 0){return(NULL)}
 
     aggs = aggregate(data2[3:5], by = list(data2$Point), pc)
 
@@ -74,6 +81,9 @@ data.sum = function(data, transect,
   if(!return_df){
     grid.table(data2,theme= ttheme_default(base_size=10), rows = NULL)
   } else {return(data2)}
+
+
+  }
 
 
 

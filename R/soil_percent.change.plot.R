@@ -59,7 +59,8 @@ percent.change.plot = function(data, transect,
 
 
   masked = data2
-  masked$Transect = as.character(replace(as.character(masked$Transect), masked$Transect != transect, values = "zzzz"))
+  masked$Transect = as.character(replace(as.character(masked$Transect),
+                                         masked$Transect != transect, values = "zzzz"))
   masked = masked %>% arrange(desc(Transect))
 
   colnames(masked)[7:9] = c("Carbon010change", "Carbon1040change","Bulk.density.change")
