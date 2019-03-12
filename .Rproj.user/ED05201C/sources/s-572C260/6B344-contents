@@ -26,8 +26,8 @@
 
 percent.change.plot = function(data, transect,
                                surveyyear = levels(as.factor(data$YEAR)),
-                               legendnames = c(transect, "Others"), legendtitle = "Ranch",
-                               boxcolors = c(rep("black", length(transect)),"gray"),
+                               legendnames = c(paste(transect, collapse = " "), "Others"), legendtitle = "Ranch",
+                               boxcolors = c("black","gray"),
                                xlabels = c("Carbon 0-10 cm", "Carbon 10-40 cm", "Bulk Density"),
                                ylab = "% Change",
                                choosevariables = c("Carbon010change", "Carbon1040change","Bulk.density.change"))
@@ -61,6 +61,9 @@ percent.change.plot = function(data, transect,
   masked = data2
   masked$Transect = as.character(replace(as.character(masked$Transect),
                                          masked$Transect != transect, values = "zzzz"))
+  masked$Transect = as.character(replace(as.character(masked$Transect),
+                                         masked$Transect == transect, values = "aaaa"))
+
   masked = masked %>% arrange(desc(Transect))
 
   colnames(masked)[7:9] = c("Carbon010change", "Carbon1040change","Bulk.density.change")
