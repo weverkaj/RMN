@@ -1,6 +1,6 @@
-#' @title Remove first row if empty
+#' @title Remove first row of data.frame if empty
 #'
-#' @description For veg data, summarizes and plots mean cover of functional groups for a property
+#' @description A reoccuring problem when importing data frames into rstudio is a blank first row that is added to the data frame. This function looks at the.
 #'
 #' @param df A dataframe object
 #'
