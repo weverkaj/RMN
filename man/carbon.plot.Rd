@@ -4,10 +4,11 @@
 \alias{carbon.plot}
 \title{Carbon Plot}
 \usage{
-carbon.plot(data, transect, year, labels = TRUE,
-  pointcolors = c("black", "gray"), legend = FALSE,
-  legendnames = c(transect, "Others"), box.padding = 0.5,
-  xlab = "\% Carbon 0-10 cm", ylab = "\% Carbon 10-40 cm")
+carbon.plot(data, transect, year, labels = TRUE, background = TRUE,
+  pointcolors = c(rep("black", length(transect)), "gray"),
+  legend = FALSE, legendnames = c(transect, "Others"),
+  box.padding = 0.5, xlab = "\% Carbon 0-10 cm",
+  ylab = "\% Carbon 10-40 cm")
 }
 \arguments{
 \item{data}{from output of soil.final.cleanup()}
@@ -15,6 +16,8 @@ carbon.plot(data, transect, year, labels = TRUE,
 \item{transect}{Character string of selected ranch code}
 
 \item{labels}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
+
+\item{background}{= TRUE whether to display "background" data on plot not from selected ranch}
 
 \item{pointcolors}{= c("black", "gray") a vector that specifies colors of points on the plot}
 

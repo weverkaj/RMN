@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1553201648561.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2243478731",
+    "id" : "DA02BE88",
+    "lastKnownWriteTime" : 1553202955,
+    "last_content_update" : 1553202955643,
+    "path" : "~/Point Blue 2019/RMN/R/soil_carbon.plot.R",
+    "project_path" : "R/soil_carbon.plot.R",
+    "properties" : {
+        "cursorPosition" : "45,2",
+        "scrollLine" : "27",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

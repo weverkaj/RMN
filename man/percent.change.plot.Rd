@@ -5,8 +5,9 @@
 \title{Make a percent change boxplot of soil carbon and bulk Density}
 \usage{
 percent.change.plot(data, transect,
-  surveyyear = levels(as.factor(data$YEAR)), legendnames = c(transect,
-  "Others"), legendtitle = "Ranch", boxcolors = c("black", "gray"),
+  surveyyear = levels(as.factor(data$YEAR)),
+  legendnames = c(paste(transect, collapse = " "), "Others"),
+  legendtitle = "Ranch", boxcolors = c("black", "gray"),
   xlabels = c("Carbon 0-10 cm", "Carbon 10-40 cm", "Bulk Density"),
   ylab = "\% Change", choosevariables = c("Carbon010change",
   "Carbon1040change", "Bulk.density.change"))

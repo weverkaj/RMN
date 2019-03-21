@@ -5,7 +5,7 @@
 \title{Functional cover summary plot}
 \usage{
 functional.cover.plot(lpi, type = "absolute", transect,
-  surveyyear = max(levels(as.factor(lpi$year))),
+  invasives = FALSE, surveyyear = max(levels(as.factor(lpi$year))),
   xlab = "Functional Group", ylab = "Percent Cover")
 }
 \arguments{

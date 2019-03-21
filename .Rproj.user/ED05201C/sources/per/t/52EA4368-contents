@@ -5,6 +5,7 @@
 #' @param data from output of soil.final.cleanup()
 #' @param transect Character string of selected ranch code
 #' @param surveyyear Years for which to make summary
+#' @param background = TRUE determines whether points from the chosen ranch are labeled on the plot
 #' @param legendnames specifies how points are named on the legend
 #' @param legendtitle Character string of legend title
 #' @param boxcolors vector of colors to display data on the boxplot
@@ -26,6 +27,7 @@
 
 percent.change.plot = function(data, transect,
                                surveyyear = levels(as.factor(data$YEAR)),
+                               background = TRUE,
                                legendnames = c(paste(transect, collapse = " "), "Others"), legendtitle = "Ranch",
                                boxcolors = c("black","gray"),
                                xlabels = c("Carbon 0-10 cm", "Carbon 10-40 cm", "Bulk Density"),
@@ -41,6 +43,7 @@ percent.change.plot = function(data, transect,
 
   data$YEAR = as.factor(data$YEAR)
   data = subset(data, YEAR %in% surveyyear)
+  if(!background){data = subset(data, subset = Transect %in% transect)}
   duped = data$Point[duplicated(data$Point)]
   data = data[data$Point %in% duped,]
   if(!(transect %in% data$Transect)){stop("Transect does not contain multiple surveys")}
