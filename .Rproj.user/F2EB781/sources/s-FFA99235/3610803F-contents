@@ -1,0 +1,269 @@
+#Bird code
+library(lubridate)
+library(tidyverse)
+library(plyr)
+library(purrr)
+library(magrittr)
+#replace with link to cadc
+#pull data for ranch or area in cadc then read in data
+#untill then use CLOV
+bird_data = read.csv("data/clov_bird.csv")
+bird_data2<- read.csv("data/gump_birds.csv")
+bird_data3<- read.csv("data/FOWE_bird.csv")
+bird_data4<-read.csv("data/gump_fowe_bird.csv")
+bird_data5<-read.csv("data/all_bird_rwi.csv")
+summary(bird_data5$Protocol)
+
+ # need to deal with distance bin issues. If they are in the 10_30 protocol they need to be converted to a factor so they can me merged with VCP300
+
+str(bird_data5$Distance.Bin)
+
+
+#ts3 look up. 
+
+
+
+
+
+
+remove_first<-function(df){
+  if(df[1,1]=="")
+  {df<-df[-1,]
+  rownames(df)<-1:nrow(df)
+  return(df)
+  } else { df<-df}}
+
+if(bird_data2[1,]=="NA"){
+  bird_data2<-bird_data2[-1] %>% 
+    rownames(bird_data2)<-1:nrow(bird_data2)
+}
+row.names(bird_data2) <- 1:nrow(bird_data2)
+
+
+
+bird_data<-remove_first(bird_data)
+bird_data2<-remove_first(bird_data2)
+bird_data3<-remove_first(bird_data3)
+bird_data5<-remove_first(bird_data5)
+
+
+distance.bin.fac<-function (df){
+  if(is.factor(df$Distance.Bin)){
+    df$Distance.Bin <- mapvalues(df$Distance.Bin, c("", "<10", "10 to 20", "20 to 30", "30 to 50" , "50 to 100", ">100" ,"FlyOver", ">300"), c(300,5, 15, 25, 40, 75, 300, 300,300))
+    df$Distance.Bin<-as.numeric(as.character(df$Distance.Bin)) 
+    return(df)}}
+
+
+  
+bird_data6<-distance.bin.fac(bird_data5)
+
+summary(bird_data5$Distance.Bin)
+count(is.na(bird_data5$Distance.Bin))
+
+str(bird)
+distance.bin.fac(bird_data2)
+distance.bin.fac(bird_data3)
+
+nas_bird<-bird_data6[is.na(bird_data6$Distance.Bin),]
+
+summary(bird_data3$Distance.Bin)
+str(bird_data3$Distance.Bin)
+
+birds<-rbind(bird_data, bird_data2)
+
+
+
+         ### Name Your Data, if there is an extra row add[-1,]
+tidy.name.vector <- make.names(names(birds), unique=TRUE)
+names(birds)<-tidy.name.vector
+#data<-read.csv(file.choose())
+row.names(birds) <- 1:nrow(birds)
+
+#Format the date and make a year column
+# Depending on how excel formats the date field on your machine,
+# use either of the following two lines. 
+#put a "#" in front of the line you do not use
+
+# This is for computer that format date as  mm/dd/yyyy
+#data$DATE <- as.Date( as.character(data$Date), "%m/%d/%Y")
+
+#This is for computers that format date as yyyy-mm-dd
+
+birds$DATE <- mdy(birds$Date)
+
+birds$YEAR<-year(birds$DATE)
+
+#Make a survey column and a sample column
+birds$SURVEY<-as.factor(paste(birds$Point,birds$YEAR,"V",birds$Visit,sep=""))
+birds$PointYear<-as.factor(paste(birds$Point,birds$YEAR, sep=""))
+birds$SAMPLE<-as.factor(paste(birds$Point,birds$YEAR, sep=""))
+
+birds$Tally<-1
+a<-subset(birds,duplicated(birds$SURVEY)==FALSE)
+visits<-aggregate(a$Tally, list(a$PointYear), sum)
+names(visits)<-c("PointYear", "Visits")
+    # this tells you the number of observations (i.e. rows) in each protocol
+
+## CHOOSE ONE OF THE THREE OPTIONS BELOW
+# Jacob we should ask libby how she wants to cut the data.
+
+birds10_30<-birds %>%
+  filter(Protocol=="VCP10_30") %>% 
+  filter(Distance.Bin.ID!="B00") %>% 
+  filter(Distance.Bin.ID!="FLO")
+
+birds300<- birds %>% 
+  filter(Protocol=="VCP300") %>% 
+  filter(Distance.Bin.ID!="FLO") 
+
+%>% 
+  
+
+if(birds$Protocol=="VCP10_30"){
+  birds10_30<-birds[birds$Distance.Bin.ID!="B00",]
+  birds10_30<-data[data$Distance.Bin.ID!="FLO",]
+}
+if(birds$Protocol=="VCP300"){
+  birds_300<-birds[birds$Distance.Bin.ID!="B30",]
+  birds_300<-birds_300[birds_300$Distance.Bin.ID!="FLO",]
+  birds_300$Distance.Bin.ID<-as.numeric(as.character(birds_300$Distance.Bin.ID))
+  birds_300<-subset(birds_300, subset=birds_300$Distance.Bin.ID <100)
+  birds_300$Distance.Bin.ID<-as.factor(birds_300$Distance.Bin.ID)
+}
+if (levels(birds$Protocol)=="VCP10_30" & "VCP300"){
+  
+  bird_mix<-rbind(birds10_30, birds_300)
+}
+
+#Option 2: All data in VCP300
+data<-subset(data, subset=data$Protocol=="VCP300")
+data<-data[data$Distance.Bin.ID!="B30",]
+data<-data[data$Distance.Bin.ID!="FLO",]
+data$Distance.Bin.ID<-as.numeric(as.character(data$Distance.Bin.ID))
+data<-subset(data, subset=data$Distance.Bin.ID <100)
+data$Distance.Bin.ID<-as.factor(data$Distance.Bin.ID)
+
+
+#### Option 3: some data in VCP10_30 amd some in VCP300 #####
+# For data that are  in VCP10_30
+bob<-subset(data, subset=data$Protocol=="VCP10_30")
+bob<-bob[bob$Distance.Bin.ID!="B00",]
+bob<-bob[bob$Distance.Bin.ID!="FLO",]
+#For data that are in VCP300
+phil<-subset(data, subset=data$Protocol=="VCP300")
+phil<-phil[phil$Distance.Bin.ID!="B30",]
+phil<-phil[phil$Distance.Bin.ID!="FLO",]
+phil$Distance.Bin.ID<-as.numeric(as.character(phil$Distance.Bin.ID))
+phil<-subset(phil, subset=phil$Distance.Bin.ID <100)
+phil$Distance.Bin.ID<-as.factor(phil$Distance.Bin.ID)
+# Stick them back together
+data<-rbind(bob, phil)
+
+
+#Option 2: All data in VCP300
+#Not all properties have VCP300. CLov is VCP10-30.
+data<-subset(data, subset=data$Protocol=="VCP10_30")
+data<-data[data$Distance.Bin.ID!="B30",]
+data<-data[data$Distance.Bin.ID!="FLO",]
+data$Distance.Bin.ID<-as.numeric(as.character(data$Distance.Bin.ID))
+# this to me is the biggest question. Do we want 100?
+data<-subset(data, subset=data$Distance.Bin =="30 to 50" | data$Distance.Bin=="50 to 100" | data$Distance.Bin=="10 to 20"|data$Distance.Bin=="20 to 30")
+data$Distance.Bin.ID<-as.factor(data$Distance.Bin.ID)
+
+
+#### Option 3: some data in VCP10_30 amd some in VCP300 #####
+# For data that are  in VCP10_30
+#bob<-subset(data, subset=data$Protocol=="VCP10_30")
+#bob<-bob[bob$Distance.Bin.ID!="B00",]
+#bob<-bob[bob$Distance.Bin.ID!="FLO",]
+#For data that are in VCP300
+#phil<-subset(data, subset=data$Protocol=="VCP300")
+#phil<-phil[phil$Distance.Bin.ID!="B30",]
+#phil<-phil[phil$Distance.Bin.ID!="FLO",]
+#phil$Distance.Bin.ID<-as.numeric(as.character(phil$Distance.Bin.ID))
+#phil<-subset(phil, subset=phil$Distance.Bin.ID <100)
+#phil$Distance.Bin.ID<-as.factor(phil$Distance.Bin.ID)
+# Stick them back together
+#data<-rbind(bob, phil)
+
+#Now we have only detections within 100m, no flyovers
+################################################################
+################################################################
+
+
+#remove Juvenile detections
+data<-subset(data, subset=data$Detection.Cue !="J")
+
+######################################
+## aggregate count by Point and Year ##
+######################################
+
+species<-aggregate(data$Count,list(data$Spp,data$YEAR, data$Point),sum)
+names(species)<-c("Spp", "YEAR", "POINT","COUNT")
+species$PointYear<-as.factor(paste(species$POINT,species$YEAR, sep=""))
+
+pc<-merge(species, visits, by="PointYear", all=TRUE)
+
+## Read in the list of species you don't want to include
+#exclude<-read.csv("FORD_2016_SppExclude.csv")     # CHANGE THE NAME. Make sure this file is in the same folder that you setwd to (step 1)
+#or if you want to pick it manually, use:
+#exclude<-read.csv(file.choose())
+
+
+#Remove the species you're not interested in
+#pc <- pc[!(pc$SPEC %in% exclude$Exclude),]
+#erase them from the 'levels' of species
+pc<-droplevels(pc)
+
+
+### Now, add zeros to the SAMPLES where no individuals of a spp were detected
+
+add.zeros<-function(sum.data){
+  wide <- reshape(pc, v.names="COUNT", idvar="PointYear",timevar="Spp", direction="wide")
+  first<-wide[,1:4]
+  second<-wide[,5:length(wide[1,])]
+  second0 <- second
+  second[] <- lapply(second,function(x) replace(x, is.na(x), 0))
+  final<-as.data.frame(cbind(first,second))
+  narrow<-reshape(final,idvar="PointYear",varying=list(names(final)[5:length(final[1,])]),direction="long",times=names(final)[5:length(final[1,])],v.names="COUNT",timevar="Spp")
+  narrow$Spp<-as.factor(substr(narrow$Spp,7,10))
+  row.names(narrow)<-NULL
+  return(narrow)
+}
+newpc<-add.zeros(pc)
+
+
+newpc$ABUNDANCE<-newpc$COUNT/newpc$Visits
+
+## Optional:  Write newpc to .csv, but you might find the wide format (below) more useful
+#write.csv(newpc, file.choose())
+
+## Reformat data in wide fomat
+newpc2 <- subset(newpc, select=c("PointYear", "YEAR", "POINT", "Visits", "Spp", "ABUNDANCE"))
+wide.data <- reshape(newpc2, v.names="ABUNDANCE", idvar="PointYear",timevar="Spp", direction="wide")
+
+#Get ride of the "ABUNDANCE" at the beginning of the row names
+JustSpp<-substr(names(wide.data[,5:ncol(wide.data)]),11,14)
+colnames(wide.data)[5:ncol(wide.data)] <- JustSpp
+
+#This step orders species alphabetically
+first<-wide.data[,1:4]
+second<-wide.data[,5:length(wide.data[1,])]
+second<-second[,order(colnames(second))]
+wide.data<-as.data.frame(cbind(first,second))
+
+# Calculate Number of species at each point
+wide.data$Richness<-rowSums(wide.data[,5:ncol(wide.data)] != 0)
+
+species2<-species %>% 
+  arrange(desc(COUNT)) %>% 
+  select(1:4)
+species3<-species %>% 
+  select(SPEC, COUNT) %>% 
+  group_by(SPEC) %>% 
+  summarise(Count=sum(COUNT)) %>% 
+  arrange(desc(Count))
+
+#downloaded from cadc bird list per year
+species4<-read.csv(choose.files())
+colnames(species4)<-c("Species Code", "Count for 2017")

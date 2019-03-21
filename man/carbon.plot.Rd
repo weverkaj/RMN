@@ -15,6 +15,8 @@ carbon.plot(data, transect, year, labels = TRUE, background = TRUE,
 
 \item{transect}{Character string of selected ranch code}
 
+\item{year}{The year or years for which to make the plot}
+
 \item{labels}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
 
 \item{background}{= TRUE whether to display "background" data on plot not from selected ranch}

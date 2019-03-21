@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1553204693599.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "3610803F",
+    "lastKnownWriteTime" : 1553204011,
+    "last_content_update" : 1553204011,
+    "path" : "~/Github/Point Blue 2019/Shiny_RMN/Shiny_Web_Analytics_Group/Bird_code.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "33,19",
+        "scrollLine" : "20"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

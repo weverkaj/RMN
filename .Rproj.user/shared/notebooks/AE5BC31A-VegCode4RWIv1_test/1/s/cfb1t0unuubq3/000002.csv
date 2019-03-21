@@ -1,6 +1,0 @@
-"0","e = species.cover.table(lpi, surveyyear = c(""2016"", ""2018""))"
-"0","g = species.cover.table(lpi, type = ""relative"")"
-"0","h = functional.cover.table(lpi)"
-"0","j = functional.cover.table(lpi, type = ""relative"")"
-"0","k = functional.cover.table(lpi, invasives = TRUE)"
-"0","l = functional.cover.table(lpi, type = ""relative"", invasives = TRUE)"

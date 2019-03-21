@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1553204487442.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "4178854F",
+    "lastKnownWriteTime" : 1553204882,
+    "last_content_update" : 1553204882920,
+    "path" : "~/Github/Point Blue 2019/RMN/R/bird_remove_first.r",
+    "project_path" : "R/bird_remove_first.r",
+    "properties" : {
+        "cursorPosition" : "17,0",
+        "scrollLine" : "6",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

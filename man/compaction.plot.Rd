@@ -4,7 +4,7 @@
 \alias{compaction.plot}
 \title{Make a soil compaction plot}
 \usage{
-compaction.plot(data, transect, year, labels = TRUE,
+compaction.plot(data, transect, year, background = TRUE, labels = TRUE,
   pointcolors = c(rep("black", length(transect)), "gray"),
   legend = FALSE, legendnames = c(paste(c(transect)), "Others"),
   xlab = "Bulk density, distance from target",
@@ -16,6 +16,8 @@ compaction.plot(data, transect, year, labels = TRUE,
 \item{data}{dataframe from output of soil.final.cleanup()}
 
 \item{transect}{Character string of selected ranch code}
+
+\item{background}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
 
 \item{labels}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
 
