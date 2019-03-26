@@ -7,7 +7,10 @@
 functional.cover.change.plot(lpi, transect, invasives = FALSE,
   surveyyear = levels(as.factor(lpi$year)), type = "absolute",
   xlab = "Functional Group", ylab = paste("Cover Change", " ",
-  min(levels(surveyyear)), "-", max(levels(surveyyear)), sep = ""))
+  min(levels(as.factor(surveyyear))), "-",
+  max(levels(as.factor(surveyyear))), sep = ""), legendtitle = "Ranch",
+  legendnames = c(paste(transect, collapse = " "), "Others"),
+  boxcolors = c("black", "gray"))
 }
 \arguments{
 \item{lpi}{A dataframe object of lpi data from a veg survey}
@@ -21,6 +24,12 @@ functional.cover.change.plot(lpi, transect, invasives = FALSE,
 \item{type}{"absolute" or "relative" cover}
 
 \item{xlab, ylab}{Axis Labels}
+
+\item{legendtitle}{Character string of legend title}
+
+\item{legendnames}{specifies how points are named on the legend}
+
+\item{boxcolors}{vector of colors to display data on the boxplot}
 }
 \value{
 A ggplot of functional cover change with error bars
