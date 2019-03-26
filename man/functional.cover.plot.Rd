@@ -5,8 +5,11 @@
 \title{Functional cover summary plot}
 \usage{
 functional.cover.plot(lpi, type = "absolute", transect,
-  invasives = FALSE, surveyyear = max(levels(as.factor(lpi$year))),
-  xlab = "Functional Group", ylab = "Percent Cover")
+  background = TRUE, invasives = FALSE,
+  surveyyear = max(levels(as.factor(lpi$year))),
+  xlab = "Functional Group", ylab = "Percent Cover",
+  legendtitle = "Ranch", legendnames = c(paste(transect, collapse =
+  " "), "Others"), boxcolors = c("black", "gray"))
 }
 \arguments{
 \item{lpi}{A dataframe object of lpi data from a veg survey}
@@ -15,9 +18,17 @@ functional.cover.plot(lpi, type = "absolute", transect,
 
 \item{transect}{Ranch for which to make plot}
 
+\item{background}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
+
 \item{surveyyear}{The year for which to calculate cover}
 
 \item{xlab, ylab}{Axis labels}
+
+\item{legendtitle}{Character string of legend title}
+
+\item{legendnames}{specifies how points are named on the legend}
+
+\item{boxcolors}{vector of colors to display data on the boxplot}
 }
 \value{
 A ggplot of functional cover with error bars

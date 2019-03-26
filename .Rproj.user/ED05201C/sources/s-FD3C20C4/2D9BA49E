@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1553633221648.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "2D9BA49E",
+    "lastKnownWriteTime" : 1553633969,
+    "last_content_update" : 1553633969727,
+    "path" : "~/Github/Point Blue 2019/RMN/R/veg_functional.cover.change.table.R",
+    "project_path" : "R/veg_functional.cover.change.table.R",
+    "properties" : {
+        "cursorPosition" : "17,35",
+        "scrollLine" : "5"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

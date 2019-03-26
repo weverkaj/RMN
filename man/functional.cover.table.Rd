@@ -5,7 +5,8 @@
 \title{Create a table of cover for functional groups at each point}
 \usage{
 functional.cover.table(lpi, transect, type = "absolute",
-  invasives = FALSE, surveyyear = max(levels(as.factor(lpi$year))))
+  invasives = FALSE, surveyyear = max(levels(as.factor(lpi$year))),
+  includemeta = FALSE)
 }
 \arguments{
 \item{lpi}{A dataframe object of lpi data from a veg survey}
@@ -17,6 +18,8 @@ functional.cover.table(lpi, transect, type = "absolute",
 \item{invasives}{Boolean that specifies whether to count invasive species as a separate functional group}
 
 \item{surveyyear}{Year for which to calculate cover}
+
+\item{includemeta}{=FALSE Boolean on whether to include columns specifying Transect and pointyear. Useful if using for further analysis but unecessary for display}
 }
 \value{
 A dataframe summary of cover of functional groups
