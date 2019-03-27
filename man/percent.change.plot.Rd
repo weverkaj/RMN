@@ -19,7 +19,7 @@ percent.change.plot(data, transect,
 
 \item{surveyyear}{Years for which to make summary}
 
-\item{background}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
+\item{background}{= TRUE whether to display "background" data on plot not from selected ranch}
 
 \item{legendnames}{specifies how points are named on the legend}
 

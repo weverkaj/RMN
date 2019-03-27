@@ -5,12 +5,12 @@
 \title{Functional cover change summary plot}
 \usage{
 functional.cover.change.plot(lpi, transect, invasives = FALSE,
-  surveyyear = levels(as.factor(lpi$year)), type = "absolute",
-  xlab = "Functional Group", ylab = paste("Cover Change", " ",
-  min(levels(as.factor(surveyyear))), "-",
-  max(levels(as.factor(surveyyear))), sep = ""), legendtitle = "Ranch",
-  legendnames = c(paste(transect, collapse = " "), "Others"),
-  boxcolors = c("black", "gray"))
+  surveyyear = levels(as.factor(lpi$year)), background = TRUE,
+  type = "absolute", xlab = "Functional Group",
+  ylab = paste("Cover Change", " ", min(levels(as.factor(surveyyear))),
+  "-", max(levels(as.factor(surveyyear))), sep = ""),
+  legendtitle = "Ranch", legendnames = c(paste(transect, collapse =
+  " "), "Others"), boxcolors = c("black", "gray"))
 }
 \arguments{
 \item{lpi}{A dataframe object of lpi data from a veg survey}
@@ -20,6 +20,8 @@ functional.cover.change.plot(lpi, transect, invasives = FALSE,
 \item{invasives}{Boolean whether to include invasives as a functional group}
 
 \item{surveyyear}{The years for which to make the plot}
+
+\item{background}{= TRUE whether to display "background" data on plot not from selected ranch}
 
 \item{type}{"absolute" or "relative" cover}
 

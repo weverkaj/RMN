@@ -6,7 +6,7 @@
 #' @param transect Ranch for which to make plot
 #' @param type "absolute" or "relative" cover
 #' @param surveyyear The year for which to calculate cover
-#' @param background = TRUE determines whether points from the chosen ranch are labeled on the plot
+#' @param background = TRUE whether to display "background" data on plot not from selected ranch
 #' @param xlab,ylab Axis labels
 #' @param legendnames specifies how points are named on the legend
 #' @param legendtitle Character string of legend title
