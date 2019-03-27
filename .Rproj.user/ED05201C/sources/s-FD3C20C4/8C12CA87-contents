@@ -44,8 +44,7 @@ cover.sum.plot = function(lpi, releve,
   library(plyr)
   library(dplyr)
   library(reshape2)
-  datasum = cover.summary(lpi = lpi, releve = releve, transect = transect,
-                          choose.variable = choose.variable, surveyyear = surveyyear, rounded = FALSE)
+  datasum = cover.summary(lpi = lpi, releve = releve, transect = transect, choose.variable = choose.variable, surveyyear = surveyyear)
   datasum$NumIndices = NULL
 
   if(isFALSE(multiple_years)){datasum = subset(datasum, subset = datasum$year == max(datasum$year))}
