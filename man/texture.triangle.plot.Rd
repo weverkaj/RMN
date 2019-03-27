@@ -19,7 +19,7 @@ texture.triangle.plot(data, transect, year, labels = TRUE,
 
 \item{labels}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
 
-\item{background}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
+\item{background}{= TRUE whether to display "background" data on plot not from selected ranch}
 
 \item{...}{arguments supplied to TT.plot}
 }

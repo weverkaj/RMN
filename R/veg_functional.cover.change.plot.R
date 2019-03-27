@@ -6,6 +6,7 @@
 #' @param transect Ranch for which to make plot
 #' @param invasives Boolean whether to include invasives as a functional group
 #' @param surveyyear The years for which to make the plot
+#' @param background = TRUE whether to display "background" data on plot not from selected ranch
 #' @param type "absolute" or "relative" cover
 #' @param xlab,ylab Axis Labels
 #' @param legendnames specifies how points are named on the legend
@@ -28,6 +29,7 @@ functional.cover.change.plot = function(lpi,
                transect,
                invasives = FALSE,
                surveyyear = levels(as.factor(lpi$year)),
+               background = TRUE,
                type = "absolute",
                xlab = "Functional Group",
                ylab = paste("Cover Change",
@@ -53,10 +55,13 @@ functional.cover.change.plot = function(lpi,
                                             casted = FALSE
   )
   masked = coveryear
+  if(!background){masked = subset(masked, subset = Transect.x %in% transect)}
+
   masked$Transect.x = as.character(replace(as.character(masked$Transect.x),
                                            masked$Transect.x != transect, values = "zzzz"))
   masked$Transect.x = as.character(replace(as.character(masked$Transect.x),
                                            masked$Transect.x == transect, values = "aaaa"))
+  if(!("aaaa" %in% masked$Transect.x)){stop("This ranch does not contain multiple surveys in the years selected")}
 
 
   # x = aggregate(masked, by = list(masked$Transect.x, coveryear$Type), FUN = "mean")

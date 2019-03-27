@@ -18,7 +18,7 @@ functional.cover.plot(lpi, type = "absolute", transect,
 
 \item{transect}{Ranch for which to make plot}
 
-\item{background}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
+\item{background}{= TRUE whether to display "background" data on plot not from selected ranch}
 
 \item{surveyyear}{The year for which to calculate cover}
 
