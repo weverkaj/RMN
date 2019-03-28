@@ -6,7 +6,7 @@
 \usage{
 carbon.plot(data, transect, year, labels = TRUE, background = TRUE,
   pointcolors = c(rep("black", length(transect)), "gray"),
-  legend = FALSE, legendnames = c(transect, "Others"),
+  legend = TRUE, legendnames = c(transect, "Others"),
   box.padding = 0.5, xlab = "\% Carbon 0-10 cm",
   ylab = "\% Carbon 10-40 cm")
 }
