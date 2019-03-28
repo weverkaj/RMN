@@ -10,6 +10,7 @@
 #' @param pointcolors = c("black", "gray") a vector that specifies colors of points on the plot
 #' @param legend specifies whether to display a legend
 #' @param legendnames specifies how points are named on the legend
+#' @param legendtitle title for the legend
 #' @param box.padding numeric adjusts spacing of labels on the plot
 #' @param xlab,ylab character strings for axis lables
 #'
@@ -34,6 +35,7 @@ carbon.plot<-function(data, transect, year,
                       pointcolors = c(rep("black", length(transect)),"gray"),
                       legend = TRUE,
                       legendnames = c(transect, "Others"),
+                      legendtitle = "Ranch",
                       box.padding = 0.5,
                       xlab = "% Carbon 0-10 cm",
                       ylab = "% Carbon 10-40 cm"){
@@ -67,7 +69,7 @@ carbon.plot<-function(data, transect, year,
     theme_bw() +
     xlab(xlab) +
     ylab(ylab) +
-    guides(color = ifelse(legend, guide_legend(), FALSE), label = FALSE) +
+    guides(color = ifelse(legend, guide_legend(title = legendtitle), FALSE), label = FALSE) +
     geom_label_repel(aes(label = ifelse(Transect == transect, labs, NA)), box.padding = box.padding, show.legend = FALSE)
 
 }
