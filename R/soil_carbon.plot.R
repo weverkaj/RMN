@@ -32,7 +32,7 @@ carbon.plot<-function(data, transect, year,
                       labels = TRUE,
                       background = TRUE,
                       pointcolors = c(rep("black", length(transect)),"gray"),
-                      legend = FALSE,
+                      legend = TRUE,
                       legendnames = c(transect, "Others"),
                       box.padding = 0.5,
                       xlab = "% Carbon 0-10 cm",
@@ -63,9 +63,11 @@ carbon.plot<-function(data, transect, year,
 
   ggplot(masked_soil, aes(x = Carbon.10.40.cm, y = Carbon.0.10.cm, color = Transect)) +
     geom_point() +
-    scale_color_manual(values = pointcolors, labels = legendnames, guide = legend) +
+    scale_color_manual(values = pointcolors, labels = legendnames) +
     theme_bw() +
-    xlab(xlab) + ylab(ylab) +
-    geom_label_repel(aes(label = ifelse(Transect == transect, labs, NA)), box.padding = box.padding)
+    xlab(xlab) +
+    ylab(ylab) +
+    guides(color = ifelse(legend, guide_legend(), FALSE), label = FALSE) +
+    geom_label_repel(aes(label = ifelse(Transect == transect, labs, NA)), box.padding = box.padding, show.legend = FALSE)
 
 }
