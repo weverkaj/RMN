@@ -8,7 +8,8 @@ texture.triangle.plot(data, transect, year, labels = TRUE,
   background = TRUE, pch = 16, main = paste("Soil Texture - ",
   transect), cex.axis = 0.5, cex.lab = 0.75, cex.main = 0.75,
   text.tol = 0.2, tri.sum.tst = FALSE, cex = 0.75,
-  frame.bg.col = "white", grid.show = FALSE)
+  frame.bg.col = "white", grid.show = FALSE, legend = TRUE,
+  colors = c("black", "gray"), legendtitle = "Ranch")
 }
 \arguments{
 \item{data}{dataframe, output of prepare.soil.triangle()}
@@ -20,6 +21,12 @@ texture.triangle.plot(data, transect, year, labels = TRUE,
 \item{labels}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
 
 \item{background}{= TRUE whether to display "background" data on plot not from selected ranch}
+
+\item{legend}{Boolean whether to display a legend}
+
+\item{colors}{colors to plot points on the triangle}
+
+\item{legendtitle}{Title for the legend}
 
 \item{...}{arguments supplied to TT.plot}
 }
