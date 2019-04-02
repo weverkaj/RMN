@@ -28,13 +28,13 @@ points.cover.plot = function(lpi, transect,
                              pallete = "YlGnBu",
                              x.angle = 45){
   library(ggplot2)
-  fct = functional.cover.table(lpi = lpi, type = type, transect = transect, invasives = invasives, surveyyear = surveyyear)
+  fct = functional.cover.table(lpi = lpi, type = type, transect = transect, invasives = invasives, surveyyear = surveyyear, includemeta = TRUE)
 
 
   abs<- fct[,colnames(fct) != "NumIndices"]
-  abs<-melt(abs, id= c("pointyear", "Point.Id", "year"))
+  abs<-melt(abs, id= c("pointyear", "Transect", "Point.Id", "year"))
   # Note, this step may give a warning, but it's okay
-  names(abs)<-c("pointyear", "Point.Id", "year", "Type", "Cover")
+  names(abs)<-c("pointyear", "Transect", "Point.Id", "year", "Type", "Cover")
 
   absolute = ggplot(abs, aes(x = year, y = Cover))
 
@@ -44,7 +44,7 @@ points.cover.plot = function(lpi, transect,
     theme(legend.text = element_text(size=8)) +
     theme(legend.title = element_blank()) +
     scale_fill_manual(values = c("olivedrab", "steelblue3", "orange3",
-                                "mediumpurple4", "firebrick4", "tan", "mistyrose", "yellowgreen")) +
+                                 "mediumpurple4", "firebrick4", "tan", "mistyrose", "yellowgreen")) +
     theme(axis.text.x = element_text(angle = x.angle, hjust = 1)) +
     facet_wrap(~Point.Id) +
     theme_bw() +

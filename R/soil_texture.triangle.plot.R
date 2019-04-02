@@ -5,8 +5,11 @@
 #' @param data dataframe, output of prepare.soil.triangle()
 #' @param transect Character string of selected ranch code
 #' @param year The year or years for which to make the plot
-#' @param background = TRUE determines whether points from the chosen ranch are labeled on the plot
+#' @param background = TRUE whether to display "background" data on plot not from selected ranch
 #' @param labels = TRUE determines whether points from the chosen ranch are labeled on the plot
+#' @param legend Boolean whether to display a legend
+#' @param colors colors to plot points on the triangle
+#' @param legendtitle Title for the legend
 #' @param ... arguments supplied to TT.plot
 #'
 #' @return Soil classification triangle with chosen ranch points emboldened
@@ -14,7 +17,7 @@
 #' @examples texture.triangle.plot(soil, "ranchname")
 #'
 #'
-#' @export texture_triangle_plot
+#' @export texture.triangle.plot
 #'
 #' @return soil texture triangle
 #'
@@ -37,12 +40,19 @@ texture.triangle.plot = function(data, transect, year,
                                  tri.sum.tst = FALSE,
                                  cex = 0.75,
                                  frame.bg.col = "white",
-                                 grid.show = FALSE){
+                                 grid.show = FALSE,
+                                 legend = TRUE,
+                                 colors = c("black", "gray"),
+                                 legendtitle = "Ranch"){
 
   library(soiltexture)
   data = subset(data, YEAR %in% year)
   if(!background){data = subset(data, subset = Transect %in% transect)}
   data = prepare.soil.triangle(data)
+  data$color = NULL
+  data$color[data$Transect == transect] = colors[1]
+  data$color[data$Transect != transect] = colors[2]
+  data = arrange(data, desc(color))
 
 
   data1 = subset(data, data$Transect %in% transect)
@@ -57,7 +67,7 @@ texture.triangle.plot = function(data, transect, year,
 
   test = TT.plot(
     class.sys = "USDA.TT",    ## with the UDSA texture classes
-    tri.data = data2,
+    tri.data = data,
     pch = 16,
     main = main,
     cex.axis = cex.axis,
@@ -65,19 +75,12 @@ texture.triangle.plot = function(data, transect, year,
     cex.main = cex.main,
     text.tol = text.tol,
     tri.sum.tst = tri.sum.tst,
-    col = "gray",
+    col = data$color,
     cex = cex,
     frame.bg.col = frame.bg.col,
     grid.show = grid.show
   )
 
-  TT.points(geo=test,
-            tri.data = data1,
-            pch = pch,
-            tri.sum.tst=tri.sum.tst,
-            col="black",
-            cex=cex,
-  )
 
   TT.text(
     tri.data = data1,
@@ -89,4 +92,6 @@ texture.triangle.plot = function(data, transect, year,
     font = 0.1,
     cex = cex,
     col= "black")
+
+  if(legend){legend(x = 90, y = 90, title = legendtitle, legend = c(transect, "Others"), col = colors, pch = pch)}
 }

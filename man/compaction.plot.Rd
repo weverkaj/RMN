@@ -6,8 +6,8 @@
 \usage{
 compaction.plot(data, transect, year, background = TRUE, labels = TRUE,
   pointcolors = c(rep("black", length(transect)), "gray"),
-  legend = FALSE, legendnames = c(paste(c(transect)), "Others"),
-  xlab = "Bulk density, distance from target",
+  legend = TRUE, legendnames = c(paste(c(transect)), "Others"),
+  legendtitle = "Ranch", xlab = "Bulk density, distance from target",
   ylab = "Infiltration, distance from target", box.padding = 0.5,
   linetype = "dashed", Inftarget = 3.81, xlims = c(NA, NA),
   ylims = c(NA, NA))
@@ -17,7 +17,7 @@ compaction.plot(data, transect, year, background = TRUE, labels = TRUE,
 
 \item{transect}{Character string of selected ranch code}
 
-\item{background}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
+\item{background}{= TRUE whether to display "background" data on plot not from selected ranch}
 
 \item{labels}{= TRUE determines whether points from the chosen ranch are labeled on the plot}
 
@@ -26,6 +26,8 @@ compaction.plot(data, transect, year, background = TRUE, labels = TRUE,
 \item{legend}{specifies whether to display a legend}
 
 \item{legendnames}{specifies how points are named on the legend}
+
+\item{legendtitle}{title for the legend}
 
 \item{xlab, ylab}{character strings for axis lables}
 

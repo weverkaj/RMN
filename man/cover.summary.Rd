@@ -7,7 +7,7 @@
 cover.summary(lpi, releve, transect,
   surveyyear = c(levels(as.factor(lpi$year)),
   levels(as.factor(releve$year))), choose.variable = c("SpeciesRichness",
-  "Litter", "Thatch", "BareGround", "Trees", "Shrubs"))
+  "Litter", "Thatch", "BareGround", "Trees", "Shrubs"), rounded = TRUE)
 }
 \arguments{
 \item{lpi}{A dataframe object of lpi data from a veg survey}
@@ -19,6 +19,8 @@ cover.summary(lpi, releve, transect,
 \item{surveyyear}{The years for which to make the summary}
 
 \item{choose.variable}{Character vector that identifies which variables to summarize. Defaults to Species Richness, Litter, Thatch, Bare Ground, Trees, and Shrubs}
+
+\item{rounded}{Boolean whether to round values in table}
 }
 \value{
 A summary of cover

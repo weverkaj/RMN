@@ -5,7 +5,7 @@
 #' @param data from output of soil.final.cleanup()
 #' @param transect Character string of selected ranch code
 #' @param surveyyear Years for which to make summary
-#' @param background = TRUE determines whether points from the chosen ranch are labeled on the plot
+#' @param background = TRUE whether to display "background" data on plot not from selected ranch
 #' @param legendnames specifies how points are named on the legend
 #' @param legendtitle Character string of legend title
 #' @param boxcolors vector of colors to display data on the boxplot
@@ -28,7 +28,8 @@
 percent.change.plot = function(data, transect,
                                surveyyear = levels(as.factor(data$YEAR)),
                                background = TRUE,
-                               legendnames = c(paste(transect, collapse = " "), "Others"), legendtitle = "Ranch",
+                               legendnames = c(paste(transect, collapse = " "), "Others"),
+                               legendtitle = "Ranch",
                                boxcolors = c("black","gray"),
                                xlabels = c("Carbon 0-10 cm", "Carbon 10-40 cm", "Bulk Density"),
                                ylab = "% Change",
@@ -81,7 +82,8 @@ percent.change.plot = function(data, transect,
     theme_bw() +
     scale_x_discrete(labels = xlabels) +
     ylab(ylab) +
-    xlab(NULL)
+    xlab(NULL) +
+    geom_hline(yintercept = 0, linetype = 'dotted')
 
 }
 

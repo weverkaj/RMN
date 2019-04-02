@@ -4,11 +4,12 @@
 #'
 #' @param data dataframe from output of soil.final.cleanup()
 #' @param transect Character string of selected ranch code
-#' @param background = TRUE determines whether points from the chosen ranch are labeled on the plot
+#' @param background = TRUE whether to display "background" data on plot not from selected ranch
 #' @param labels = TRUE determines whether points from the chosen ranch are labeled on the plot
 #' @param pointcolors = c("black", "gray") a vector that specifies colors of points on the plot
 #' @param legend specifies whether to display a legend
 #' @param legendnames specifies how points are named on the legend
+#' @param legendtitle title for the legend
 #' @param box.padding numeric adjusts spacing of labels on the plot
 #' @param xlab,ylab character strings for axis lables
 #' @param linetype specifies type of line shown for BD and Infiltration targets
@@ -31,7 +32,9 @@ compaction.plot<-function(data,
                           background = TRUE,
                           labels = TRUE,
                           pointcolors = c(rep("black", length(transect)),"gray"),
-                          legend = FALSE, legendnames = c(paste(c(transect)), "Others"),
+                          legend = TRUE,
+                          legendnames = c(paste(c(transect)), "Others"),
+                          legendtitle = "Ranch",
                           xlab = "Bulk density, distance from target",
                           ylab = "Infiltration, distance from target",
                           box.padding = 0.5,
@@ -69,11 +72,12 @@ compaction.plot<-function(data,
     geom_point() +
     geom_hline(yintercept = 0, linetype = linetype) +
     geom_vline(xintercept = 0, linetype = linetype) +
-    scale_color_manual(values = pointcolors, labels = legendnames, guide = legend) +
+    scale_color_manual(values = pointcolors, labels = legendnames) +
+    guides(color = ifelse(legend, guide_legend(title = legendtitle), FALSE), label = FALSE) +
     xlab(xlab) +
     ylab(ylab) +
     theme_bw() +
-    geom_label_repel(aes(label = ifelse(Transect == transect, labs, NA)), box.padding = box.padding) +
+    geom_label_repel(aes(label = ifelse(Transect == transect, labs, NA)), box.padding = box.padding, show.legend = FALSE) +
     xlim(as.numeric(xlims[1]), as.numeric(xlims[2])) +
     ylim(as.numeric(ylims[1]), as.numeric(ylims[2]))
 

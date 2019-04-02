@@ -72,7 +72,7 @@ species.cover.table = function(lpi,
   t.lpirelative = arrange(t.lpirelative, desc(mean_cover))
 
   t.lpirelative2 = t.lpirelative[,c(ncol(t.lpirelative), 1:(ncol(t.lpirelative) - 1))]
-
+  t.lpirelative2[,2:ncol(t.lpirelative2)] = round(t.lpirelative2[,5:ncol(t.lpirelative2)], 2)
   return(t.lpirelative2)
 
 
