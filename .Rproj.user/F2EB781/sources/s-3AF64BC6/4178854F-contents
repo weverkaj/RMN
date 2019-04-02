@@ -1,6 +1,6 @@
 #' @title Remove first row of data.frame if empty
 #'
-#' @description A reoccuring problem when importing data frames into rstudio is a blank first row that is added to the data frame. This function looks at the.
+#' @description A reoccuring problem when importing data frames into rstudio is a blank first row that is added to the data frame. This function looks at the firsts row to see if the first cell has an empty value. If it does then it will removes the row and return the dataset.
 #'
 #' @param df A dataframe object
 #'
