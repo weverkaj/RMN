@@ -30,7 +30,8 @@ percent.change.plot = function(data, transect,
                                background = TRUE,
                                legendnames = c(paste(transect, collapse = " "), "Others"),
                                legendtitle = "Ranch",
-                               boxcolors = c("black","gray"),
+                               legend = TRUE,
+                               boxcolors = c("black", "gray"),
                                xlabels = c("Carbon 0-10 cm", "Carbon 10-40 cm", "Bulk Density"),
                                ylab = "% Change",
                                choosevariables = c("Carbon010change", "Carbon1040change","Bulk.density.change"))
@@ -77,13 +78,15 @@ percent.change.plot = function(data, transect,
   masked = melt(masked, id.vars = c("Point", "Transect"))
 
   ggplot(masked, aes(x = variable, y = value, color = Transect)) +
+    geom_hline(yintercept = 0, linetype = 'dotted') +
     geom_boxplot() +
-    scale_color_manual(name = legendtitle, values = boxcolors, labels = legendnames) +
+    scale_color_manual(values = boxcolors, labels = legendnames) +
+    guides(color = ifelse(legend, guide_legend(title = legendtitle), FALSE), label = FALSE) +
     theme_bw() +
     scale_x_discrete(labels = xlabels) +
     ylab(ylab) +
-    xlab(NULL) +
-    geom_hline(yintercept = 0, linetype = 'dotted')
+    xlab(NULL)
+
 
 }
 
