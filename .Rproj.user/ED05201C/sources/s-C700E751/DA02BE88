@@ -7,13 +7,13 @@
     "folds" : "",
     "hash" : "0",
     "id" : "DA02BE88",
-    "lastKnownWriteTime" : 1554318015,
-    "last_content_update" : 1554318015201,
+    "lastKnownWriteTime" : 1554319457,
+    "last_content_update" : 1554319457,
     "path" : "~/Github/Point Blue 2019/RMN/R/soil_carbon.plot.R",
     "project_path" : "R/soil_carbon.plot.R",
     "properties" : {
-        "cursorPosition" : "84,0",
-        "scrollLine" : "15",
+        "cursorPosition" : "60,0",
+        "scrollLine" : "46",
         "tempName" : "Untitled1"
     },
     "relative_order" : 1,
