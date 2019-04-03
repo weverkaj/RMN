@@ -43,6 +43,9 @@ percent.change.plot = function(data, transect,
   library(ggrepel)
   pc = function(x){(diff(x)/x[1]) * 100}
 
+
+
+
   data$YEAR = as.factor(data$YEAR)
   data = subset(data, YEAR %in% surveyyear)
   if(!background){data = subset(data, subset = Transect %in% transect)}
@@ -55,10 +58,12 @@ percent.change.plot = function(data, transect,
   data2 = subset(data,select=c("Point", "Transect", "YEAR", "Carbon.0.10.cm", "Carbon.10.40.cm",
                                "Bulk.Density"))
 
+
   aggs = aggregate(data2[4:6], by = list(data2$Point), pc)
   colnames(aggs) = c("Point", "Change.Carbon0-10", "Change.Carbon10-40", "BD")
-  data2 = subset(data2, YEAR == max(levels(data2$YEAR)))
-  data2 = merge(data2, aggs, by= "Point", all = TRUE)
+  data2 = subset(data2, data2$YEAR == max(levels(droplevels(data2$YEAR))))
+  data2 = merge(data2, aggs, by= "Point", all.x = T)
+
 
 
 
@@ -76,16 +81,21 @@ percent.change.plot = function(data, transect,
   masked = subset(masked, select = c("Point", "Transect" , choosevariables))
 
   masked = melt(masked, id.vars = c("Point", "Transect"))
+  masked = masked[!is.na(masked$variable),]
+  masked = masked[!is.nan(masked$variable),]
 
-  ggplot(masked, aes(x = variable, y = value, color = Transect)) +
-    geom_hline(yintercept = 0, linetype = 'dotted') +
+
+  p = ggplot(masked, aes(x = variable, y = value, color = Transect)) +
     geom_boxplot() +
     scale_color_manual(values = boxcolors, labels = legendnames) +
     guides(color = ifelse(legend, guide_legend(title = legendtitle), FALSE), label = FALSE) +
     theme_bw() +
     scale_x_discrete(labels = xlabels) +
+    geom_hline(yintercept = 0, linetype = 'dotted') +
     ylab(ylab) +
     xlab(NULL)
+
+  return(p)
 
 
 }
