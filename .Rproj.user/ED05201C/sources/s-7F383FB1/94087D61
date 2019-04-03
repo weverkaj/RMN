@@ -1,19 +1,21 @@
 {
     "collab_server" : "",
     "contents" : "",
-    "created" : 1553800245478.000,
+    "created" : 1553716796932.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2105679004",
-    "id" : "D516B899",
+    "hash" : "0",
+    "id" : "94087D61",
     "lastKnownWriteTime" : 1553718355,
     "last_content_update" : 1553718355,
-    "path" : "~/Github/Point Blue 2019/RMN/R/soil_read.date.R",
-    "project_path" : "R/soil_read.date.R",
+    "path" : "~/Github/Point Blue 2019/RMN/R/veg_cover.summary.R",
+    "project_path" : "R/veg_cover.summary.R",
     "properties" : {
+        "cursorPosition" : "9,58",
+        "scrollLine" : "0"
     },
-    "relative_order" : 9,
+    "relative_order" : 5,
     "source_on_save" : false,
     "source_window" : "",
     "type" : "r_source"

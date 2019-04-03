@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1553800245478.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2105679004",
+    "id" : "D516B899",
+    "lastKnownWriteTime" : 1553718355,
+    "last_content_update" : 1553718355,
+    "path" : "~/Github/Point Blue 2019/RMN/R/soil_read.date.R",
+    "project_path" : "R/soil_read.date.R",
+    "properties" : {
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

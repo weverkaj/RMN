@@ -50,8 +50,8 @@ texture.triangle.plot = function(data, transect, year,
   if(!background){data = subset(data, subset = Transect %in% transect)}
   data = prepare.soil.triangle(data)
   data$color = NULL
-  data$color[data$Transect == transect] = colors[1]
-  data$color[data$Transect != transect] = colors[2]
+  data$color[data$Transect %in% transect] = colors[1]
+  data$color[!(data$Transect %in% transect)] = colors[2]
   data = arrange(data, desc(color))
 
 
@@ -93,5 +93,9 @@ texture.triangle.plot = function(data, transect, year,
     cex = cex,
     col= "black")
 
-  if(legend){legend(x = 90, y = 90, title = legendtitle, legend = c(transect, "Others"), col = colors, pch = pch)}
-}
+  if(legend){legend(x = 90, y = 90,
+                    title = legendtitle,
+                    legend = c(transect, if(background){"Others"}),
+                    col = c(rep(colors[1], times = length(transect)), if(background){colors[2]}),
+                    pch = pch)}
+  }

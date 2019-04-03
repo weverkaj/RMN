@@ -1,22 +1,21 @@
 {
     "collab_server" : "",
     "contents" : "",
-    "created" : 1553203473004.000,
+    "created" : 1554320876822.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
     "hash" : "0",
-    "id" : "52EA4368",
+    "id" : "807EBB3E",
     "lastKnownWriteTime" : 1553718355,
     "last_content_update" : 1553718355,
-    "path" : "~/Github/Point Blue 2019/RMN/R/soil_percent.change.plot.R",
-    "project_path" : "R/soil_percent.change.plot.R",
+    "path" : "~/Github/Point Blue 2019/RMN/R/soil_soil.final.cleanup&prepare.soil.triangle.R",
+    "project_path" : "R/soil_soil.final.cleanup&prepare.soil.triangle.R",
     "properties" : {
-        "cursorPosition" : "7,96",
-        "scrollLine" : "27",
-        "tempName" : "Untitled1"
+        "cursorPosition" : "46,0",
+        "scrollLine" : "0"
     },
-    "relative_order" : 3,
+    "relative_order" : 8,
     "source_on_save" : false,
     "source_window" : "",
     "type" : "r_source"
