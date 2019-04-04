@@ -41,7 +41,7 @@ functional.cover.change.table = function(lpi,
   cov = melt(cov, id = c("Transect", "pointyear", "Point.Id", "year"))
   names(cov)<-c("Transect", "pointyear", "Point.Id", "year", "Type", "Cover")
 
-  cov$year = as.factor(cov$year)
+  cov$year = droplevels(as.factor(cov$year))
   cov$Type = as.factor(cov$Type)
 
 
