@@ -46,6 +46,10 @@ functional.cover.change.plot = function(lpi,
   library(ggplot2)
   library(reshape2)
 
+  ranchlpi = subset(lpi, subset = lpi$Transect.Name %in% transect)
+  ranchlpi$year = droplevels(as.factor(ranchlpi$year))
+  surveyyear = surveyyear[surveyyear %in% ranchlpi$year]
+
 
   coveryear = functional.cover.change.table(lpi = lpi,
                                             transect = levels(lpi$Transect.Name),
