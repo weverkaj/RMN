@@ -7,10 +7,11 @@
 percent.change.plot(data, transect,
   surveyyear = levels(as.factor(data$YEAR)), background = TRUE,
   legendnames = c(paste(transect, collapse = " "), "Others"),
-  legendtitle = "Ranch", boxcolors = c("black", "gray"),
-  xlabels = c("Carbon 0-10 cm", "Carbon 10-40 cm", "Bulk Density"),
-  ylab = "\% Change", choosevariables = c("Carbon010change",
-  "Carbon1040change", "Bulk.density.change"))
+  legendtitle = "Ranch", legend = TRUE, boxcolors = c("black",
+  "gray"), xlabels = c("Carbon 0-10 cm", "Carbon 10-40 cm",
+  "Bulk Density"), ylab = "\% Change",
+  choosevariables = c("Carbon010change", "Carbon1040change",
+  "Bulk.density.change"))
 }
 \arguments{
 \item{data}{from output of soil.final.cleanup()}

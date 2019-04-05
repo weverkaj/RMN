@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1554497968783.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "5CB8BA8C",
+    "lastKnownWriteTime" : 1554498725,
+    "last_content_update" : 1554498725731,
+    "path" : "~/Github/Point Blue 2019/RMN/R/bird_subset.cue.r",
+    "project_path" : "R/bird_subset.cue.r",
+    "properties" : {
+        "cursorPosition" : "14,0",
+        "scrollLine" : "6",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
