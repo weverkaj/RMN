@@ -494,7 +494,7 @@ if(choose_focal_group=="Riparian"){
   
   
     
-  ggplot(df3,aes(x=df3$Spp, y=df3$Abundance, group=df3$YEAR, fill=YEAR))+
+  ggplot(df3,aes(x=df3$Spp, y=df3$Abundance, group=df3$YEAR, fill=df3$YEAR))+
     geom_col( position = "dodge")+
     geom_errorbar(aes(ymin=lower, ymax=upper), width=.2, position=position_dodge(.9)) +
     ylab("Focal Species Abundance")+
@@ -524,137 +524,139 @@ names(bird_map_variables) = c("Richness", "Visits")
 
 
 
-wide<-wide.data %>% 
-  select(c(1:5, "Richness"))
 
-colnames(birdlocations)[1]<-c("POINT")
-
-for(i in 1:length(unique(wide$Transect))){
-  ranch = as.character(unique(wide$Transect)[i])
-  data1 = subset(wide, subset = wide$Transect == ranch)}
-
-  
-  bird_loc_data = merge(birdlocations, wide, by = "POINT")
 
 
 
   
   
-  bird_species.richness<-function(df,transect=c(levels(as.factor(df$Transect))), surveyyear=c(levels(as.factor(df$YEAR)))){
-    library(dplyr)
-    
-    
-    df$YEAR<-as.factor(df$YEAR)
-    
-    df = subset(df, Transect %in% transect)
-    df = subset(df, YEAR %in% surveyyear)
-    
-    df2= df %>% 
-      select(YEAR,POINT, Richness) %>% 
-      mutate(average=round(sum(Richness)/length(Richness),0)) %>% 
-      mutate(obs_mean2=(Richness-average)^2) %>% 
-      mutate(div=obs_mean2/(length(unique(df$POINT))-1)) %>% 
-      mutate(sd=sqrt(div)) %>% 
-      mutate(se= sd/(sqrt(length(unique(df$POINT))-1)))%>% 
-      mutate(upper= Richness+se) %>% 
-      mutate(lower=Richness-se)
-    
-    ggplot(df2,aes(x=df2$POINT, y=df2$Richness,fill=YEAR, group=df2$YEAR))+
-      geom_col( position = "dodge")+
-      geom_errorbar(aes(ymin=lower, ymax=upper), width=.2, position=position_dodge(.9)) +
-      ylab("Bird Species Richness")+
-      xlab("Point Id")+
-      theme(axis.text.x = element_text(angle = 40, hjust = 1))+
-      ggtitle("Bird Species Richness per Point")+
-      scale_fill_manual(values = c("gray28","dodgerblue4","deepskyblue3","lightblue3", "lightblue4", "lightblue3","lightblue1"))
-    
-    
-    
+bird_species.richness<-function(df,transect=c(levels(as.factor(df$Transect))), surveyyear=c(levels(as.factor(df$YEAR)))){
+  library(dplyr)
+  
+  
+  df$YEAR<-as.factor(df$YEAR)
+  
+  df = subset(df, Transect %in% transect)
+  df = subset(df, YEAR %in% surveyyear)
+  
+  df2= df %>% 
+    select(YEAR,POINT, Richness) %>% 
+    mutate(average=round(sum(Richness)/length(Richness),0)) %>% 
+    mutate(obs_mean2=(Richness-average)^2) %>% 
+    mutate(div=obs_mean2/(length(unique(df$POINT))-1)) %>% 
+    mutate(sd=sqrt(div)) %>% 
+    mutate(se= sd/(sqrt(length(unique(df$POINT))-1)))%>% 
+    mutate(upper= Richness+se) %>% 
+    mutate(lower=Richness-se)
+  
+  ggplot(df2,aes(x=df2$POINT, y=df2$Richness,fill=YEAR, group=df2$YEAR))+
+    geom_col( position = "dodge")+
+    geom_errorbar(aes(ymin=lower, ymax=upper), width=.2, position=position_dodge(.9)) +
+    ylab("Bird Species Richness")+
+    xlab("Point Id")+
+    theme(axis.text.x = element_text(angle = 40, hjust = 1))+
+    ggtitle("Bird Species Richness per Point")+
+    scale_fill_manual(values = c("gray28","dodgerblue4","deepskyblue3","lightblue3", "lightblue4", "lightblue3","lightblue1"))
+  
+  
+  
+}
+
+
+bird_focal.graph<-function (df, transect=c(levels(as.factor(df$Transect))), surveyyear=c(levels(as.factor(df$YEAR))), choose_focal_group= c("Grassland", "Oak.Woodland", "Riparian")) {
+  
+  
+  
+  
+  Grassland<-c("MOPL","SAVS", "GRSP", "WEME","LOSH", "NOHA","FEHA" ,"AMKE","WTKI",  "BUOW" )
+  Oak.Woodland<-c("ACWO", "NUWO","NOFL", "ATFL", "WBNU", "WEBL", "OATI", "EUST", "HUVI","BEWR", "LAGO", "BHGR","LASP", "CALT", "CASJ", "YBMA","CAQU" )
+  Riparian<-c("ATFL", "NOFL", "NUWO", "LAZB", "BEWR", "SPTO", "YEWA", "COYE", "YBCH", "SOSP", "BHGR", "BLGR", "BUOR", "WAVI")
+  
+  
+  df = subset(df, Transect %in% transect)
+  df = subset(df, YEAR %in% surveyyear)
+  
+  
+  if(choose_focal_group=="Grassland"){
+    df = subset(df, Spp %in% Grassland)
   }
-  
-  
-  bird_focal.graph<-function (df, transect=c(levels(as.factor(df$Transect))), surveyyear=c(levels(as.factor(df$YEAR))), choose_focal_group= c("Grassland", "Oak.Woodland", "Riparian")) {
-    
-    Grassland<-c("MOPL","SAVS", "GRSP", "WEME","LOSH", "NOHA","FEHA" ,"AMKE","WTKI",  "BUOW" )
-    Oak.Woodland<-c("ACWO", "NUWO","NOFL", "ATFL", "WBNU", "WEBL", "OATI", "EUST", "HUVI","BEWR", "LAGO", "BHGR","LASP", "CALT", "CASJ", "YBMA","CAQU" )
-    Riparian<-c("ATFL", "NOFL", "NUWO", "LAZB", "BEWR", "SPTO", "YEWA", "COYE", "YBCH", "SOSP", "BHGR", "BLGR", "BUOR", "WAVI")
-    
-    
-    df = subset(df, Transect %in% transect)
-    df = subset(df, YEAR %in% surveyyear)
-    
-    
-    if(choose_focal_group=="Grassland"){
-      df = subset(df, Spp %in% Grassland)
-    }
-    if(choose_focal_group=="Oak.Woodland"){
-      df = subset(df, Spp %in% Oak.Woodland)
-    }
-    if(choose_focal_group=="Riparian"){
-      df = subset(df, Spp %in% Riparian)
-    }
-    df$YEAR<-as.factor(df$YEAR)
-    # df<-df %>% 
-    #group_by( Spp) %>% 
-    #tally(ABUNDANCE)
-    
-    # df2= df %>% 
-    #  mutate(average=round(sum(Richness)/length(Richness),0)) %>% 
-    #mutate(obs_mean2=(Richness-average)^2) %>% 
-    #mutate(div=obs_mean2/(length(unique(POINT))-1)) %>% 
-    #mutate(sd=sqrt(div)) %>% 
-    #mutate(se= sd/(sqrt(length(unique(POINT))-1)))%>% 
-    #mutate(upper= Richness+se) %>% 
-    #mutate(lower=Richness-se)
-    
-    df2<-df %>% 
-      group_by(Spp) %>% 
-      tally(ABUNDANCE) %>% 
-      filter(n>0) 
-    keepspp<-as.factor(df2$Spp)
-    #gFEHA,GRSP, NOHA, WTKI, WEME, SAVS, LOSH, BUOW
-    
-    
-    df<- subset(df, Spp %in% keepspp)
-    
-    
-    df2<- df %>% 
-      group_by(Spp,YEAR) %>% 
-      summarise(Abundance=sum(ABUNDANCE))
-    df2$average<-NA
-    df2$average<-mean(df2$Abundance)
-    df3<-df2 %>% 
-      mutate(obs_mean2=(Abundance-average)^2)%>% 
-      mutate(div=obs_mean2/(length(unique(df$Spp))-1))%>% 
-      mutate(sd=sqrt(div)) %>% 
-      mutate(se= sd/(sqrt(length(unique(df$Spp))-1)))%>% 
-      mutate(upper= Abundance+se) %>% 
-      mutate(lower=Abundance-se)
-    
-    
-    ggplot(df3,aes(x=df3$Spp, y=df3$Abundance, group=df3$YEAR, fill=YEAR))+
-      geom_col( position = "dodge")+
-      geom_errorbar(aes(ymin=lower, ymax=upper), width=.2, position=position_dodge(.9)) +
-      ylab("Focal Species Abundance")+
-      xlab("Species Code")+
-      theme(axis.text.x = element_text(angle = 40, hjust = 1))+
-      ggtitle("Bird Focal Species Abundance per Year")+
-      scale_fill_manual(values = c("gray27", "gray55", "gray68", "gray88"))
-    
-    
+  if(choose_focal_group=="Oak.Woodland"){
+    df = subset(df, Spp %in% Oak.Woodland)
   }
+  if(choose_focal_group=="Riparian"){
+    df = subset(df, Spp %in% Riparian)
+  }
+  df$YEAR<-as.factor(df$YEAR)
+  # df<-df %>% 
+  #group_by( Spp) %>% 
+  #tally(ABUNDANCE)
+  
+  # df2= df %>% 
+  #  mutate(average=round(sum(Richness)/length(Richness),0)) %>% 
+  #mutate(obs_mean2=(Richness-average)^2) %>% 
+  #mutate(div=obs_mean2/(length(unique(POINT))-1)) %>% 
+  #mutate(sd=sqrt(div)) %>% 
+  #mutate(se= sd/(sqrt(length(unique(POINT))-1)))%>% 
+  #mutate(upper= Richness+se) %>% 
+  #mutate(lower=Richness-se)
+  
+  df2<-df %>% 
+    group_by(Spp) %>% 
+    tally(ABUNDANCE) %>% 
+    filter(n>0) 
+  keepspp<-as.factor(df2$Spp)
+  #gFEHA,GRSP, NOHA, WTKI, WEME, SAVS, LOSH, BUOW
+  
+  
+  df<- subset(df, Spp %in% keepspp)
+  
+  
+  
+  df2<- df %>% 
+    group_by(Spp,YEAR) %>% 
+    summarise(Abundance=sum(ABUNDANCE))
+  df2$average<-mean(df2$Abundance)
+  df3<-df2 %>% 
+    mutate(obs_mean2=(Abundance-average)^2)%>% 
+    mutate(div=obs_mean2/(length(unique(df$Spp))-1))%>% 
+    mutate(sd=sqrt(div)) %>% 
+    mutate(se= sd/(sqrt(length(unique(df$Spp))-1)))%>% 
+    mutate(upper= Abundance+se) %>% 
+    mutate(lower=Abundance-se)
+  
+  
+  
+  
+  
+  ggplot(df3,aes(x=df3$Spp, y=df3$Abundance, group=df3$YEAR, fill=YEAR))+
+    geom_col( position = "dodge")+
+    geom_errorbar(aes(ymin=lower, ymax=upper), width=.2, position=position_dodge(.9)) +
+    ylab("Focal Species Abundance")+
+    xlab("Species Code")+
+    theme(axis.text.x = element_text(angle = 40, hjust = 1))+
+    ggtitle("Bird Focal Species Abundance per Year")+
+    scale_fill_manual(values = c("gray27", "gray55", "gray68", "gray88"))
+  
+  
+  
+  
+}
+
   
   
   # Define UI for application that draws a histogram
-  bird_function_library<-c(bird_focal.graph ,bird_species.richness )
+bird_function_library<-c(bird_focal.graph ,bird_species.richness )
+
+names(bird_function_library)=c("Bird Focal Species Graph", "Species Richness")
+
+bird_map_variables = c("Richness", "Visits")
+names(bird_map_variables) = c("Richness", "visits")
+
+
+if(any(grepl("package:plyr", search()))) detach("package:plyr") else message("plyr not loaded")
   
-  names(bird_function_library)=c("bird_focal.graph" ,"bird_species.richness")
   
-  bird_map_variables = c("Richness", "visits")
-  names(bird_map_variables) = c("Richness", "visits")
-  
-  
-  if(any(grepl("package:plyr", search()))) detach("package:plyr") else message("plyr not loaded")
+ 
   
   #################################################### copied
   buildbirdplot = function(){

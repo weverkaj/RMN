@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1554323000953.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "1B2B56E",
+    "lastKnownWriteTime" : 1553204431,
+    "last_content_update" : 1553204431,
+    "path" : "~/Github/Point Blue 2019/RMN/R/soil_pair.data.R",
+    "project_path" : "R/soil_pair.data.R",
+    "properties" : {
+        "cursorPosition" : "8,87",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 12,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

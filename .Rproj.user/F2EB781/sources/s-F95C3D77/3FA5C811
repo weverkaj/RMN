@@ -1,21 +1,21 @@
 {
     "collab_server" : "",
     "contents" : "",
-    "created" : 1553204532205.000,
+    "created" : 1554323602707.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "1398944982",
-    "id" : "B9139B89",
+    "hash" : "0",
+    "id" : "3FA5C811",
     "lastKnownWriteTime" : 1554220959,
     "last_content_update" : 1554220959,
-    "path" : "~/Github/Point Blue 2019/RMN/R/veg_functional.cover.plot.R",
-    "project_path" : "R/veg_functional.cover.plot.R",
+    "path" : "~/Github/Point Blue 2019/RMN/R/veg_functional.cover.table.R",
+    "project_path" : "R/veg_functional.cover.table.R",
     "properties" : {
-        "cursorPosition" : "19,0",
-        "scrollLine" : "0"
+        "cursorPosition" : "72,13",
+        "scrollLine" : "65"
     },
-    "relative_order" : 2,
+    "relative_order" : 25,
     "source_on_save" : false,
     "source_window" : "",
     "type" : "r_source"
