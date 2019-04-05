@@ -1,0 +1,687 @@
+#Bird code
+
+#replace with link to cadc
+#pull data for ranch or area in cadc then read in data
+#untill then use CLOV
+
+birds<-read.csv("data/smc_birds.csv")
+birdlocations<-read.csv("data/smc_point_locations.csv")
+
+ # need to deal with distance bin issues. If they are in the 10_30 protocol they need to be converted to a factor so they can me merged with VCP300
+
+
+#ts3 look up. 
+
+
+
+
+library(tidyverse)
+library(plyr)
+library(purrr)
+library(magrittr)
+library(dplyr)
+library(lubridate)
+
+
+
+
+
+
+all.remove_first<-function(df){
+  if(df[1,1]=="")
+  {df<-df[-1,]
+  rownames(df)<-1:nrow(df)
+  return(df)
+  } else { df<-df}}
+
+
+
+birds<-all.remove_first(birds)
+
+all.Tidynames<-function(df){
+  tidy.name.vector <- make.names(names(df), unique=TRUE)
+  names(df)<-tidy.name.vector
+  return(df)
+}
+
+birds<-all.Tidynames(birds)
+
+bird.MAPdistance_bin<-function (df){
+  if(is.factor(df$Distance.Bin)){
+    df$Distance.Bin <- mapvalues(df$Distance.Bin, c("75 to 100", "50 to 75", ">75", ">50","<50" ,"", "<10", "10 to 20", "20 to 30", "30 to 50", "30 to 40" ,"40 to 50", "50 to 100", ">100" ,"FlyOver", ">300"), c(85, 65, 300, 65, 25, 300,5, 15, 25, 35 ,40,45 ,  75, 300, 300,300))
+    df$Distance.Bin<-as.numeric(as.character(df$Distance.Bin)) 
+    return(df)}}
+
+
+
+birds<-bird.MAPdistance_bin(birds)
+
+
+
+
+         ### Name Your Data, if there is an extra row add[-1,]
+
+#data<-read.csv(file.choose())
+
+
+#Format the date and make a year column
+# Depending on how excel formats the date field on your machine,
+# use either of the following two lines. 
+#put a "#" in front of the line you do not use
+
+# This is for computer that format date as  mm/dd/yyyy
+#data$DATE <- as.Date( as.character(data$Date), "%m/%d/%Y")
+
+#This is for computers that format date as yyyy-mm-dd
+
+bird.prep_columns<-function(df){
+
+df$DATE <- mdy(df$Date)
+
+df$YEAR<-year(df$DATE) 
+df$SURVEY<-as.factor(paste(df$Point,df$YEAR,"V",df$Visit,sep=""))
+df$PointYear<-as.factor(paste(df$Point,df$YEAR, sep=""))
+df$SAMPLE<-as.factor(paste(df$Point,df$YEAR, sep=""))
+df$Tally<-1
+
+return(df)
+}
+
+
+birds<-bird.prep_columns(birds)
+
+#Make a survey column and a sample column
+
+
+birds.visits<-function(df){
+  a<-subset(df,duplicated(df$SURVEY)==FALSE)
+  visits<-aggregate(a$Tally, list(a$PointYear), sum)
+  names(visits)<-c("PointYear", "Visits")
+  return(visits)
+}
+
+visits<-birds.visits(birds)
+    # this tells you the number of observations (i.e. rows) in each protocol
+
+## CHOOSE ONE OF THE THREE OPTIONS BELOW
+# Jacob we should ask libby how she wants to cut the data.
+
+
+
+
+#Option 2: All data in VCP300
+bird.subset_cue<-function(df){
+  testing<-df %>% 
+    filter( Distance.Bin.ID != "B30") %>% 
+    filter(Distance.Bin.ID !="FLO") %>% 
+    filter(Distance.Bin.ID != "B00") %>% 
+    filter(Detection.Cue !="J")
+  df<-testing
+  return(df)
+}
+
+birds<-bird.subset_cue(birds)
+
+
+
+bird.subset_distance<-function(df, x){
+  data<-subset(df, subset = birds$Distance.Bin < x)
+  df$Distance.Bin.ID<-as.factor(df$Distance.Bin.ID)
+  df<-data
+  return(df)
+}
+
+
+birds<-bird.subset_distance(birds, 300)
+
+
+bird.species_df<-function(df, x=300){
+
+  data<-subset(df, subset = birds$Distance.Bin < x)
+  df$Distance.Bin.ID<-as.factor(df$Distance.Bin.ID)
+  df<-data
+
+
+species<-aggregate(df$Count,list(df$Spp, df$Transect, df$YEAR, df$Point),sum)
+names(species)<-c("Spp","Transect", "YEAR", "POINT","COUNT")
+species$PointYear<-as.factor(paste(species$POINT,species$YEAR, sep=""))
+
+return(species)
+
+}
+species<-bird.species_df(birds)
+
+bird.species_df2<-function(df,x=300){
+  
+  data<-subset(df, subset = birds$Distance.Bin < x)
+  df$Distance.Bin.ID<-as.factor(df$Distance.Bin.ID)
+  df<-data
+  
+  
+  species2<-aggregate(df$Count,list(df$Spp,df$Common.Name ,df$Scientific.Name  , df$Transect, df$YEAR, df$Point),sum)
+  names(species2)<-c("Spp","Common.Name", "Scientific.Name", "Transect", "YEAR", "POINT","COUNT")
+  species2$PointYear<-as.factor(paste(species2$POINT,species2$YEAR, sep=""))
+  
+  return(species2)
+  
+}
+species2<-bird.species_df2(birds)
+
+
+pc<-merge(species, visits, by="PointYear", all=TRUE)
+pc<-droplevels(pc)
+## Read in the list of species you don't want to include
+#exclude<-read.csv("FORD_2016_SppExclude.csv")     # CHANGE THE NAME. Make sure this file is in the same folder that you setwd to (step 1)
+#or if you want to pick it manually, use:
+#exclude<-read.csv(file.choose())
+
+
+#Remove the species you're not interested in
+#pc <- pc[!(pc$SPEC %in% exclude$Exclude),]
+#erase them from the 'levels' of species
+
+
+
+
+### Now, add zeros to the SAMPLES where no individuals of a spp were detected
+
+add.zeros<-function(sum.data){
+  wide <- reshape(pc, v.names="COUNT", idvar="PointYear",timevar="Spp", direction="wide")
+  first<-wide[,1:5]
+  second<-wide[,6:length(wide[1,])]
+  second0 <- second
+  second[] <- lapply(second,function(x) replace(x, is.na(x), 0))
+  final<-as.data.frame(cbind(first,second))
+  narrow<-reshape(final,idvar="PointYear",varying=list(names(final)[6:length(final[1,])]),direction="long",times=names(final)[6:length(final[1,])],v.names="COUNT",timevar="Spp")
+  narrow$Spp<-as.factor(substr(narrow$Spp,7,10))
+  row.names(narrow)<-NULL
+  narrow$ABUNDANCE<-narrow$COUNT/narrow$Visits
+  return(narrow)
+}
+newpc<-add.zeros(pc)
+
+
+
+## Optional:  Write newpc to .csv, but you might find the wide format (below) more useful
+#write.csv(newpc, file.choose())
+
+## Reformat data in wide fomat
+
+newpc2 <- subset(newpc, select=c("PointYear","Transect", "YEAR", "POINT", "Visits", "Spp", "ABUNDANCE"))
+wide.data <- reshape(newpc2, v.names="ABUNDANCE", idvar="PointYear",timevar="Spp", direction="wide")
+
+#Get ride of the "ABUNDANCE" at the beginning of the row names
+JustSpp<-substr(names(wide.data[,6:ncol(wide.data)]),11,14)
+colnames(wide.data)[6:ncol(wide.data)] <- JustSpp
+
+#This step orders species alphabetically
+first<-wide.data[,1:5]
+second<-wide.data[,6:length(wide.data[1,])]
+second<-second[,order(colnames(second))]
+wide.data<-as.data.frame(cbind(first,second))
+
+# Calculate Number of species at each point
+wide.data$Richness<-rowSums(wide.data[,5:ncol(wide.data)] != 0)
+
+
+bird_birdcount.year<-function(df,transect, surveyyear=c(levels(as.factor(df$YEAR)))){
+  
+  
+  df = subset(df, Transect %in% transect)
+  df = subset(df, YEAR %in% surveyyear)
+  
+  species2<-df %>% 
+    arrange(desc(COUNT)) %>% 
+    select(1:6)
+    df<-species2[,c(1,5,4,3,2,6)]
+    
+    return(df)
+}
+
+
+testing2<-bird_birdcount.year(species, transect = c( "TOTO"))
+
+
+bird_species.list<-function(df,transect=c(levels(as.factor(df$Transect))), surveyyear=c(levels(as.factor(df$YEAR)))){
+  df = subset(df, Transect %in% transect)
+  df = subset(df, YEAR %in% surveyyear)
+  
+  species3<-aggregate(df$COUNT, by=list(Spp=df$Common.Name), FUN=sum)
+  names(species3)<-c("Spp", "COUNT")
+  species3<-arrange(species3, desc(COUNT))
+  df<-species3
+  return(df)
+}
+
+Species_list<-bird_species.list(species2, transect = c("TOTO"))
+
+
+
+bird_species.richness<-function(df,transect=c(levels(as.factor(df$Transect))), surveyyear=c(levels(as.factor(df$YEAR)))){
+  library(dplyr)
+  
+  
+  df$YEAR<-as.factor(df$YEAR)
+  
+  df = subset(df, Transect %in% transect)
+  df = subset(df, YEAR %in% surveyyear)
+  
+  df2= df %>% 
+    select(YEAR,POINT, Richness) %>% 
+    mutate(average=round(sum(Richness)/length(Richness),0)) %>% 
+    mutate(obs_mean2=(Richness-average)^2) %>% 
+    mutate(div=obs_mean2/(length(unique(df$POINT))-1)) %>% 
+    mutate(sd=sqrt(div)) %>% 
+    mutate(se= sd/(sqrt(length(unique(df$POINT))-1)))%>% 
+    mutate(upper= Richness+se) %>% 
+    mutate(lower=Richness-se)
+  
+  ggplot(df2,aes(x=df2$POINT, y=df2$Richness,fill=YEAR, group=df2$YEAR))+
+    geom_col( position = "dodge")+
+    geom_errorbar(aes(ymin=lower, ymax=upper), width=.2, position=position_dodge(.9)) +
+    ylab("Bird Species Richness")+
+    xlab("Point Id")+
+    theme(axis.text.x = element_text(angle = 40, hjust = 1))+
+    ggtitle("Bird Species Richness per Point")+
+    scale_fill_manual(values = c("gray28","dodgerblue4","deepskyblue3","lightblue3", "lightblue4", "lightblue3","lightblue1"))
+  
+  
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+bird_wide.focal<-function(df, transect=c(levels(as.factor(df$Transect))), surveyyear=c(levels(as.factor(df$YEAR))), choose_focal_group= c("Grassland", "Oak Woodland", "Riparian")){
+                                                                                                                                                              
+  df = subset(df, Transect %in% transect)
+  df = subset(df, YEAR %in% surveyyear)
+#subset grassland birds, Ferruginous Hawk, Grasshopper Sparrow , Mountain Plover, Northern Harrier,White-tailed Kite, Western Meadowlark 
+  
+  grassland<-df[,c(1:5)]
+  if("MOPL" %in% colnames(df)){grassland6<-select(df, MOPL)
+  grassland<-bind_cols(grassland, grassland6)}else{df<-df}
+  if("GRSP" %in% colnames(df)){grassland2<-select(df, GRSP)
+  grassland<-bind_cols(grassland, grassland2)}else{df<-df}
+  if("SAVS" %in% colnames(df)){grassland3<-select(df, SAVS)
+  grassland<-bind_cols(grassland, grassland3)}else{df<-df}
+  if("WEME" %in% colnames(df)){grassland8<-select(df, WEME)
+  grassland<-bind_cols(grassland, grassland8)}else{df<-df}
+  if("LOSH" %in% colnames(df)){grassland4<-select(df, LOSH)
+  grassland<-bind_cols(grassland, grassland4)}else{df<-df}
+  if("FEHA" %in% colnames(df)){grassland5<-select(df, FEHA)
+grassland<-bind_cols(grassland, grassland5)}else{df<-df}
+  if("WTKI" %in% colnames(df)){grassland7<-select(df, WTKI)
+  grassland<-bind_cols(grassland, grassland7)}else{df<-df}
+  if("NOHA" %in% colnames(df)){grassland9<-select(df, NOHA)
+  grassland<-bind_cols(grassland, grassland9)}else{df<-df}
+  if("BUOW" %in% colnames(df)){grassland10<-select(df, BUOW)
+  grassland<-bind_cols(grassland, grassland10)}else{df<-df}
+  if("AMKE" %in% colnames(df)){grassland11<-select(df, AMKE)
+  grassland<-bind_cols(grassland, grassland11)}else{df<-df}
+  
+
+  oak<-df[,c(1:5)]
+  if("ACWO" %in% colnames(df)){oak1<-select(df, ACWO)
+  oak<-bind_cols(oak, oak1)}else{df<-df}
+  if("NUWO" %in% colnames(df)){oak2<-select(df, NUWO)
+  oak<-bind_cols(oak, oak2)}else{df<-df}
+  if("ATFL" %in% colnames(df)){oak3<-select(df, ATFL)
+  oak<-bind_cols(oak, oak3)}else{df<-df}
+  if("WBNU" %in% colnames(df)){oak4<-select(df, WBNU)
+  oak<-bind_cols(oak, oak4)}else{df<-df}
+  if("WEBL" %in% colnames(df)){oak5<-select(df, WEBL)
+  oak<-bind_cols(oak, oak5)}else{df<-df}
+  if("OATI" %in% colnames(df)){oak6<-select(df, OATI)
+  oak<-bind_cols(oak, oak6)}else{df<-df}
+  if("EUST" %in% colnames(df)){oak7<-select(df, EUST)
+  oak<-bind_cols(oak, oak7)}else{df<-df}
+  if("YBMA" %in% colnames(df)){oak8<-select(df, YBMA)
+  oak<-bind_cols(oak, oak8)}else{df<-df}
+  if("HUVI" %in% colnames(df)){oak9<-select(df, HUVI)
+  oak<-bind_cols(oak, oak9)}else{df<-df}
+  if("BEWR" %in% colnames(df)){oak10<-select(df, BEWR)
+  oak<-bind_cols(oak, oak10)}else{df<-df}
+  if("BLGR" %in% colnames(df)){oak11<-select(df, BLGR)
+  oak<-bind_cols(oak, oak10)}else{df<-df}
+  if("CALT" %in% colnames(df)){oak12<-select(df, CALT)
+  oak<-bind_cols(oak, oak12)}else{df<-df}
+  if("CASJ" %in% colnames(df)){oak13<-select(df, CASJ)
+  oak<-bind_cols(oak, oak13)}else{df<-df}
+  if("LASP" %in% colnames(df)){oak14<-select(df, LASP)
+  oak<-bind_cols(oak, oak14)}else{df<-df}
+  if("CAQU" %in% colnames(df)){oak15<-select(df, CAQU)
+  oak<-bind_cols(oak, oak15)}else{df<-df}
+  
+
+  
+  riparian<-df[,c(1:5)]
+  if("ATFL" %in% colnames(df)){riparian1<-select(df, ATFL)
+  riparian<-bind_cols(riparian, riparian1)}else{df<-df}
+  if("NOFL" %in% colnames(df)){riparian2<-select(df, NOFL)
+  riparian<-bind_cols(riparian, riparian2)}else{df<-df}
+  if("NUWO" %in% colnames(df)){riparian3<-select(df, NUWO)
+  riparian<-bind_cols(riparian, riparian3)}else{df<-df}
+ if("LAZB" %in% colnames(df)){riparian4<-select(df, LAZB)
+  riparian<-bind_cols(riparian, riparian4)}else{df<-df}
+  if("BEWR" %in% colnames(df)){riparian5<-select(df, BEWR)
+  riparian<-bind_cols(riparian, riparian5)}else{df<-df}
+  if("SPTO" %in% colnames(df)){riparian6<-select(df, SPTO)
+  riparian<-bind_cols(riparian, riparian6)}else{df<-df}
+  if("YEWA" %in% colnames(df)){riparian7<-select(df, YEWA)
+  riparian<-bind_cols(riparian, riparian7)}else{df<-df}
+  if("COYE" %in% colnames(df)){riparian8<-select(df, COYE)
+  riparian<-bind_cols(riparian, riparian8)}else{df<-df}
+  if("YBCH" %in% colnames(df)){riparian9<-select(df, YBCH)
+  riparian<-bind_cols(riparian, riparian9)}else{df<-df}
+  if("SOSP" %in% colnames(df)){riparian10<-select(df, SOSP)
+  riparian<-bind_cols(riparian, riparian10)}else{df<-df}
+  if("BHGR" %in% colnames(df)){riparian11<-select(df, BHGR)
+  riparian<-bind_cols(riparian, riparian11)}else{df<-df}
+  if("BLGR" %in% colnames(df)){riparian12<-select(df, BLGR)
+  riparian<-bind_cols(riparian, riparian12)}else{df<-df}
+  if("BUOR" %in% colnames(df)){riparian13<-select(df, BUOR)
+  riparian<-bind_cols(riparian, riparian13)}else{df<-df}
+  if("WAVI" %in% colnames(df)){riparian14<-select(df, WAVI)
+  riparian<-bind_cols(riparian, riparian14)}else{df<-df}
+  
+
+  
+  
+  if(("Grassland" %in% choose_focal_group)){df<-grassland}
+  if(("Oak Woodland" %in% choose_focal_group)){df<-oak}
+  if(("Riparian" %in% choose_focal_group)){df<-riparian }
+  
+ 
+   
+   
+   
+  return(df)
+}
+
+table_focal<-bird_wide.focal(wide.data,transect = "3B-C", choose_focal_group = "Oak Woodland")
+
+
+  
+
+
+if(any(grepl("package:plyr", search()))) detach("package:plyr") else message("plyr not loaded")
+## plyr not loaded
+
+## if(any(grepl("package:plyr", search()))) detach("package:plyr") else message("plyr not loaded")
+
+
+Grassland<-c("MOPL","SAVS", "GRSP", "WEME","LOSH", "NOHA","FEHA" ,"AMKE","WTKI",  "BUOW" )
+Oak.Woodland<-c("ACWO", "NUWO","NOFL", "ATFL", "WBNU", "WEBL", "OATI", "EUST", "HUVI","BEWR", "LAGO", "BHGR","LASP", "CALT", "CASJ", "YBMA","CAQU" )
+Riparian<-c("ATFL", "NOFL", "NUWO", "LAZB", "BEWR", "SPTO", "YEWA", "COYE", "YBCH", "SOSP", "BHGR", "BLGR", "BUOR", "WAVI")
+
+
+
+
+
+
+bird_focal.graph<-function (df, transect=c(levels(as.factor(df$Transect))), surveyyear=c(levels(as.factor(df$YEAR))), choose_focal_group= c("Grassland", "Oak.Woodland", "Riparian")) {
+
+  
+  
+  
+  Grassland<-c("MOPL","SAVS", "GRSP", "WEME","LOSH", "NOHA","FEHA" ,"AMKE","WTKI",  "BUOW" )
+  Oak.Woodland<-c("ACWO", "NUWO","NOFL", "ATFL", "WBNU", "WEBL", "OATI", "EUST", "HUVI","BEWR", "LAGO", "BHGR","LASP", "CALT", "CASJ", "YBMA","CAQU" )
+  Riparian<-c("ATFL", "NOFL", "NUWO", "LAZB", "BEWR", "SPTO", "YEWA", "COYE", "YBCH", "SOSP", "BHGR", "BLGR", "BUOR", "WAVI")
+  
+  
+  df = subset(df, Transect %in% transect)
+  df = subset(df, YEAR %in% surveyyear)
+  
+  
+  if(choose_focal_group=="Grassland"){
+    df = subset(df, Spp %in% Grassland)
+  }
+ if(choose_focal_group=="Oak.Woodland"){
+   df = subset(df, Spp %in% Oak.Woodland)
+ }
+if(choose_focal_group=="Riparian"){
+  df = subset(df, Spp %in% Riparian)
+}
+  df$YEAR<-as.factor(df$YEAR)
+ # df<-df %>% 
+    #group_by( Spp) %>% 
+    #tally(ABUNDANCE)
+  
+ # df2= df %>% 
+  #  mutate(average=round(sum(Richness)/length(Richness),0)) %>% 
+    #mutate(obs_mean2=(Richness-average)^2) %>% 
+    #mutate(div=obs_mean2/(length(unique(POINT))-1)) %>% 
+    #mutate(sd=sqrt(div)) %>% 
+    #mutate(se= sd/(sqrt(length(unique(POINT))-1)))%>% 
+    #mutate(upper= Richness+se) %>% 
+    #mutate(lower=Richness-se)
+
+  df2<-df %>% 
+    group_by(Spp) %>% 
+    tally(ABUNDANCE) %>% 
+    filter(n>0) 
+  keepspp<-as.factor(df2$Spp)
+  #gFEHA,GRSP, NOHA, WTKI, WEME, SAVS, LOSH, BUOW
+  
+  
+  df<- subset(df, Spp %in% keepspp)
+
+  
+  
+  df2<- df %>% 
+    group_by(Spp,YEAR) %>% 
+    summarise(Abundance=sum(ABUNDANCE))
+  df2$average<-mean(df2$Abundance)
+  df3<-df2 %>% 
+    mutate(obs_mean2=(Abundance-average)^2)%>% 
+    mutate(div=obs_mean2/(length(unique(df$Spp))-1))%>% 
+    mutate(sd=sqrt(div)) %>% 
+    mutate(se= sd/(sqrt(length(unique(df$Spp))-1)))%>% 
+    mutate(upper= Abundance+se) %>% 
+    mutate(lower=Abundance-se)
+  
+ 
+  
+  
+    
+  ggplot(df3,aes(x=df3$Spp, y=df3$Abundance, group=df3$YEAR, fill=df3$YEAR))+
+    geom_col( position = "dodge")+
+    geom_errorbar(aes(ymin=lower, ymax=upper), width=.2, position=position_dodge(.9)) +
+    ylab("Focal Species Abundance")+
+    xlab("Species Code")+
+    theme(axis.text.x = element_text(angle = 40, hjust = 1))+
+    ggtitle("Bird Focal Species Abundance per Year")+
+    scale_fill_manual(values = c("gray27", "gray55", "gray68", "gray88"))
+
+ 
+  
+ 
+}
+bird_focal.graph(newpc2, transect = "TOTO", surveyyear = c(2015,2014,2016,2017), choose_focal_group = "Riparian")
+
+
+
+
+bird_function_library<-c(bird_focal.graph ,bird_species.richness )
+
+names(bird_function_library)=c("Bird Focal Species Graph", "Species Richness")
+
+bird_map_variables = c("Richness", "Visits")
+names(bird_map_variables) = c("Richness", "Visits")
+
+
+
+
+
+
+
+
+
+
+  
+  
+bird_species.richness<-function(df,transect=c(levels(as.factor(df$Transect))), surveyyear=c(levels(as.factor(df$YEAR)))){
+  library(dplyr)
+  
+  
+  df$YEAR<-as.factor(df$YEAR)
+  
+  df = subset(df, Transect %in% transect)
+  df = subset(df, YEAR %in% surveyyear)
+  
+  df2= df %>% 
+    select(YEAR,POINT, Richness) %>% 
+    mutate(average=round(sum(Richness)/length(Richness),0)) %>% 
+    mutate(obs_mean2=(Richness-average)^2) %>% 
+    mutate(div=obs_mean2/(length(unique(df$POINT))-1)) %>% 
+    mutate(sd=sqrt(div)) %>% 
+    mutate(se= sd/(sqrt(length(unique(df$POINT))-1)))%>% 
+    mutate(upper= Richness+se) %>% 
+    mutate(lower=Richness-se)
+  
+  ggplot(df2,aes(x=df2$POINT, y=df2$Richness,fill=YEAR, group=df2$YEAR))+
+    geom_col( position = "dodge")+
+    geom_errorbar(aes(ymin=lower, ymax=upper), width=.2, position=position_dodge(.9)) +
+    ylab("Bird Species Richness")+
+    xlab("Point Id")+
+    theme(axis.text.x = element_text(angle = 40, hjust = 1))+
+    ggtitle("Bird Species Richness per Point")+
+    scale_fill_manual(values = c("gray28","dodgerblue4","deepskyblue3","lightblue3", "lightblue4", "lightblue3","lightblue1"))
+  
+  
+  
+}
+
+
+bird_focal.graph<-function (df, transect=c(levels(as.factor(df$Transect))), surveyyear=c(levels(as.factor(df$YEAR))), choose_focal_group= c("Grassland", "Oak.Woodland", "Riparian")) {
+  
+  
+  
+  
+  Grassland<-c("MOPL","SAVS", "GRSP", "WEME","LOSH", "NOHA","FEHA" ,"AMKE","WTKI",  "BUOW" )
+  Oak.Woodland<-c("ACWO", "NUWO","NOFL", "ATFL", "WBNU", "WEBL", "OATI", "EUST", "HUVI","BEWR", "LAGO", "BHGR","LASP", "CALT", "CASJ", "YBMA","CAQU" )
+  Riparian<-c("ATFL", "NOFL", "NUWO", "LAZB", "BEWR", "SPTO", "YEWA", "COYE", "YBCH", "SOSP", "BHGR", "BLGR", "BUOR", "WAVI")
+  
+  
+  df = subset(df, Transect %in% transect)
+  df = subset(df, YEAR %in% surveyyear)
+  
+  
+  if(choose_focal_group=="Grassland"){
+    df = subset(df, Spp %in% Grassland)
+  }
+  if(choose_focal_group=="Oak.Woodland"){
+    df = subset(df, Spp %in% Oak.Woodland)
+  }
+  if(choose_focal_group=="Riparian"){
+    df = subset(df, Spp %in% Riparian)
+  }
+  df$YEAR<-as.factor(df$YEAR)
+  # df<-df %>% 
+  #group_by( Spp) %>% 
+  #tally(ABUNDANCE)
+  
+  # df2= df %>% 
+  #  mutate(average=round(sum(Richness)/length(Richness),0)) %>% 
+  #mutate(obs_mean2=(Richness-average)^2) %>% 
+  #mutate(div=obs_mean2/(length(unique(POINT))-1)) %>% 
+  #mutate(sd=sqrt(div)) %>% 
+  #mutate(se= sd/(sqrt(length(unique(POINT))-1)))%>% 
+  #mutate(upper= Richness+se) %>% 
+  #mutate(lower=Richness-se)
+  
+  df2<-df %>% 
+    group_by(Spp) %>% 
+    tally(ABUNDANCE) %>% 
+    filter(n>0) 
+  keepspp<-as.factor(df2$Spp)
+  #gFEHA,GRSP, NOHA, WTKI, WEME, SAVS, LOSH, BUOW
+  
+  
+  df<- subset(df, Spp %in% keepspp)
+  
+  
+  
+  df2<- df %>% 
+    group_by(Spp,YEAR) %>% 
+    summarise(Abundance=sum(ABUNDANCE))
+  df2$average<-mean(df2$Abundance)
+  df3<-df2 %>% 
+    mutate(obs_mean2=(Abundance-average)^2)%>% 
+    mutate(div=obs_mean2/(length(unique(df$Spp))-1))%>% 
+    mutate(sd=sqrt(div)) %>% 
+    mutate(se= sd/(sqrt(length(unique(df$Spp))-1)))%>% 
+    mutate(upper= Abundance+se) %>% 
+    mutate(lower=Abundance-se)
+  
+  
+  
+  
+  
+  ggplot(df3,aes(x=df3$Spp, y=df3$Abundance, group=df3$YEAR, fill=YEAR))+
+    geom_col( position = "dodge")+
+    geom_errorbar(aes(ymin=lower, ymax=upper), width=.2, position=position_dodge(.9)) +
+    ylab("Focal Species Abundance")+
+    xlab("Species Code")+
+    theme(axis.text.x = element_text(angle = 40, hjust = 1))+
+    ggtitle("Bird Focal Species Abundance per Year")+
+    scale_fill_manual(values = c("gray27", "gray55", "gray68", "gray88"))
+  
+  
+  
+  
+}
+
+  
+  
+  # Define UI for application that draws a histogram
+bird_function_library<-c(bird_focal.graph ,bird_species.richness )
+
+names(bird_function_library)=c("Bird Focal Species Graph", "Species Richness")
+
+bird_map_variables = c("Richness", "Visits")
+names(bird_map_variables) = c("Richness", "visits")
+
+
+if(any(grepl("package:plyr", search()))) detach("package:plyr") else message("plyr not loaded")
+  
+  
+ 
+  
+  #################################################### copied
+  buildbirdplot = function(){
+    
+    func = input$birdplottype
+    if("choose_focal_group" %in% names(as.list(args(bird_function_library[[func]])))){
+      
+      bird_function_library[[func]](newpc2, 
+                                    transect = input$ranchname,
+                                    surveyyear = input$birdyear,
+                                    choose_focal_group = input$choose_focalgroup)
+    } else {bird_function_library[[func]](wide.data,
+                                          transect = input$ranchname,
+                                          surveyyear = input$birdyear)
+    }
+  }
+  
+  #for main Panel of soil plot tab
+  output$birdplot = renderPlot(
+    {
+      buildbirdplot()
+    }
+  )
+  
+  
+  
+  
+ 

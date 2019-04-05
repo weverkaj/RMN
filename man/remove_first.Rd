@@ -2,7 +2,7 @@
 % Please edit documentation in R/bird_remove_first.r
 \name{remove_first}
 \alias{remove_first}
-\title{Remove first row of data.frame if empty}
+\title{Remove first row of data frame if empty}
 \usage{
 remove_first(df)
 }
@@ -10,12 +10,12 @@ remove_first(df)
 \item{df}{A dataframe object}
 }
 \value{
-A ggplot of functional cover with error bars
+A data frame without a blank first row.
 }
 \description{
-A reoccuring problem when importing data frames into rstudio is a blank first row that is added to the data frame. This function looks at the.
+A reoccuring problem when importing data frames into rstudio is a blank first row that is added to the data frame. This function looks at the firsts row to see if the first cell has an empty value. If it does then it will removes the row and return the dataset.
 }
 \examples{
-data = functional.cover.plot(lpi, type = "absolute")
+data = remove_first(data)
 
 }
