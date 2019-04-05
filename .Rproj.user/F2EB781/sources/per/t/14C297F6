@@ -1,21 +1,21 @@
 {
     "collab_server" : "",
     "contents" : "",
-    "created" : 1554502920244.000,
+    "created" : 1554497789558.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
-    "id" : "E05DA001",
+    "hash" : "589680536",
+    "id" : "14C297F6",
     "lastKnownWriteTime" : 1554493576,
     "last_content_update" : 1554493576,
-    "path" : "~/Github/Point Blue 2019/Shiny_RMN/Shiny_Web_Analytics_Group/Bird_code.R",
+    "path" : "~/Github/Point Blue 2019/Shiny_RMN/Shiny_Web_Analytics_Group/bird_code_summarized.R",
     "project_path" : null,
     "properties" : {
-        "cursorPosition" : "607,28",
-        "scrollLine" : "619"
+        "cursorPosition" : "23,0",
+        "scrollLine" : "8"
     },
-    "relative_order" : 17,
+    "relative_order" : 7,
     "source_on_save" : false,
     "source_window" : "",
     "type" : "r_source"
