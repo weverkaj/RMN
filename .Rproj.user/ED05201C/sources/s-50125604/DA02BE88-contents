@@ -45,10 +45,12 @@ carbon.plot<-function(data, transect, year,
   library(dplyr)
 
   data = subset(data, data$YEAR %in% year)
+  transect = transect[transect %in% data$Transect]
   if(!background){data = subset(data, subset = Transect %in% transect)}
   masked = data
-  masked$Transect = as.character(replace(as.character(masked$Transect),
-                                         masked$Transect != transect, values = "zzzz"))
+  masked$Transect = as.character(masked$Transect)
+  masked$Transect[!(masked$Transect %in% transect)] = "zzzz"
+
 
   masked2 = masked[!is.na(masked$Carbon.0.10.cm) & !is.na(masked$Carbon.10.40.cm),]
 
@@ -56,20 +58,27 @@ carbon.plot<-function(data, transect, year,
   masked_soil = arrange(masked2, desc(Transect))
 
 
+  if(all(masked_soil$Transect == "zzzz")){
+    pointcolors = pointcolors[length(pointcolors)]
+    legendnames = legendnames[length(legendnames)]
+  }
 
   if(isTRUE(labels)){
-    labs = as.character(masked_soil$Point)
+    labs = as.character(masked_soil$Point[masked_soil$Transect %in% transect])
   } else {
     labs = NA
   }
 
-  ggplot(masked_soil, aes(x = Carbon.10.40.cm, y = Carbon.0.10.cm, color = Transect)) +
+
+  p = ggplot(masked_soil, aes(x = Carbon.10.40.cm, y = Carbon.0.10.cm, color = Transect)) +
     geom_point() +
     scale_color_manual(values = pointcolors, labels = legendnames) +
     theme_bw() +
     xlab(xlab) +
     ylab(ylab) +
     guides(color = ifelse(legend, guide_legend(title = legendtitle), FALSE), label = FALSE) +
-    geom_label_repel(aes(label = ifelse(Transect == transect, labs, NA)), box.padding = box.padding, show.legend = FALSE)
+    geom_label_repel(data = masked_soil[masked_soil$Transect %in% transect,], aes(label = labs), box.padding = box.padding, show.legend = FALSE)
+
+  return(p)
 
 }

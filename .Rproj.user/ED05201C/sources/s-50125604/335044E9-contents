@@ -50,6 +50,17 @@ compaction.plot<-function(data,
   library(ggrepel)
 
   data = subset(data, YEAR %in% year)
+
+  if(any(is.na(data$BD_dist))){
+    removed = nrow(data[is.na(data$BD_dist) | is.na(data$Infilt_dist),])
+    warning(paste(removed, "Observations missing bulk density data have been removed"))
+    data1 = data[!is.na(data$BD_dist),]
+    data1 = data[!is.na(data$Infilt_dist),]
+  } else {
+    data1 = data
+  }
+
+  transect = transect[transect %in% data$Transect]
   if(!background){data = subset(data, subset = Transect %in% transect)}
   masked = data %>% prepare.soil.triangle(Inftarget = Inftarget)
   masked$Transect = as.character(replace(as.character(masked$Transect), !(masked$Transect %in% transect), values = "zzzz"))
@@ -57,11 +68,14 @@ compaction.plot<-function(data,
 
   masked_soil = arrange(masked, desc(Transect))
 
-
+  if(all(masked_soil$Transect == "zzzz")){
+    pointcolors = pointcolors[length(pointcolors)]
+    legendnames = legendnames[length(legendnames)]
+  }
 
 
   if(isTRUE(labels)){
-    labs = as.character(masked_soil$Point)
+    labs = as.character(masked_soil$Point[masked_soil$Transect %in% transect])
   } else {
     labs = NA
   }
@@ -77,7 +91,7 @@ compaction.plot<-function(data,
     xlab(xlab) +
     ylab(ylab) +
     theme_bw() +
-    geom_label_repel(aes(label = ifelse(Transect == transect, labs, NA)), box.padding = box.padding, show.legend = FALSE) +
+    geom_label_repel(data = masked_soil[masked_soil$Transect %in% transect,], aes(label = labs), box.padding = box.padding, show.legend = FALSE) +
     xlim(as.numeric(xlims[1]), as.numeric(xlims[2])) +
     ylim(as.numeric(ylims[1]), as.numeric(ylims[2]))
 
