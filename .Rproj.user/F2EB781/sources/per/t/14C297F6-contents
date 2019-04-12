@@ -1,0 +1,46 @@
+
+library(tidyverse)
+library(plyr)
+library(purrr)
+library(magrittr)
+library(dplyr)
+library(lubridate)
+birds<-read.csv("data/smc_birds.csv")
+birdlocations<-read.csv("data/smc_point_locations.csv")
+
+
+
+bird_prepare=function(df,x){
+  bird<-all_remove.first(df)
+  bird<-all_Tidynames(bird)
+  bird<-bird_MAPdistance.bin(bird)
+
+  bird<-bird_prep.columns(bird)
+  bird<-bird_subset.cue(bird)
+  bird<-bird_subset.distance(bird, distance=x)
+
+  return(bird)
+}
+
+
+
+  df2<-bird_prepare(birds,300)
+  
+  visits<-bird_visits(df2)
+  
+  
+  species<-bird_species.all(df2)
+  species2<- bird_species.common(df2)
+  
+  pc<-merge(species, visits, by="PointYear", all=TRUE)
+  pc<-droplevels(pc)
+  
+  
+  newpc2<-add.zeros(pc)
+  
+  wide.data<-bird_wide.data(newpc2)
+  
+  bird_focal.graph(newpc2, transect = "TOTO", surveyyear = c(2015,2014,2016,2017), choose_focal_group = "Riparian")
+  
+  
+  

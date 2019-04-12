@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1554498730783.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2171446140",
+    "id" : "EF5E6E80",
+    "lastKnownWriteTime" : 1554500057,
+    "last_content_update" : 1554500057687,
+    "path" : "~/Github/Point Blue 2019/RMN/R/bird_subset.distance.r",
+    "project_path" : "R/bird_subset.distance.r",
+    "properties" : {
+        "cursorPosition" : "14,20",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

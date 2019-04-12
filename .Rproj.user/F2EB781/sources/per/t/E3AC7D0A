@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1554502872370.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2098912479",
+    "id" : "E3AC7D0A",
+    "lastKnownWriteTime" : 1554503112,
+    "last_content_update" : 1554503112522,
+    "path" : "~/Github/Point Blue 2019/RMN/R/bird_species.list.r",
+    "project_path" : "R/bird_species.list.r",
+    "properties" : {
+        "cursorPosition" : "0,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 16,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

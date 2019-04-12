@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1554505014583.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2552695724",
+    "id" : "8096F6D",
+    "lastKnownWriteTime" : 1554505333,
+    "last_content_update" : 1554505333217,
+    "path" : "~/Github/Point Blue 2019/RMN/R/bird_prepare.r",
+    "project_path" : "R/bird_prepare.r",
+    "properties" : {
+        "cursorPosition" : "4,55",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 21,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
