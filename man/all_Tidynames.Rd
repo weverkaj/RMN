@@ -2,20 +2,20 @@
 % Please edit documentation in R/all_Tidyname.R
 \name{all_Tidynames}
 \alias{all_Tidynames}
-\title{Tidy Column Names of data frame}
+\title{Tidy column names in any data frame.}
 \usage{
 all_Tidynames(df)
 }
 \arguments{
-\item{df}{A data frame object}
+\item{df}{A dataframe object}
 }
 \value{
-A data frame with tidy names
+A data frame with tidy column names
 }
 \description{
-For any data frame, changes column names if they are not unique or tidy.
+Column names are extremely important for programs to work smoothly. This function can be used during the first stage to standardize column names. This uses the make.names function and returns the new data frame with tidy names.
 }
 \examples{
-data = all_Tidynames(df)
+data = all_Tidynames(data)
 
 }
