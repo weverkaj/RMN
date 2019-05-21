@@ -44,7 +44,11 @@ cover.sum.plot(lpi, releve, transect,
 ggplot object
 }
 \description{
-For veg data, plots cover of shrubs, trees, litter, thatch, bare ground. Tree and shrub covers come from releve estimates
+For veg data, plots cover of shrubs, trees, litter, thatch, bare ground for each year in which data were collected.
+
+Tree and shrub covers come from releve estimates.
+
+NOTE: Thatch was only measured starting in 2017.
 }
 \examples{
 data = cover.sum.plot(lpi, checklist)

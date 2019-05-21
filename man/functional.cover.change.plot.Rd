@@ -38,6 +38,12 @@ A ggplot of functional cover change with error bars
 }
 \description{
 For veg data, summarizes change in mean cover of functional groups for a property
+
+This will use data from the FIRST and LAST year specified for which there is lpi data on the selected ranch
+
+Regional comparison data will use these same years to calculate average change
+
+EX:: lpi data covers 2015-2019. Ranch XXXX has data from 2016 and 2019. Regional averages will therefore only include other properties that were sampled in 2016 and 2019. Ranches surveyed in 2015 and 2018 are not included in the regional calculation.
 }
 \examples{
 data = functional.cover.plot(lpi, type = "absolute")

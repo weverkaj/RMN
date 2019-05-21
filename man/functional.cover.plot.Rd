@@ -34,7 +34,11 @@ functional.cover.plot(lpi, type = "absolute", transect,
 A ggplot of functional cover with error bars
 }
 \description{
-For veg data, summarizes and plots mean cover of functional groups for a property
+For veg data, summarizes and plots mean cover of functional groups.
+
+Data are summarized for all years specified.
+
+Background data are supplied from the lpi data select. Data for a selected ranch are not used in the calculation of regional averages.
 }
 \examples{
 data = functional.cover.plot(lpi, type = "absolute")
