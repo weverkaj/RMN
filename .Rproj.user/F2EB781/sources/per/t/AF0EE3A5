@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1554494889186.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2770481646",
+    "id" : "AF0EE3A5",
+    "lastKnownWriteTime" : 1554495464,
+    "last_content_update" : 1554495464802,
+    "path" : "~/Github/Point Blue 2019/RMN/R/bird_MAPdistance.bin.r",
+    "project_path" : "R/bird_MAPdistance.bin.r",
+    "properties" : {
+        "cursorPosition" : "0,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

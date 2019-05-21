@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1554501783480.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2732702938",
+    "id" : "45E4D0DE",
+    "lastKnownWriteTime" : 1554502149,
+    "last_content_update" : 1554502149679,
+    "path" : "~/Github/Point Blue 2019/RMN/R/bird_wide.data.r",
+    "project_path" : "R/bird_wide.data.r",
+    "properties" : {
+        "cursorPosition" : "0,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 14,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
