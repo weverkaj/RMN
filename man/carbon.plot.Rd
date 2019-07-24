@@ -8,7 +8,8 @@ carbon.plot(data, transect, year, labels = TRUE, background = TRUE,
   pointcolors = c(rep("black", length(transect)), "gray"),
   legend = TRUE, legendnames = c(transect, "Others"),
   legendtitle = "Ranch", box.padding = 0.5,
-  xlab = "\% Carbon 0-10 cm", ylab = "\% Carbon 10-40 cm")
+  xlab = "\% Carbon 0-10 cm", ylab = "\% Carbon 10-40 cm",
+  pointsize = 2)
 }
 \arguments{
 \item{data}{from output of soil.final.cleanup()}
@@ -32,6 +33,8 @@ carbon.plot(data, transect, year, labels = TRUE, background = TRUE,
 \item{box.padding}{numeric adjusts spacing of labels on the plot}
 
 \item{xlab, ylab}{character strings for axis lables}
+
+\item{pointsize}{specifies size of a point}
 }
 \value{
 plot of soil carbon data
