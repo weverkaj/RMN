@@ -27,6 +27,8 @@ A summary of cover
 }
 \description{
 For veg data, summarizes cover of shrubs, trees, litter, thatch, bare ground. Tree and shrub covers come from releve estimates
+
+NOTE: Thatch was only measured starting in 2017.
 }
 \examples{
 data = cover.summary(releve, lpi)

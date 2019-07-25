@@ -9,8 +9,8 @@ compaction.plot(data, transect, year, background = TRUE, labels = TRUE,
   legend = TRUE, legendnames = c(paste(c(transect)), "Others"),
   legendtitle = "Ranch", xlab = "Bulk density, distance from target",
   ylab = "Infiltration, distance from target", box.padding = 0.5,
-  linetype = "dashed", Inftarget = 3.81, xlims = c(NA, NA),
-  ylims = c(NA, NA))
+  pointsize = 2, linetype = "dashed", Inftarget = 3.81,
+  xlims = c(NA, NA), ylims = c(NA, NA))
 }
 \arguments{
 \item{data}{dataframe from output of soil.final.cleanup()}
@@ -32,6 +32,8 @@ compaction.plot(data, transect, year, background = TRUE, labels = TRUE,
 \item{xlab, ylab}{character strings for axis lables}
 
 \item{box.padding}{numeric adjusts spacing of labels on the plot}
+
+\item{pointsize}{specifies size of a point}
 
 \item{linetype}{specifies type of line shown for BD and Infiltration targets}
 

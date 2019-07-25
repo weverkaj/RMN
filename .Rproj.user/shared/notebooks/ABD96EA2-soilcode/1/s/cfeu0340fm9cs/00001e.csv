@@ -1,0 +1,7 @@
+"0","# percent.change.plot(data = soil, transect = ranch, background = FALSE)
+compaction.plot(soil, ranch, year = ""2018"", labels = FALSE, pointsize = 4)
+"
+"1","[1]"
+"1"," ""All observations used"""
+"1","
+"

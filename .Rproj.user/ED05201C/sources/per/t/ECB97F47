@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1564007414448.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "221696030",
+    "id" : "ECB97F47",
+    "lastKnownWriteTime" : 1564012828,
+    "last_content_update" : 1564012828963,
+    "path" : "~/Github/Point Blue 2019/Figure_code_development/soil_code/soilcode.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "136,0",
+        "scrollLine" : "113"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

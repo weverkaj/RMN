@@ -1,6 +1,7 @@
 #' @title Create cover summary table for veg data
 #'
 #' @description For veg data, summarizes cover of shrubs, trees, litter, thatch, bare ground. Tree and shrub covers come from releve estimates
+#' @description NOTE: Thatch was only measured starting in 2017.
 #'
 #' @param releve A dataframe object of releve data from a veg survey
 #' @param lpi A dataframe object of lpi data from a veg survey

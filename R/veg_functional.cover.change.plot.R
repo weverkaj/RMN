@@ -1,6 +1,9 @@
 #' @title Functional cover change summary plot
 #'
 #' @description For veg data, summarizes change in mean cover of functional groups for a property
+#' @description This will use data from the FIRST and LAST year specified for which there is lpi data on the selected ranch
+#' @description Regional comparison data will use these same years to calculate average change
+#' @description EX:: lpi data covers 2015-2019. Ranch XXXX has data from 2016 and 2019. Regional averages will therefore only include other properties that were sampled in 2016 and 2019. Ranches surveyed in 2015 and 2018 are not included in the regional calculation.
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
 #' @param transect Ranch for which to make plot

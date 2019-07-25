@@ -29,7 +29,9 @@
 A plot of functional group cover at each point in a dataset
 }
 \description{
-For veg data, summarizes cover of each functional group at each point.
+For veg data, uses lpi data to summarize cover of each functional group at each point.
+
+NOTE woody vegetation was only recorded starting in 2017
 }
 \examples{
 data = points.cover.plot(lpi, type = "absolute")

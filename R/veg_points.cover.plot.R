@@ -1,6 +1,7 @@
 #' @title Create a plot of cover for functional groups at each point
 #'
-#' @description For veg data, summarizes cover of each functional group at each point.
+#' @description For veg data, uses lpi data to summarize cover of each functional group at each point.
+#' @description NOTE woody vegetation was only recorded starting in 2017
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
 #' @param transect Ranch for which to make the plot
@@ -47,7 +48,7 @@ points.cover.plot = function(lpi, transect,
                                  "mediumpurple4", "firebrick4", "tan", "mistyrose", "yellowgreen")) +
     theme(axis.text.x = element_text(angle = x.angle, hjust = 1)) +
     facet_wrap(~Point.Id) +
-    theme_bw() +
-    coord_flip()
+    theme_bw()
+    # coord_flip()
   return(p)
 }

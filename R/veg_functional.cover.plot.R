@@ -1,6 +1,9 @@
 #' @title Functional cover summary plot
 #'
-#' @description For veg data, summarizes and plots mean cover of functional groups for a property
+#' @description For veg data, summarizes and plots mean cover of functional groups.
+#' @description Data are summarized for all years specified.
+#' @description Background data are supplied from the lpi data select. Data for a selected ranch are not used in the calculation of regional averages.
+#'
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
 #' @param transect Ranch for which to make plot

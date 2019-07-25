@@ -1,6 +1,8 @@
 #' @title Plot species richness and cover
 #'
-#' @description For veg data, plots cover of shrubs, trees, litter, thatch, bare ground. Tree and shrub covers come from releve estimates
+#' @description For veg data, plots cover of shrubs, trees, litter, thatch, bare ground for each year in which data were collected.
+#' @description  Tree and shrub covers come from releve estimates.
+#' @description NOTE: Thatch was only measured starting in 2017.
 #'
 #' @param lpi A dataframe object of lpi data from a veg survey
 #' @param releve A dataframe object of releve data from a veg survey
